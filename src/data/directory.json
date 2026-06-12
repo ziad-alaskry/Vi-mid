@@ -1,0 +1,3389 @@
+{
+  "specialties": [
+    "Dermatology",
+    "Orthopedics",
+    "Cardiology",
+    "Dentistry",
+    "Pulmonary",
+    "Internal Medicine",
+    "Pediatrics",
+    "Endocrinology",
+    "General Surgery",
+    "OB/GYN"
+  ],
+  "cities": [
+    "Jeddah",
+    "Riyadh",
+    "Dammam"
+  ],
+  "mohCenters": [
+    "King Fahd Hospital",
+    "King Faisal Hospital",
+    "Prince Sultan Medical City",
+    "Jeddah Central Hospital"
+  ],
+  "privateCenters": [
+    "Dr. Sulaiman Al-Habib",
+    "Al Hammadi Hospital",
+    "Saudi German Hospital",
+    "Tadawi Clinics"
+  ],
+  "retailPharmacies": [
+    "AlNahdi",
+    "AlDawa",
+    "UPC"
+  ],
+  "companies": [
+    "Pfizer",
+    "Novartis",
+    "GSK",
+    "Sanofi",
+    "AstraZeneca",
+    "Roche",
+    "Tabuk Pharmaceuticals",
+    "SPIMACO",
+    "Jamjoom Pharma",
+    "Hikma"
+  ],
+  "physicians": [
+    {
+      "id": "phy_1",
+      "role": "Physician",
+      "name": "سعد الشمري",
+      "gender": "Male",
+      "specialty": "Dermatology",
+      "subspecialty": "Dermatopathology",
+      "degree": "ABIM",
+      "city": "Dammam",
+      "sector": "MOH",
+      "center": "Prince Sultan Medical City",
+      "rating": 3.9,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          1,
+          6
+        ],
+        "startH": 9,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_2",
+      "role": "Physician",
+      "name": "سارة الخالدي",
+      "gender": "Female",
+      "specialty": "Dermatology",
+      "subspecialty": "Cosmetic",
+      "degree": "SBFM",
+      "city": "Dammam",
+      "sector": "MOH",
+      "center": "Prince Sultan Medical City",
+      "rating": 4.4,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          6
+        ],
+        "startH": 10,
+        "endH": 14
+      }
+    },
+    {
+      "id": "phy_3",
+      "role": "Physician",
+      "name": "مها العمري",
+      "gender": "Female",
+      "specialty": "Dermatology",
+      "subspecialty": "Dermatopathology",
+      "degree": "MD",
+      "city": "Dammam",
+      "sector": "MOH",
+      "center": "Jeddah Central Hospital",
+      "rating": 4.2,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          3
+        ],
+        "startH": 9,
+        "endH": 16
+      }
+    },
+    {
+      "id": "phy_4",
+      "role": "Physician",
+      "name": "عبير العنزي",
+      "gender": "Female",
+      "specialty": "Dermatology",
+      "subspecialty": "Pediatric derm",
+      "degree": "FRCP",
+      "city": "Jeddah",
+      "sector": "Private",
+      "center": "Saudi German Hospital",
+      "rating": 4.8,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          2,
+          3
+        ],
+        "startH": 9,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_5",
+      "role": "Physician",
+      "name": "سارة العنزي",
+      "gender": "Female",
+      "specialty": "Dermatology",
+      "subspecialty": "Pediatric derm",
+      "degree": "MD",
+      "city": "Riyadh",
+      "sector": "Private",
+      "center": "Al Hammadi Hospital",
+      "rating": 4.7,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          6
+        ],
+        "startH": 10,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_6",
+      "role": "Physician",
+      "name": "فهد البقمي",
+      "gender": "Male",
+      "specialty": "Dermatology",
+      "subspecialty": "Cosmetic",
+      "degree": "MD",
+      "city": "Riyadh",
+      "sector": "MOH",
+      "center": "Prince Sultan Medical City",
+      "rating": 4.5,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          6
+        ],
+        "startH": 10,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_7",
+      "role": "Physician",
+      "name": "رنا الحربي",
+      "gender": "Female",
+      "specialty": "Dermatology",
+      "subspecialty": "Pediatric derm",
+      "degree": "MD",
+      "city": "Jeddah",
+      "sector": "MOH",
+      "center": "King Faisal Hospital",
+      "rating": 4.9,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          2,
+          6
+        ],
+        "startH": 9,
+        "endH": 14
+      }
+    },
+    {
+      "id": "phy_8",
+      "role": "Physician",
+      "name": "يوسف الزهراني",
+      "gender": "Male",
+      "specialty": "Dermatology",
+      "subspecialty": "Dermatopathology",
+      "degree": "FRCP",
+      "city": "Jeddah",
+      "sector": "Private",
+      "center": "Dr. Sulaiman Al-Habib",
+      "rating": 4.5,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          2,
+          3,
+          6
+        ],
+        "startH": 9,
+        "endH": 14
+      }
+    },
+    {
+      "id": "phy_9",
+      "role": "Physician",
+      "name": "سلطان السلمي",
+      "gender": "Male",
+      "specialty": "Dermatology",
+      "subspecialty": "Pediatric derm",
+      "degree": "ABIM",
+      "city": "Riyadh",
+      "sector": "MOH",
+      "center": "Jeddah Central Hospital",
+      "rating": 4.3,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          2,
+          6
+        ],
+        "startH": 10,
+        "endH": 16
+      }
+    },
+    {
+      "id": "phy_10",
+      "role": "Physician",
+      "name": "خالد الدوسري",
+      "gender": "Male",
+      "specialty": "Dermatology",
+      "subspecialty": "Pediatric derm",
+      "degree": "ABIM",
+      "city": "Riyadh",
+      "sector": "Private",
+      "center": "Dr. Sulaiman Al-Habib",
+      "rating": 4.1,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          1,
+          3
+        ],
+        "startH": 10,
+        "endH": 16
+      }
+    },
+    {
+      "id": "phy_11",
+      "role": "Physician",
+      "name": "فهد الخالدي",
+      "gender": "Male",
+      "specialty": "Orthopedics",
+      "subspecialty": "Spine",
+      "degree": "SBFM",
+      "city": "Jeddah",
+      "sector": "MOH",
+      "center": "King Faisal Hospital",
+      "rating": 3.9,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          2,
+          3
+        ],
+        "startH": 9,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_12",
+      "role": "Physician",
+      "name": "ناصر الحارثي",
+      "gender": "Male",
+      "specialty": "Orthopedics",
+      "subspecialty": "Spine",
+      "degree": "SBFM",
+      "city": "Jeddah",
+      "sector": "MOH",
+      "center": "Prince Sultan Medical City",
+      "rating": 4.7,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          2,
+          6
+        ],
+        "startH": 9,
+        "endH": 16
+      }
+    },
+    {
+      "id": "phy_13",
+      "role": "Physician",
+      "name": "خالد البلوي",
+      "gender": "Male",
+      "specialty": "Orthopedics",
+      "subspecialty": "Spine",
+      "degree": "ABIM",
+      "city": "Jeddah",
+      "sector": "Private",
+      "center": "Dr. Sulaiman Al-Habib",
+      "rating": 4.7,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          2,
+          6
+        ],
+        "startH": 9,
+        "endH": 14
+      }
+    },
+    {
+      "id": "phy_14",
+      "role": "Physician",
+      "name": "هند العنزي",
+      "gender": "Female",
+      "specialty": "Orthopedics",
+      "subspecialty": "Spine",
+      "degree": "ABIM",
+      "city": "Riyadh",
+      "sector": "Private",
+      "center": "Saudi German Hospital",
+      "rating": 3.9,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          1,
+          2
+        ],
+        "startH": 10,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_15",
+      "role": "Physician",
+      "name": "محمد القحطاني",
+      "gender": "Male",
+      "specialty": "Orthopedics",
+      "subspecialty": "Spine",
+      "degree": "ABIM",
+      "city": "Jeddah",
+      "sector": "Private",
+      "center": "Al Hammadi Hospital",
+      "rating": 4.2,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          2
+        ],
+        "startH": 9,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_16",
+      "role": "Physician",
+      "name": "عمر العنزي",
+      "gender": "Male",
+      "specialty": "Orthopedics",
+      "subspecialty": "Joint replacement",
+      "degree": "FRCP",
+      "city": "Jeddah",
+      "sector": "Private",
+      "center": "Tadawi Clinics",
+      "rating": 3.9,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          1,
+          3
+        ],
+        "startH": 9,
+        "endH": 14
+      }
+    },
+    {
+      "id": "phy_17",
+      "role": "Physician",
+      "name": "أمل العنزي",
+      "gender": "Female",
+      "specialty": "Orthopedics",
+      "subspecialty": "Sports",
+      "degree": "MD",
+      "city": "Dammam",
+      "sector": "MOH",
+      "center": "Jeddah Central Hospital",
+      "rating": 4.6,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          2,
+          3,
+          6
+        ],
+        "startH": 10,
+        "endH": 16
+      }
+    },
+    {
+      "id": "phy_18",
+      "role": "Physician",
+      "name": "عبدالعزيز المالكي",
+      "gender": "Male",
+      "specialty": "Orthopedics",
+      "subspecialty": "Joint replacement",
+      "degree": "ABIM",
+      "city": "Riyadh",
+      "sector": "MOH",
+      "center": "Jeddah Central Hospital",
+      "rating": 4.5,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          3
+        ],
+        "startH": 10,
+        "endH": 14
+      }
+    },
+    {
+      "id": "phy_19",
+      "role": "Physician",
+      "name": "محمد الجهني",
+      "gender": "Male",
+      "specialty": "Orthopedics",
+      "subspecialty": "Spine",
+      "degree": "SBFM",
+      "city": "Dammam",
+      "sector": "Private",
+      "center": "Al Hammadi Hospital",
+      "rating": 3.9,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          2
+        ],
+        "startH": 10,
+        "endH": 16
+      }
+    },
+    {
+      "id": "phy_20",
+      "role": "Physician",
+      "name": "سلطان الجهني",
+      "gender": "Male",
+      "specialty": "Orthopedics",
+      "subspecialty": "Sports",
+      "degree": "SBFM",
+      "city": "Riyadh",
+      "sector": "MOH",
+      "center": "King Fahd Hospital",
+      "rating": 3.9,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          1
+        ],
+        "startH": 9,
+        "endH": 14
+      }
+    },
+    {
+      "id": "phy_21",
+      "role": "Physician",
+      "name": "طارق الشمري",
+      "gender": "Male",
+      "specialty": "Cardiology",
+      "subspecialty": "Heart failure",
+      "degree": "SBFM",
+      "city": "Riyadh",
+      "sector": "MOH",
+      "center": "Jeddah Central Hospital",
+      "rating": 4.7,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          2
+        ],
+        "startH": 10,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_22",
+      "role": "Physician",
+      "name": "هند السلمي",
+      "gender": "Female",
+      "specialty": "Cardiology",
+      "subspecialty": "Electrophysiology",
+      "degree": "MD",
+      "city": "Dammam",
+      "sector": "MOH",
+      "center": "Jeddah Central Hospital",
+      "rating": 4.1,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          2,
+          3
+        ],
+        "startH": 9,
+        "endH": 14
+      }
+    },
+    {
+      "id": "phy_23",
+      "role": "Physician",
+      "name": "عبير المالكي",
+      "gender": "Female",
+      "specialty": "Cardiology",
+      "subspecialty": "Heart failure",
+      "degree": "ABIM",
+      "city": "Jeddah",
+      "sector": "Private",
+      "center": "Al Hammadi Hospital",
+      "rating": 3.9,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          3
+        ],
+        "startH": 9,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_24",
+      "role": "Physician",
+      "name": "فهد الخالدي",
+      "gender": "Male",
+      "specialty": "Cardiology",
+      "subspecialty": "Heart failure",
+      "degree": "SBFM",
+      "city": "Dammam",
+      "sector": "MOH",
+      "center": "Prince Sultan Medical City",
+      "rating": 4.8,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          2,
+          6
+        ],
+        "startH": 9,
+        "endH": 14
+      }
+    },
+    {
+      "id": "phy_25",
+      "role": "Physician",
+      "name": "علي الحارثي",
+      "gender": "Male",
+      "specialty": "Cardiology",
+      "subspecialty": "Interventional",
+      "degree": "ABIM",
+      "city": "Riyadh",
+      "sector": "Private",
+      "center": "Saudi German Hospital",
+      "rating": 4.6,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          2,
+          6
+        ],
+        "startH": 9,
+        "endH": 16
+      }
+    },
+    {
+      "id": "phy_26",
+      "role": "Physician",
+      "name": "نورة الزهراني",
+      "gender": "Female",
+      "specialty": "Cardiology",
+      "subspecialty": "Electrophysiology",
+      "degree": "SBFM",
+      "city": "Dammam",
+      "sector": "MOH",
+      "center": "King Fahd Hospital",
+      "rating": 4.5,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          2
+        ],
+        "startH": 9,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_27",
+      "role": "Physician",
+      "name": "ريم الغامدي",
+      "gender": "Female",
+      "specialty": "Cardiology",
+      "subspecialty": "Heart failure",
+      "degree": "ABIM",
+      "city": "Dammam",
+      "sector": "MOH",
+      "center": "Jeddah Central Hospital",
+      "rating": 4,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          1,
+          2
+        ],
+        "startH": 10,
+        "endH": 14
+      }
+    },
+    {
+      "id": "phy_28",
+      "role": "Physician",
+      "name": "الجوهرة الشهري",
+      "gender": "Female",
+      "specialty": "Cardiology",
+      "subspecialty": "Interventional",
+      "degree": "SBFM",
+      "city": "Dammam",
+      "sector": "MOH",
+      "center": "Prince Sultan Medical City",
+      "rating": 4.4,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          3
+        ],
+        "startH": 9,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_29",
+      "role": "Physician",
+      "name": "سعود العنزي",
+      "gender": "Male",
+      "specialty": "Cardiology",
+      "subspecialty": "Interventional",
+      "degree": "MD",
+      "city": "Jeddah",
+      "sector": "Private",
+      "center": "Dr. Sulaiman Al-Habib",
+      "rating": 3.8,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          1,
+          2
+        ],
+        "startH": 10,
+        "endH": 14
+      }
+    },
+    {
+      "id": "phy_30",
+      "role": "Physician",
+      "name": "ريم الحارثي",
+      "gender": "Female",
+      "specialty": "Cardiology",
+      "subspecialty": "Heart failure",
+      "degree": "MD",
+      "city": "Dammam",
+      "sector": "Private",
+      "center": "Al Hammadi Hospital",
+      "rating": 4,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          3,
+          6
+        ],
+        "startH": 10,
+        "endH": 16
+      }
+    },
+    {
+      "id": "phy_31",
+      "role": "Physician",
+      "name": "سعود الزهراني",
+      "gender": "Male",
+      "specialty": "Dentistry",
+      "subspecialty": "Prosthodontics",
+      "degree": "ABIM",
+      "city": "Dammam",
+      "sector": "Private",
+      "center": "Al Hammadi Hospital",
+      "rating": 4.1,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          3
+        ],
+        "startH": 10,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_32",
+      "role": "Physician",
+      "name": "علي الرشيدي",
+      "gender": "Male",
+      "specialty": "Dentistry",
+      "subspecialty": "Orthodontics",
+      "degree": "ABIM",
+      "city": "Dammam",
+      "sector": "MOH",
+      "center": "King Faisal Hospital",
+      "rating": 4.3,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          2
+        ],
+        "startH": 10,
+        "endH": 16
+      }
+    },
+    {
+      "id": "phy_33",
+      "role": "Physician",
+      "name": "ماجد السلمي",
+      "gender": "Male",
+      "specialty": "Dentistry",
+      "subspecialty": "Endodontics",
+      "degree": "MD",
+      "city": "Jeddah",
+      "sector": "MOH",
+      "center": "Prince Sultan Medical City",
+      "rating": 4.1,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          3,
+          6
+        ],
+        "startH": 9,
+        "endH": 14
+      }
+    },
+    {
+      "id": "phy_34",
+      "role": "Physician",
+      "name": "نورة الحربي",
+      "gender": "Female",
+      "specialty": "Dentistry",
+      "subspecialty": "Orthodontics",
+      "degree": "MD",
+      "city": "Jeddah",
+      "sector": "Private",
+      "center": "Saudi German Hospital",
+      "rating": 4.5,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          3,
+          6
+        ],
+        "startH": 10,
+        "endH": 16
+      }
+    },
+    {
+      "id": "phy_35",
+      "role": "Physician",
+      "name": "أمل الخالدي",
+      "gender": "Female",
+      "specialty": "Dentistry",
+      "subspecialty": "Orthodontics",
+      "degree": "MD",
+      "city": "Riyadh",
+      "sector": "MOH",
+      "center": "Prince Sultan Medical City",
+      "rating": 3.8,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          6
+        ],
+        "startH": 9,
+        "endH": 16
+      }
+    },
+    {
+      "id": "phy_36",
+      "role": "Physician",
+      "name": "سلطان الخالدي",
+      "gender": "Male",
+      "specialty": "Dentistry",
+      "subspecialty": "Prosthodontics",
+      "degree": "SBFM",
+      "city": "Jeddah",
+      "sector": "Private",
+      "center": "Tadawi Clinics",
+      "rating": 4.5,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          2,
+          3
+        ],
+        "startH": 10,
+        "endH": 14
+      }
+    },
+    {
+      "id": "phy_37",
+      "role": "Physician",
+      "name": "نوف العتيبي",
+      "gender": "Female",
+      "specialty": "Dentistry",
+      "subspecialty": "Endodontics",
+      "degree": "MD",
+      "city": "Dammam",
+      "sector": "MOH",
+      "center": "Prince Sultan Medical City",
+      "rating": 4.5,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          2
+        ],
+        "startH": 9,
+        "endH": 14
+      }
+    },
+    {
+      "id": "phy_38",
+      "role": "Physician",
+      "name": "حسن الحربي",
+      "gender": "Male",
+      "specialty": "Dentistry",
+      "subspecialty": "Prosthodontics",
+      "degree": "SBFM",
+      "city": "Jeddah",
+      "sector": "Private",
+      "center": "Dr. Sulaiman Al-Habib",
+      "rating": 4.6,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          2
+        ],
+        "startH": 9,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_39",
+      "role": "Physician",
+      "name": "نورة العمري",
+      "gender": "Female",
+      "specialty": "Dentistry",
+      "subspecialty": "Endodontics",
+      "degree": "FRCP",
+      "city": "Riyadh",
+      "sector": "Private",
+      "center": "Al Hammadi Hospital",
+      "rating": 4,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          3
+        ],
+        "startH": 10,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_40",
+      "role": "Physician",
+      "name": "عبدالعزيز المالكي",
+      "gender": "Male",
+      "specialty": "Dentistry",
+      "subspecialty": "Endodontics",
+      "degree": "SBFM",
+      "city": "Jeddah",
+      "sector": "Private",
+      "center": "Tadawi Clinics",
+      "rating": 3.8,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          3
+        ],
+        "startH": 10,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_41",
+      "role": "Physician",
+      "name": "فهد الشمري",
+      "gender": "Male",
+      "specialty": "Pulmonary",
+      "subspecialty": "Critical care",
+      "degree": "ABIM",
+      "city": "Riyadh",
+      "sector": "MOH",
+      "center": "Jeddah Central Hospital",
+      "rating": 4.2,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          1,
+          2
+        ],
+        "startH": 9,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_42",
+      "role": "Physician",
+      "name": "سعود المطيري",
+      "gender": "Male",
+      "specialty": "Pulmonary",
+      "subspecialty": "Sleep medicine",
+      "degree": "FRCP",
+      "city": "Dammam",
+      "sector": "MOH",
+      "center": "Jeddah Central Hospital",
+      "rating": 4.5,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          2,
+          6
+        ],
+        "startH": 9,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_43",
+      "role": "Physician",
+      "name": "ريم العتيبي",
+      "gender": "Female",
+      "specialty": "Pulmonary",
+      "subspecialty": "Sleep medicine",
+      "degree": "MD",
+      "city": "Jeddah",
+      "sector": "Private",
+      "center": "Al Hammadi Hospital",
+      "rating": 4.4,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          2
+        ],
+        "startH": 9,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_44",
+      "role": "Physician",
+      "name": "ناصر الدوسري",
+      "gender": "Male",
+      "specialty": "Pulmonary",
+      "subspecialty": "Sleep medicine",
+      "degree": "SBFM",
+      "city": "Dammam",
+      "sector": "MOH",
+      "center": "Jeddah Central Hospital",
+      "rating": 4.3,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          3,
+          6
+        ],
+        "startH": 9,
+        "endH": 14
+      }
+    },
+    {
+      "id": "phy_45",
+      "role": "Physician",
+      "name": "دانة الرشيدي",
+      "gender": "Female",
+      "specialty": "Pulmonary",
+      "subspecialty": "Interventional pulm",
+      "degree": "FRCP",
+      "city": "Dammam",
+      "sector": "MOH",
+      "center": "King Faisal Hospital",
+      "rating": 4.5,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          1
+        ],
+        "startH": 9,
+        "endH": 16
+      }
+    },
+    {
+      "id": "phy_46",
+      "role": "Physician",
+      "name": "إبراهيم الخالدي",
+      "gender": "Male",
+      "specialty": "Pulmonary",
+      "subspecialty": "Critical care",
+      "degree": "FRCP",
+      "city": "Riyadh",
+      "sector": "Private",
+      "center": "Dr. Sulaiman Al-Habib",
+      "rating": 4.2,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          2
+        ],
+        "startH": 10,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_47",
+      "role": "Physician",
+      "name": "نورة العتيبي",
+      "gender": "Female",
+      "specialty": "Pulmonary",
+      "subspecialty": "Interventional pulm",
+      "degree": "FRCP",
+      "city": "Riyadh",
+      "sector": "Private",
+      "center": "Saudi German Hospital",
+      "rating": 4.6,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          2,
+          6
+        ],
+        "startH": 9,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_48",
+      "role": "Physician",
+      "name": "شهد المالكي",
+      "gender": "Female",
+      "specialty": "Pulmonary",
+      "subspecialty": "Interventional pulm",
+      "degree": "FRCP",
+      "city": "Riyadh",
+      "sector": "Private",
+      "center": "Saudi German Hospital",
+      "rating": 4.4,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          1,
+          6
+        ],
+        "startH": 10,
+        "endH": 16
+      }
+    },
+    {
+      "id": "phy_49",
+      "role": "Physician",
+      "name": "مها المالكي",
+      "gender": "Female",
+      "specialty": "Pulmonary",
+      "subspecialty": "Sleep medicine",
+      "degree": "FRCP",
+      "city": "Riyadh",
+      "sector": "Private",
+      "center": "Dr. Sulaiman Al-Habib",
+      "rating": 4.8,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          2,
+          3,
+          6
+        ],
+        "startH": 10,
+        "endH": 16
+      }
+    },
+    {
+      "id": "phy_50",
+      "role": "Physician",
+      "name": "هيا الغامدي",
+      "gender": "Female",
+      "specialty": "Pulmonary",
+      "subspecialty": "Critical care",
+      "degree": "SBFM",
+      "city": "Dammam",
+      "sector": "MOH",
+      "center": "Prince Sultan Medical City",
+      "rating": 4.1,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          2,
+          6
+        ],
+        "startH": 9,
+        "endH": 16
+      }
+    },
+    {
+      "id": "phy_51",
+      "role": "Physician",
+      "name": "عبدالله الشهري",
+      "gender": "Male",
+      "specialty": "Internal Medicine",
+      "subspecialty": "Rheumatology",
+      "degree": "FRCP",
+      "city": "Riyadh",
+      "sector": "Private",
+      "center": "Dr. Sulaiman Al-Habib",
+      "rating": 3.9,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          2,
+          3
+        ],
+        "startH": 9,
+        "endH": 16
+      }
+    },
+    {
+      "id": "phy_52",
+      "role": "Physician",
+      "name": "فاطمة القحطاني",
+      "gender": "Female",
+      "specialty": "Internal Medicine",
+      "subspecialty": "Rheumatology",
+      "degree": "FRCP",
+      "city": "Jeddah",
+      "sector": "Private",
+      "center": "Saudi German Hospital",
+      "rating": 4.5,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          2,
+          6
+        ],
+        "startH": 9,
+        "endH": 14
+      }
+    },
+    {
+      "id": "phy_53",
+      "role": "Physician",
+      "name": "نورة المالكي",
+      "gender": "Female",
+      "specialty": "Internal Medicine",
+      "subspecialty": "Geriatrics",
+      "degree": "ABIM",
+      "city": "Dammam",
+      "sector": "Private",
+      "center": "Al Hammadi Hospital",
+      "rating": 4.9,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          2,
+          6
+        ],
+        "startH": 10,
+        "endH": 14
+      }
+    },
+    {
+      "id": "phy_54",
+      "role": "Physician",
+      "name": "هيا الجهني",
+      "gender": "Female",
+      "specialty": "Internal Medicine",
+      "subspecialty": "Hospitalist",
+      "degree": "FRCP",
+      "city": "Dammam",
+      "sector": "MOH",
+      "center": "Jeddah Central Hospital",
+      "rating": 4.7,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          6
+        ],
+        "startH": 10,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_55",
+      "role": "Physician",
+      "name": "يوسف العمري",
+      "gender": "Male",
+      "specialty": "Internal Medicine",
+      "subspecialty": "Hospitalist",
+      "degree": "MD",
+      "city": "Dammam",
+      "sector": "MOH",
+      "center": "King Fahd Hospital",
+      "rating": 4.7,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          1,
+          6
+        ],
+        "startH": 9,
+        "endH": 14
+      }
+    },
+    {
+      "id": "phy_56",
+      "role": "Physician",
+      "name": "تركي الخالدي",
+      "gender": "Male",
+      "specialty": "Internal Medicine",
+      "subspecialty": "Hospitalist",
+      "degree": "MD",
+      "city": "Jeddah",
+      "sector": "Private",
+      "center": "Al Hammadi Hospital",
+      "rating": 4.7,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          1,
+          2
+        ],
+        "startH": 9,
+        "endH": 14
+      }
+    },
+    {
+      "id": "phy_57",
+      "role": "Physician",
+      "name": "نوف الدوسري",
+      "gender": "Female",
+      "specialty": "Internal Medicine",
+      "subspecialty": "Geriatrics",
+      "degree": "FRCP",
+      "city": "Dammam",
+      "sector": "Private",
+      "center": "Saudi German Hospital",
+      "rating": 4.8,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          2,
+          6
+        ],
+        "startH": 10,
+        "endH": 14
+      }
+    },
+    {
+      "id": "phy_58",
+      "role": "Physician",
+      "name": "عبدالله الحارثي",
+      "gender": "Male",
+      "specialty": "Internal Medicine",
+      "subspecialty": "Geriatrics",
+      "degree": "SBFM",
+      "city": "Riyadh",
+      "sector": "MOH",
+      "center": "Prince Sultan Medical City",
+      "rating": 4.8,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          3
+        ],
+        "startH": 10,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_59",
+      "role": "Physician",
+      "name": "ناصر الحربي",
+      "gender": "Male",
+      "specialty": "Internal Medicine",
+      "subspecialty": "Geriatrics",
+      "degree": "MD",
+      "city": "Jeddah",
+      "sector": "Private",
+      "center": "Saudi German Hospital",
+      "rating": 4.7,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          2,
+          3,
+          6
+        ],
+        "startH": 10,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_60",
+      "role": "Physician",
+      "name": "فهد الشمري",
+      "gender": "Male",
+      "specialty": "Internal Medicine",
+      "subspecialty": "Hospitalist",
+      "degree": "ABIM",
+      "city": "Riyadh",
+      "sector": "MOH",
+      "center": "Prince Sultan Medical City",
+      "rating": 4.4,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          2,
+          6
+        ],
+        "startH": 10,
+        "endH": 14
+      }
+    },
+    {
+      "id": "phy_61",
+      "role": "Physician",
+      "name": "فهد الرشيدي",
+      "gender": "Male",
+      "specialty": "Pediatrics",
+      "subspecialty": "Pediatric cardiology",
+      "degree": "MD",
+      "city": "Dammam",
+      "sector": "MOH",
+      "center": "King Faisal Hospital",
+      "rating": 4.4,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          2,
+          6
+        ],
+        "startH": 10,
+        "endH": 14
+      }
+    },
+    {
+      "id": "phy_62",
+      "role": "Physician",
+      "name": "الجوهرة الرشيدي",
+      "gender": "Female",
+      "specialty": "Pediatrics",
+      "subspecialty": "Pediatric cardiology",
+      "degree": "FRCP",
+      "city": "Dammam",
+      "sector": "Private",
+      "center": "Tadawi Clinics",
+      "rating": 4.3,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          6
+        ],
+        "startH": 9,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_63",
+      "role": "Physician",
+      "name": "دانة السلمي",
+      "gender": "Female",
+      "specialty": "Pediatrics",
+      "subspecialty": "Neonatology",
+      "degree": "FRCP",
+      "city": "Dammam",
+      "sector": "MOH",
+      "center": "King Faisal Hospital",
+      "rating": 4.7,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          1,
+          3
+        ],
+        "startH": 9,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_64",
+      "role": "Physician",
+      "name": "فيصل العنزي",
+      "gender": "Male",
+      "specialty": "Pediatrics",
+      "subspecialty": "Pediatric cardiology",
+      "degree": "ABIM",
+      "city": "Dammam",
+      "sector": "Private",
+      "center": "Dr. Sulaiman Al-Habib",
+      "rating": 4.1,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          3
+        ],
+        "startH": 10,
+        "endH": 16
+      }
+    },
+    {
+      "id": "phy_65",
+      "role": "Physician",
+      "name": "ريم الغامدي",
+      "gender": "Female",
+      "specialty": "Pediatrics",
+      "subspecialty": "Pediatric cardiology",
+      "degree": "MD",
+      "city": "Jeddah",
+      "sector": "Private",
+      "center": "Al Hammadi Hospital",
+      "rating": 3.8,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          6
+        ],
+        "startH": 9,
+        "endH": 16
+      }
+    },
+    {
+      "id": "phy_66",
+      "role": "Physician",
+      "name": "منيرة العتيبي",
+      "gender": "Female",
+      "specialty": "Pediatrics",
+      "subspecialty": "General peds",
+      "degree": "SBFM",
+      "city": "Jeddah",
+      "sector": "Private",
+      "center": "Saudi German Hospital",
+      "rating": 4,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          2,
+          3,
+          6
+        ],
+        "startH": 9,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_67",
+      "role": "Physician",
+      "name": "علي الجهني",
+      "gender": "Male",
+      "specialty": "Pediatrics",
+      "subspecialty": "General peds",
+      "degree": "ABIM",
+      "city": "Jeddah",
+      "sector": "MOH",
+      "center": "Jeddah Central Hospital",
+      "rating": 4.7,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          2,
+          6
+        ],
+        "startH": 10,
+        "endH": 16
+      }
+    },
+    {
+      "id": "phy_68",
+      "role": "Physician",
+      "name": "علي الغامدي",
+      "gender": "Male",
+      "specialty": "Pediatrics",
+      "subspecialty": "General peds",
+      "degree": "SBFM",
+      "city": "Riyadh",
+      "sector": "Private",
+      "center": "Saudi German Hospital",
+      "rating": 4.9,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          2,
+          3
+        ],
+        "startH": 10,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_69",
+      "role": "Physician",
+      "name": "سعود الحربي",
+      "gender": "Male",
+      "specialty": "Pediatrics",
+      "subspecialty": "Pediatric cardiology",
+      "degree": "SBFM",
+      "city": "Dammam",
+      "sector": "Private",
+      "center": "Saudi German Hospital",
+      "rating": 4.5,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          6
+        ],
+        "startH": 10,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_70",
+      "role": "Physician",
+      "name": "هيا الدوسري",
+      "gender": "Female",
+      "specialty": "Pediatrics",
+      "subspecialty": "Pediatric cardiology",
+      "degree": "ABIM",
+      "city": "Jeddah",
+      "sector": "Private",
+      "center": "Tadawi Clinics",
+      "rating": 4.4,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          6
+        ],
+        "startH": 9,
+        "endH": 14
+      }
+    },
+    {
+      "id": "phy_71",
+      "role": "Physician",
+      "name": "مها المالكي",
+      "gender": "Female",
+      "specialty": "Endocrinology",
+      "subspecialty": "Thyroid",
+      "degree": "MD",
+      "city": "Riyadh",
+      "sector": "Private",
+      "center": "Al Hammadi Hospital",
+      "rating": 4.4,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          1,
+          3
+        ],
+        "startH": 10,
+        "endH": 16
+      }
+    },
+    {
+      "id": "phy_72",
+      "role": "Physician",
+      "name": "فاطمة العتيبي",
+      "gender": "Female",
+      "specialty": "Endocrinology",
+      "subspecialty": "Diabetes",
+      "degree": "MD",
+      "city": "Riyadh",
+      "sector": "MOH",
+      "center": "Prince Sultan Medical City",
+      "rating": 4.3,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          3,
+          6
+        ],
+        "startH": 10,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_73",
+      "role": "Physician",
+      "name": "فاطمة الشهري",
+      "gender": "Female",
+      "specialty": "Endocrinology",
+      "subspecialty": "Thyroid",
+      "degree": "FRCP",
+      "city": "Dammam",
+      "sector": "Private",
+      "center": "Saudi German Hospital",
+      "rating": 4.7,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          3,
+          6
+        ],
+        "startH": 10,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_74",
+      "role": "Physician",
+      "name": "خالد الحارثي",
+      "gender": "Male",
+      "specialty": "Endocrinology",
+      "subspecialty": "Diabetes",
+      "degree": "FRCP",
+      "city": "Jeddah",
+      "sector": "MOH",
+      "center": "King Fahd Hospital",
+      "rating": 3.9,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          1,
+          3
+        ],
+        "startH": 9,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_75",
+      "role": "Physician",
+      "name": "سعد السبيعي",
+      "gender": "Male",
+      "specialty": "Endocrinology",
+      "subspecialty": "Diabetes",
+      "degree": "MD",
+      "city": "Jeddah",
+      "sector": "MOH",
+      "center": "King Faisal Hospital",
+      "rating": 4.7,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          2
+        ],
+        "startH": 10,
+        "endH": 16
+      }
+    },
+    {
+      "id": "phy_76",
+      "role": "Physician",
+      "name": "فاطمة الخالدي",
+      "gender": "Female",
+      "specialty": "Endocrinology",
+      "subspecialty": "Diabetes",
+      "degree": "SBFM",
+      "city": "Dammam",
+      "sector": "Private",
+      "center": "Dr. Sulaiman Al-Habib",
+      "rating": 4.5,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          1,
+          6
+        ],
+        "startH": 9,
+        "endH": 16
+      }
+    },
+    {
+      "id": "phy_77",
+      "role": "Physician",
+      "name": "عمر الزهراني",
+      "gender": "Male",
+      "specialty": "Endocrinology",
+      "subspecialty": "Thyroid",
+      "degree": "FRCP",
+      "city": "Jeddah",
+      "sector": "MOH",
+      "center": "King Faisal Hospital",
+      "rating": 4.2,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          2,
+          3
+        ],
+        "startH": 9,
+        "endH": 16
+      }
+    },
+    {
+      "id": "phy_78",
+      "role": "Physician",
+      "name": "فهد الغامدي",
+      "gender": "Male",
+      "specialty": "Endocrinology",
+      "subspecialty": "Diabetes",
+      "degree": "MD",
+      "city": "Jeddah",
+      "sector": "Private",
+      "center": "Saudi German Hospital",
+      "rating": 4.2,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          6
+        ],
+        "startH": 10,
+        "endH": 14
+      }
+    },
+    {
+      "id": "phy_79",
+      "role": "Physician",
+      "name": "ريم الشمري",
+      "gender": "Female",
+      "specialty": "Endocrinology",
+      "subspecialty": "Diabetes",
+      "degree": "SBFM",
+      "city": "Riyadh",
+      "sector": "Private",
+      "center": "Al Hammadi Hospital",
+      "rating": 4.5,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          6
+        ],
+        "startH": 9,
+        "endH": 16
+      }
+    },
+    {
+      "id": "phy_80",
+      "role": "Physician",
+      "name": "مها العمري",
+      "gender": "Female",
+      "specialty": "Endocrinology",
+      "subspecialty": "Diabetes",
+      "degree": "FRCP",
+      "city": "Jeddah",
+      "sector": "MOH",
+      "center": "Jeddah Central Hospital",
+      "rating": 4.9,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          3,
+          6
+        ],
+        "startH": 10,
+        "endH": 14
+      }
+    },
+    {
+      "id": "phy_81",
+      "role": "Physician",
+      "name": "فيصل الشمري",
+      "gender": "Male",
+      "specialty": "General Surgery",
+      "subspecialty": "Laparoscopic",
+      "degree": "ABIM",
+      "city": "Jeddah",
+      "sector": "MOH",
+      "center": "Jeddah Central Hospital",
+      "rating": 4.8,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          1
+        ],
+        "startH": 10,
+        "endH": 16
+      }
+    },
+    {
+      "id": "phy_82",
+      "role": "Physician",
+      "name": "فهد البقمي",
+      "gender": "Male",
+      "specialty": "General Surgery",
+      "subspecialty": "Laparoscopic",
+      "degree": "SBFM",
+      "city": "Riyadh",
+      "sector": "Private",
+      "center": "Tadawi Clinics",
+      "rating": 4.7,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          2,
+          6
+        ],
+        "startH": 10,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_83",
+      "role": "Physician",
+      "name": "محمد الخالدي",
+      "gender": "Male",
+      "specialty": "General Surgery",
+      "subspecialty": "Laparoscopic",
+      "degree": "ABIM",
+      "city": "Jeddah",
+      "sector": "MOH",
+      "center": "Prince Sultan Medical City",
+      "rating": 5,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          3,
+          6
+        ],
+        "startH": 9,
+        "endH": 16
+      }
+    },
+    {
+      "id": "phy_84",
+      "role": "Physician",
+      "name": "فيصل الحربي",
+      "gender": "Male",
+      "specialty": "General Surgery",
+      "subspecialty": "Bariatric",
+      "degree": "MD",
+      "city": "Dammam",
+      "sector": "MOH",
+      "center": "Prince Sultan Medical City",
+      "rating": 4.6,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          1,
+          6
+        ],
+        "startH": 10,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_85",
+      "role": "Physician",
+      "name": "فهد المالكي",
+      "gender": "Male",
+      "specialty": "General Surgery",
+      "subspecialty": "Bariatric",
+      "degree": "SBFM",
+      "city": "Dammam",
+      "sector": "Private",
+      "center": "Tadawi Clinics",
+      "rating": 4.2,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          6
+        ],
+        "startH": 10,
+        "endH": 16
+      }
+    },
+    {
+      "id": "phy_86",
+      "role": "Physician",
+      "name": "عائشة العتيبي",
+      "gender": "Female",
+      "specialty": "General Surgery",
+      "subspecialty": "Bariatric",
+      "degree": "ABIM",
+      "city": "Riyadh",
+      "sector": "MOH",
+      "center": "King Faisal Hospital",
+      "rating": 4.6,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          1
+        ],
+        "startH": 10,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_87",
+      "role": "Physician",
+      "name": "لمياء الشهري",
+      "gender": "Female",
+      "specialty": "General Surgery",
+      "subspecialty": "Laparoscopic",
+      "degree": "FRCP",
+      "city": "Dammam",
+      "sector": "Private",
+      "center": "Tadawi Clinics",
+      "rating": 4.1,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          2,
+          3,
+          6
+        ],
+        "startH": 9,
+        "endH": 14
+      }
+    },
+    {
+      "id": "phy_88",
+      "role": "Physician",
+      "name": "عبير السلمي",
+      "gender": "Female",
+      "specialty": "General Surgery",
+      "subspecialty": "Laparoscopic",
+      "degree": "ABIM",
+      "city": "Riyadh",
+      "sector": "Private",
+      "center": "Tadawi Clinics",
+      "rating": 4.7,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          2,
+          3,
+          6
+        ],
+        "startH": 10,
+        "endH": 14
+      }
+    },
+    {
+      "id": "phy_89",
+      "role": "Physician",
+      "name": "نوف الحربي",
+      "gender": "Female",
+      "specialty": "General Surgery",
+      "subspecialty": "Colorectal",
+      "degree": "SBFM",
+      "city": "Riyadh",
+      "sector": "Private",
+      "center": "Saudi German Hospital",
+      "rating": 4.7,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          1
+        ],
+        "startH": 10,
+        "endH": 16
+      }
+    },
+    {
+      "id": "phy_90",
+      "role": "Physician",
+      "name": "لطيفة الرشيدي",
+      "gender": "Female",
+      "specialty": "General Surgery",
+      "subspecialty": "Bariatric",
+      "degree": "MD",
+      "city": "Dammam",
+      "sector": "Private",
+      "center": "Al Hammadi Hospital",
+      "rating": 4.2,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          1,
+          3
+        ],
+        "startH": 10,
+        "endH": 16
+      }
+    },
+    {
+      "id": "phy_91",
+      "role": "Physician",
+      "name": "منيرة الجهني",
+      "gender": "Female",
+      "specialty": "OB/GYN",
+      "subspecialty": "Gynae-oncology",
+      "degree": "FRCP",
+      "city": "Jeddah",
+      "sector": "MOH",
+      "center": "Jeddah Central Hospital",
+      "rating": 4,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          2,
+          3,
+          6
+        ],
+        "startH": 9,
+        "endH": 14
+      }
+    },
+    {
+      "id": "phy_92",
+      "role": "Physician",
+      "name": "عمر الرشيدي",
+      "gender": "Male",
+      "specialty": "OB/GYN",
+      "subspecialty": "Fertility",
+      "degree": "SBFM",
+      "city": "Dammam",
+      "sector": "MOH",
+      "center": "Jeddah Central Hospital",
+      "rating": 4.8,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          3,
+          6
+        ],
+        "startH": 10,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_93",
+      "role": "Physician",
+      "name": "عبدالعزيز الجهني",
+      "gender": "Male",
+      "specialty": "OB/GYN",
+      "subspecialty": "Maternal-fetal",
+      "degree": "ABIM",
+      "city": "Riyadh",
+      "sector": "Private",
+      "center": "Al Hammadi Hospital",
+      "rating": 4.3,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          3
+        ],
+        "startH": 9,
+        "endH": 14
+      }
+    },
+    {
+      "id": "phy_94",
+      "role": "Physician",
+      "name": "سلطان السلمي",
+      "gender": "Male",
+      "specialty": "OB/GYN",
+      "subspecialty": "Gynae-oncology",
+      "degree": "FRCP",
+      "city": "Dammam",
+      "sector": "MOH",
+      "center": "Prince Sultan Medical City",
+      "rating": 4.5,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          3,
+          6
+        ],
+        "startH": 10,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_95",
+      "role": "Physician",
+      "name": "عبدالله السلمي",
+      "gender": "Male",
+      "specialty": "OB/GYN",
+      "subspecialty": "Gynae-oncology",
+      "degree": "MD",
+      "city": "Dammam",
+      "sector": "MOH",
+      "center": "Prince Sultan Medical City",
+      "rating": 4.8,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          1,
+          3
+        ],
+        "startH": 9,
+        "endH": 16
+      }
+    },
+    {
+      "id": "phy_96",
+      "role": "Physician",
+      "name": "فاطمة العتيبي",
+      "gender": "Female",
+      "specialty": "OB/GYN",
+      "subspecialty": "Maternal-fetal",
+      "degree": "ABIM",
+      "city": "Jeddah",
+      "sector": "MOH",
+      "center": "Jeddah Central Hospital",
+      "rating": 4.3,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          2,
+          3
+        ],
+        "startH": 10,
+        "endH": 15
+      }
+    },
+    {
+      "id": "phy_97",
+      "role": "Physician",
+      "name": "محمد السبيعي",
+      "gender": "Male",
+      "specialty": "OB/GYN",
+      "subspecialty": "Gynae-oncology",
+      "degree": "FRCP",
+      "city": "Jeddah",
+      "sector": "MOH",
+      "center": "King Faisal Hospital",
+      "rating": 4.7,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          1,
+          3
+        ],
+        "startH": 10,
+        "endH": 16
+      }
+    },
+    {
+      "id": "phy_98",
+      "role": "Physician",
+      "name": "رهف السبيعي",
+      "gender": "Female",
+      "specialty": "OB/GYN",
+      "subspecialty": "Gynae-oncology",
+      "degree": "MD",
+      "city": "Jeddah",
+      "sector": "Private",
+      "center": "Al Hammadi Hospital",
+      "rating": 3.9,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          3
+        ],
+        "startH": 10,
+        "endH": 14
+      }
+    },
+    {
+      "id": "phy_99",
+      "role": "Physician",
+      "name": "سعود الحربي",
+      "gender": "Male",
+      "specialty": "OB/GYN",
+      "subspecialty": "Maternal-fetal",
+      "degree": "MD",
+      "city": "Jeddah",
+      "sector": "MOH",
+      "center": "Prince Sultan Medical City",
+      "rating": 4.4,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          3,
+          6
+        ],
+        "startH": 10,
+        "endH": 14
+      }
+    },
+    {
+      "id": "phy_100",
+      "role": "Physician",
+      "name": "لطيفة الشمري",
+      "gender": "Female",
+      "specialty": "OB/GYN",
+      "subspecialty": "Gynae-oncology",
+      "degree": "SBFM",
+      "city": "Riyadh",
+      "sector": "MOH",
+      "center": "King Faisal Hospital",
+      "rating": 4.4,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          6
+        ],
+        "startH": 10,
+        "endH": 15
+      }
+    }
+  ],
+  "pharmacists": [
+    {
+      "id": "pha_101",
+      "role": "Pharmacist",
+      "name": "فهد المطيري",
+      "gender": "Male",
+      "setting": "Retail",
+      "center": "UPC",
+      "sector": "Retail",
+      "city": "Dammam",
+      "rating": 4.9,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          2,
+          3
+        ],
+        "startH": 10,
+        "endH": 16
+      }
+    },
+    {
+      "id": "pha_102",
+      "role": "Pharmacist",
+      "name": "سعود الرشيدي",
+      "gender": "Male",
+      "setting": "Retail",
+      "center": "AlDawa",
+      "sector": "Retail",
+      "city": "Riyadh",
+      "rating": 3.9,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          3,
+          6
+        ],
+        "startH": 9,
+        "endH": 14
+      }
+    },
+    {
+      "id": "pha_103",
+      "role": "Pharmacist",
+      "name": "لطيفة الخالدي",
+      "gender": "Female",
+      "setting": "Hospital",
+      "center": "Jeddah Central Hospital",
+      "sector": "Private",
+      "city": "Jeddah",
+      "rating": 4.6,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          3,
+          6
+        ],
+        "startH": 9,
+        "endH": 14
+      }
+    },
+    {
+      "id": "pha_104",
+      "role": "Pharmacist",
+      "name": "أحمد الزهراني",
+      "gender": "Male",
+      "setting": "Hospital",
+      "center": "Saudi German Hospital",
+      "sector": "MOH",
+      "city": "Dammam",
+      "rating": 4.8,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          2,
+          3
+        ],
+        "startH": 9,
+        "endH": 15
+      }
+    },
+    {
+      "id": "pha_105",
+      "role": "Pharmacist",
+      "name": "جواهر البقمي",
+      "gender": "Female",
+      "setting": "Retail",
+      "center": "AlDawa",
+      "sector": "Retail",
+      "city": "Dammam",
+      "rating": 3.9,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          2,
+          3
+        ],
+        "startH": 10,
+        "endH": 16
+      }
+    },
+    {
+      "id": "pha_106",
+      "role": "Pharmacist",
+      "name": "بندر الغامدي",
+      "gender": "Male",
+      "setting": "Retail",
+      "center": "AlDawa",
+      "sector": "Retail",
+      "city": "Dammam",
+      "rating": 4,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          1
+        ],
+        "startH": 9,
+        "endH": 14
+      }
+    },
+    {
+      "id": "pha_107",
+      "role": "Pharmacist",
+      "name": "لمياء المالكي",
+      "gender": "Female",
+      "setting": "Retail",
+      "center": "AlDawa",
+      "sector": "Retail",
+      "city": "Riyadh",
+      "rating": 4.7,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          2,
+          3
+        ],
+        "startH": 10,
+        "endH": 16
+      }
+    },
+    {
+      "id": "pha_108",
+      "role": "Pharmacist",
+      "name": "خالد الحربي",
+      "gender": "Male",
+      "setting": "Retail",
+      "center": "UPC",
+      "sector": "Retail",
+      "city": "Riyadh",
+      "rating": 4.2,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          1,
+          3
+        ],
+        "startH": 10,
+        "endH": 16
+      }
+    },
+    {
+      "id": "pha_109",
+      "role": "Pharmacist",
+      "name": "إبراهيم البلوي",
+      "gender": "Male",
+      "setting": "Hospital",
+      "center": "Prince Sultan Medical City",
+      "sector": "MOH",
+      "city": "Jeddah",
+      "rating": 4.4,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          1
+        ],
+        "startH": 9,
+        "endH": 16
+      }
+    },
+    {
+      "id": "pha_110",
+      "role": "Pharmacist",
+      "name": "محمد العتيبي",
+      "gender": "Male",
+      "setting": "Retail",
+      "center": "AlDawa",
+      "sector": "Retail",
+      "city": "Dammam",
+      "rating": 4.6,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          3,
+          6
+        ],
+        "startH": 10,
+        "endH": 16
+      }
+    },
+    {
+      "id": "pha_111",
+      "role": "Pharmacist",
+      "name": "ناصر السبيعي",
+      "gender": "Male",
+      "setting": "Retail",
+      "center": "AlDawa",
+      "sector": "Retail",
+      "city": "Riyadh",
+      "rating": 4.6,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          1,
+          3
+        ],
+        "startH": 9,
+        "endH": 15
+      }
+    },
+    {
+      "id": "pha_112",
+      "role": "Pharmacist",
+      "name": "ريم البلوي",
+      "gender": "Female",
+      "setting": "Retail",
+      "center": "UPC",
+      "sector": "Retail",
+      "city": "Riyadh",
+      "rating": 3.8,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          3,
+          6
+        ],
+        "startH": 9,
+        "endH": 16
+      }
+    },
+    {
+      "id": "pha_113",
+      "role": "Pharmacist",
+      "name": "عائشة الغامدي",
+      "gender": "Female",
+      "setting": "Retail",
+      "center": "AlDawa",
+      "sector": "Retail",
+      "city": "Dammam",
+      "rating": 3.8,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          1
+        ],
+        "startH": 10,
+        "endH": 14
+      }
+    },
+    {
+      "id": "pha_114",
+      "role": "Pharmacist",
+      "name": "سارة الزهراني",
+      "gender": "Female",
+      "setting": "Hospital",
+      "center": "Prince Sultan Medical City",
+      "sector": "Private",
+      "city": "Jeddah",
+      "rating": 4.1,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          2,
+          3
+        ],
+        "startH": 10,
+        "endH": 15
+      }
+    },
+    {
+      "id": "pha_115",
+      "role": "Pharmacist",
+      "name": "نورة العنزي",
+      "gender": "Female",
+      "setting": "Hospital",
+      "center": "Jeddah Central Hospital",
+      "sector": "Private",
+      "city": "Riyadh",
+      "rating": 4.1,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          3,
+          6
+        ],
+        "startH": 10,
+        "endH": 14
+      }
+    },
+    {
+      "id": "pha_116",
+      "role": "Pharmacist",
+      "name": "إبراهيم القحطاني",
+      "gender": "Male",
+      "setting": "Retail",
+      "center": "AlNahdi",
+      "sector": "Retail",
+      "city": "Jeddah",
+      "rating": 4.1,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          2,
+          3
+        ],
+        "startH": 10,
+        "endH": 15
+      }
+    },
+    {
+      "id": "pha_117",
+      "role": "Pharmacist",
+      "name": "أمل السبيعي",
+      "gender": "Female",
+      "setting": "Hospital",
+      "center": "Al Hammadi Hospital",
+      "sector": "MOH",
+      "city": "Riyadh",
+      "rating": 4.8,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          6
+        ],
+        "startH": 10,
+        "endH": 14
+      }
+    },
+    {
+      "id": "pha_118",
+      "role": "Pharmacist",
+      "name": "إبراهيم الحربي",
+      "gender": "Male",
+      "setting": "Retail",
+      "center": "UPC",
+      "sector": "Retail",
+      "city": "Dammam",
+      "rating": 4.2,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          2
+        ],
+        "startH": 10,
+        "endH": 15
+      }
+    },
+    {
+      "id": "pha_119",
+      "role": "Pharmacist",
+      "name": "حسن الرشيدي",
+      "gender": "Male",
+      "setting": "Retail",
+      "center": "AlDawa",
+      "sector": "Retail",
+      "city": "Jeddah",
+      "rating": 4.1,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          1,
+          3
+        ],
+        "startH": 10,
+        "endH": 15
+      }
+    },
+    {
+      "id": "pha_120",
+      "role": "Pharmacist",
+      "name": "جواهر الجهني",
+      "gender": "Female",
+      "setting": "Retail",
+      "center": "AlNahdi",
+      "sector": "Retail",
+      "city": "Jeddah",
+      "rating": 4.6,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          2,
+          3
+        ],
+        "startH": 9,
+        "endH": 15
+      }
+    },
+    {
+      "id": "pha_121",
+      "role": "Pharmacist",
+      "name": "عبير الحارثي",
+      "gender": "Female",
+      "setting": "Retail",
+      "center": "AlNahdi",
+      "sector": "Retail",
+      "city": "Dammam",
+      "rating": 4.5,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          2,
+          6
+        ],
+        "startH": 9,
+        "endH": 14
+      }
+    },
+    {
+      "id": "pha_122",
+      "role": "Pharmacist",
+      "name": "عبدالله البلوي",
+      "gender": "Male",
+      "setting": "Retail",
+      "center": "AlNahdi",
+      "sector": "Retail",
+      "city": "Dammam",
+      "rating": 3.8,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          2
+        ],
+        "startH": 10,
+        "endH": 16
+      }
+    },
+    {
+      "id": "pha_123",
+      "role": "Pharmacist",
+      "name": "فيصل الدوسري",
+      "gender": "Male",
+      "setting": "Retail",
+      "center": "AlNahdi",
+      "sector": "Retail",
+      "city": "Riyadh",
+      "rating": 4.3,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          6
+        ],
+        "startH": 9,
+        "endH": 14
+      }
+    },
+    {
+      "id": "pha_124",
+      "role": "Pharmacist",
+      "name": "مها العمري",
+      "gender": "Female",
+      "setting": "Hospital",
+      "center": "Dr. Sulaiman Al-Habib",
+      "sector": "MOH",
+      "city": "Riyadh",
+      "rating": 4.3,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          3,
+          6
+        ],
+        "startH": 9,
+        "endH": 15
+      }
+    },
+    {
+      "id": "pha_125",
+      "role": "Pharmacist",
+      "name": "فيصل الشمري",
+      "gender": "Male",
+      "setting": "Hospital",
+      "center": "Al Hammadi Hospital",
+      "sector": "MOH",
+      "city": "Jeddah",
+      "rating": 4.2,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          2,
+          3,
+          6
+        ],
+        "startH": 10,
+        "endH": 16
+      }
+    },
+    {
+      "id": "pha_126",
+      "role": "Pharmacist",
+      "name": "نورة العمري",
+      "gender": "Female",
+      "setting": "Retail",
+      "center": "AlNahdi",
+      "sector": "Retail",
+      "city": "Riyadh",
+      "rating": 4.8,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          6
+        ],
+        "startH": 9,
+        "endH": 14
+      }
+    },
+    {
+      "id": "pha_127",
+      "role": "Pharmacist",
+      "name": "فيصل المطيري",
+      "gender": "Male",
+      "setting": "Retail",
+      "center": "UPC",
+      "sector": "Retail",
+      "city": "Dammam",
+      "rating": 4.5,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          1
+        ],
+        "startH": 10,
+        "endH": 15
+      }
+    },
+    {
+      "id": "pha_128",
+      "role": "Pharmacist",
+      "name": "سعود الزهراني",
+      "gender": "Male",
+      "setting": "Retail",
+      "center": "UPC",
+      "sector": "Retail",
+      "city": "Dammam",
+      "rating": 4.9,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          2,
+          3
+        ],
+        "startH": 10,
+        "endH": 16
+      }
+    },
+    {
+      "id": "pha_129",
+      "role": "Pharmacist",
+      "name": "فيصل المالكي",
+      "gender": "Male",
+      "setting": "Retail",
+      "center": "UPC",
+      "sector": "Retail",
+      "city": "Riyadh",
+      "rating": 4.4,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          2,
+          3
+        ],
+        "startH": 10,
+        "endH": 14
+      }
+    },
+    {
+      "id": "pha_130",
+      "role": "Pharmacist",
+      "name": "تركي السلمي",
+      "gender": "Male",
+      "setting": "Retail",
+      "center": "AlDawa",
+      "sector": "Retail",
+      "city": "Jeddah",
+      "rating": 4.3,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          2,
+          6
+        ],
+        "startH": 10,
+        "endH": 14
+      }
+    }
+  ],
+  "purchasers": [
+    {
+      "id": "pur_131",
+      "role": "Purchaser",
+      "name": "الجوهرة الجهني",
+      "gender": "Female",
+      "sector": "MOH",
+      "center": "King Fahd Hospital",
+      "city": "Dammam",
+      "rating": 4,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          1,
+          2
+        ],
+        "startH": 9,
+        "endH": 14
+      }
+    },
+    {
+      "id": "pur_132",
+      "role": "Purchaser",
+      "name": "أحمد السلمي",
+      "gender": "Male",
+      "sector": "Private",
+      "center": "Dr. Sulaiman Al-Habib",
+      "city": "Dammam",
+      "rating": 4.5,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          3,
+          6
+        ],
+        "startH": 10,
+        "endH": 16
+      }
+    },
+    {
+      "id": "pur_133",
+      "role": "Purchaser",
+      "name": "أمل السبيعي",
+      "gender": "Female",
+      "sector": "MOH",
+      "center": "Prince Sultan Medical City",
+      "city": "Jeddah",
+      "rating": 4.2,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          3,
+          6
+        ],
+        "startH": 10,
+        "endH": 15
+      }
+    },
+    {
+      "id": "pur_134",
+      "role": "Purchaser",
+      "name": "يوسف البلوي",
+      "gender": "Male",
+      "sector": "Private",
+      "center": "Dr. Sulaiman Al-Habib",
+      "city": "Dammam",
+      "rating": 3.9,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          6
+        ],
+        "startH": 10,
+        "endH": 16
+      }
+    },
+    {
+      "id": "pur_135",
+      "role": "Purchaser",
+      "name": "ماجد الشمري",
+      "gender": "Male",
+      "sector": "MOH",
+      "center": "King Faisal Hospital",
+      "city": "Dammam",
+      "rating": 4.5,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          2,
+          3
+        ],
+        "startH": 9,
+        "endH": 14
+      }
+    },
+    {
+      "id": "pur_136",
+      "role": "Purchaser",
+      "name": "يوسف السلمي",
+      "gender": "Male",
+      "sector": "MOH",
+      "center": "King Faisal Hospital",
+      "city": "Jeddah",
+      "rating": 3.9,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          1,
+          3
+        ],
+        "startH": 10,
+        "endH": 16
+      }
+    },
+    {
+      "id": "pur_137",
+      "role": "Purchaser",
+      "name": "محمد العنزي",
+      "gender": "Male",
+      "sector": "Private",
+      "center": "Saudi German Hospital",
+      "city": "Riyadh",
+      "rating": 4,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          2,
+          3
+        ],
+        "startH": 10,
+        "endH": 15
+      }
+    },
+    {
+      "id": "pur_138",
+      "role": "Purchaser",
+      "name": "لمياء الجهني",
+      "gender": "Female",
+      "sector": "MOH",
+      "center": "King Fahd Hospital",
+      "city": "Jeddah",
+      "rating": 4.5,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          6
+        ],
+        "startH": 9,
+        "endH": 16
+      }
+    },
+    {
+      "id": "pur_139",
+      "role": "Purchaser",
+      "name": "عمر المطيري",
+      "gender": "Male",
+      "sector": "MOH",
+      "center": "King Fahd Hospital",
+      "city": "Riyadh",
+      "rating": 3.8,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          0,
+          1,
+          2
+        ],
+        "startH": 9,
+        "endH": 14
+      }
+    },
+    {
+      "id": "pur_140",
+      "role": "Purchaser",
+      "name": "ريم العنزي",
+      "gender": "Female",
+      "sector": "MOH",
+      "center": "Jeddah Central Hospital",
+      "city": "Riyadh",
+      "rating": 4.3,
+      "availability": {
+        "slotMinutes": 15,
+        "fixedWeekly": true,
+        "days": [
+          2,
+          3
+        ],
+        "startH": 10,
+        "endH": 16
+      }
+    }
+  ],
+  "reps": [
+    {
+      "id": "rep_141",
+      "role": "PM",
+      "name": "عبدالعزيز الدوسري",
+      "gender": "Male",
+      "company": "Sanofi",
+      "product": "Surgiclean Solution",
+      "territory": "Dammam",
+      "specialties": [
+        "Pediatrics",
+        "Pulmonary"
+      ]
+    },
+    {
+      "id": "rep_142",
+      "role": "PS",
+      "name": "رنا الحربي",
+      "gender": "Female",
+      "company": "AstraZeneca",
+      "product": "Pulmoease Inhaler",
+      "territory": "Jeddah",
+      "specialties": [
+        "Dermatology",
+        "General Surgery"
+      ]
+    },
+    {
+      "id": "rep_143",
+      "role": "PS",
+      "name": "علي السبيعي",
+      "gender": "Male",
+      "company": "Hikma",
+      "product": "Internomed XR",
+      "territory": "Jeddah",
+      "specialties": [
+        "Cardiology",
+        "Pulmonary"
+      ]
+    },
+    {
+      "id": "rep_144",
+      "role": "PS",
+      "name": "فهد الرشيدي",
+      "gender": "Male",
+      "company": "Novartis",
+      "product": "Glucobalance 500mg",
+      "territory": "Jeddah",
+      "specialties": [
+        "Orthopedics",
+        "OB/GYN"
+      ]
+    },
+    {
+      "id": "rep_145",
+      "role": "MR",
+      "name": "خالد العمري",
+      "gender": "Male",
+      "company": "Tabuk Pharmaceuticals",
+      "product": "Glucobalance 500mg",
+      "territory": "Dammam",
+      "specialties": [
+        "Dermatology",
+        "Dentistry"
+      ]
+    },
+    {
+      "id": "rep_146",
+      "role": "KAM",
+      "name": "نوف البقمي",
+      "gender": "Female",
+      "company": "AstraZeneca",
+      "product": "Cardiomax 10mg",
+      "territory": "Jeddah",
+      "specialties": [
+        "Pediatrics",
+        "Cardiology"
+      ]
+    },
+    {
+      "id": "rep_147",
+      "role": "PS",
+      "name": "رهف الحربي",
+      "gender": "Female",
+      "company": "GSK",
+      "product": "Gynecare 200mg",
+      "territory": "Riyadh",
+      "specialties": [
+        "Orthopedics",
+        "Dermatology"
+      ]
+    },
+    {
+      "id": "rep_148",
+      "role": "MR",
+      "name": "شهد العنزي",
+      "gender": "Female",
+      "company": "SPIMACO",
+      "product": "Osteofix 70mg",
+      "territory": "Riyadh",
+      "specialties": [
+        "Endocrinology",
+        "Internal Medicine"
+      ]
+    },
+    {
+      "id": "rep_149",
+      "role": "PM",
+      "name": "يوسف الشهري",
+      "gender": "Male",
+      "company": "Roche",
+      "product": "Internomed XR",
+      "territory": "Dammam",
+      "specialties": [
+        "Pediatrics",
+        "Cardiology"
+      ]
+    },
+    {
+      "id": "rep_150",
+      "role": "PS",
+      "name": "خالد البقمي",
+      "gender": "Male",
+      "company": "Sanofi",
+      "product": "Osteofix 70mg",
+      "territory": "Jeddah",
+      "specialties": [
+        "Endocrinology",
+        "Orthopedics"
+      ]
+    }
+  ]
+}

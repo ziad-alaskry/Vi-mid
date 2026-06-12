@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-inter: "Inter";
+  --green-primary: #3E7C6A;
+  --green-pressed: #2A5648;
+  --green-tint: #E4F1EC;
+  --blue-accent: #5FA8D3;
+  --surface: #F4F8F6;
+  --hairline: #E2E8E5;
+  --ink: #1C2B26;
+  --ink-soft: #5A6B64;
+}
+
+html, body { height: 100%; }
+body {
+  background: #EDF1EF;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+* { -webkit-tap-highlight-color: transparent; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+/* phone frame for the demo on wide screens */
+.app-frame {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  background: #FFFFFF;
+  position: relative;
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+input, select, textarea, button { font-family: inherit; }
+
+/* keyboard focus only */
+:focus-visible { outline: 2px solid var(--green-primary); outline-offset: 2px; border-radius: 6px; }
+:focus:not(:focus-visible) { outline: none; }

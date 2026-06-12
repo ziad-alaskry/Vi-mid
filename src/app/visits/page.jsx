@@ -1,0 +1,206 @@
+"use client";
+
+import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useStore } from "@/lib/store";
+import { hcpById, repById } from "@/lib/seed";
+import { prettyDate, slotsForDay, upcomingDatesFor } from "@/lib/slots";
+import { Header, Card, Badge, Button, EmptyState, Avatar, Stars } from "@/components/ui";
+import { Icon } from "@/components/icons";
+
+export default function VisitsPage() {
+  const { currentUser, isHcp, state, cancelBooking } = useStore();
+  const router = useRouter();
+  const [tab, setTab] = useState("upcoming");
+  const [reschedId, setReschedId] = useState(null);
+
+  const mine = useMemo(() => {
+    if (!currentUser) return [];
+    return state.bookings
+      .filter((b) => (isHcp ? b.hcpId === currentUser.id : b.repId === currentUser.id))
+      .sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
+  }, [state.bookings, currentUser, isHcp]);
+
+  const upcoming = mine.filter((b) => b.status === "upcoming");
+  const history = mine.filter((b) => b.status !== "upcoming");
+  const list = tab === "upcoming" ? upcoming : history;
+
+  return (
+    <>
+      <Header
+        title="Visits"
+        subtitle={isHcp ? "Your booked visits" : "Visits you scheduled"}
+        right={
+          <Button variant="soft" className="h-9 px-3" onClick={() => router.push("/new-visit")}>
+            <Icon name="plus" size={18} /> {isHcp ? "Availability" : "Book"}
+          </Button>
+        }
+      />
+
+      <div className="px-4 pt-3">
+        <div className="grid grid-cols-2 bg-surface rounded-lg p-1 text-sm font-medium">
+          {[["upcoming", "Upcoming"], ["history", "History"]].map(([k, label]) => (
+            <button
+              key={k}
+              onClick={() => setTab(k)}
+              className={`h-9 rounded-md transition ${tab === k ? "bg-white text-green-pressed shadow-sm" : "text-ink-soft"}`}
+            >
+              {label}
+              {k === "upcoming" && upcoming.length > 0 && (
+                <span className="ml-1.5 text-xs text-green-primary">{upcoming.length}</span>
+              )}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex-1 overflow-y-auto px-4 py-3 space-y-2.5 no-scrollbar">
+        {list.length === 0 ? (
+          <EmptyState
+            icon="calendar"
+            title={tab === "upcoming" ? "No upcoming visits" : "No past visits yet"}
+            hint={
+              isHcp
+                ? "Reps will book against the availability you publish."
+                : "Tap Book to find an HCP and schedule a 120-second visit."
+            }
+          />
+        ) : (
+          list.map((b) => (
+            <VisitCard
+              key={b.id}
+              booking={b}
+              isHcp={isHcp}
+              onStart={() => router.push(`/call/${b.id}`)}
+              onCancel={() => cancelBooking(b.id)}
+              onReschedule={() => setReschedId(b.id)}
+            />
+          ))
+        )}
+      </div>
+
+      {reschedId && (
+        <RescheduleSheet bookingId={reschedId} onClose={() => setReschedId(null)} />
+      )}
+    </>
+  );
+}
+
+function VisitCard({ booking, isHcp, onStart, onCancel, onReschedule }) {
+  const hcp = hcpById(booking.hcpId);
+  const rep = repById(booking.repId);
+  const counterpart = isHcp ? rep : hcp;
+  const myRatingGiven = isHcp ? booking.hcpRating : booking.repRating;
+
+  return (
+    <Card className="p-3.5">
+      <div className="flex items-start gap-3">
+        <Avatar name={counterpart?.name || "—"} tone={isHcp ? "blue" : "green"} size={42} />
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center justify-between gap-2">
+            <span className="font-medium truncate" dir="rtl">{counterpart?.name}</span>
+            {booking.status === "cancelled" && <Badge tone="danger">Cancelled</Badge>}
+            {booking.status === "done" && <Badge tone="soft">Done</Badge>}
+          </div>
+          <p className="text-sm text-ink-soft truncate">
+            {isHcp
+              ? `${rep?.role} · ${booking.company}`
+              : `${hcp?.specialty || hcp?.role} · ${hcp?.center}`}
+          </p>
+          <div className="flex items-center gap-3 mt-1.5 text-sm">
+            <span className="inline-flex items-center gap-1 text-green-pressed">
+              <Icon name="calendar" size={15} /> {prettyDate(booking.date)}
+            </span>
+            <span className="inline-flex items-center gap-1 text-green-pressed">
+              <Icon name="clock" size={15} /> {booking.time}
+            </span>
+          </div>
+          {!isHcp && booking.product && (
+            <p className="text-xs text-ink-soft mt-1">Detailing: {booking.product}</p>
+          )}
+        </div>
+      </div>
+
+      {booking.status === "upcoming" && (
+        <div className="flex items-center gap-2 mt-3">
+          <Button variant="primary" className="flex-1" onClick={onStart}>
+            <Icon name="video" size={18} /> Start call
+          </Button>
+          <Button variant="ghost" className="px-3" onClick={onReschedule} aria-label="Reschedule">
+            <Icon name="calendar" size={18} />
+          </Button>
+          <Button variant="danger" className="px-3" onClick={onCancel} aria-label="Cancel">
+            <Icon name="x" size={18} />
+          </Button>
+        </div>
+      )}
+
+      {booking.status === "done" && (
+        <div className="mt-3 pt-3 border-t border-hairline flex items-center justify-between">
+          <span className="text-xs text-ink-soft">
+            {myRatingGiven ? "You rated this visit" : "Rating skipped"}
+          </span>
+          {myRatingGiven ? <Stars value={myRatingGiven} /> : <Badge tone="soft">—</Badge>}
+        </div>
+      )}
+    </Card>
+  );
+}
+
+function RescheduleSheet({ bookingId, onClose }) {
+  const { state, updateBooking } = useStore();
+  const booking = state.bookings.find((b) => b.id === bookingId);
+  const hcp = hcpById(booking.hcpId);
+  const [date, setDate] = useState(booking.date);
+  const [time, setTime] = useState(booking.time);
+
+  // simple slot list from the hcp availability window
+  const dates = upcomingDatesFor(hcp.availability, 8);
+  const slots = slotsForDay(hcp.availability);
+
+  return (
+    <div className="fixed inset-0 z-40 flex items-end justify-center bg-black/40" onClick={onClose}>
+      <div
+        className="w-full max-w-app bg-white rounded-t-2xl p-4 pb-6"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="w-10 h-1 rounded-full bg-hairline mx-auto mb-3" />
+        <h2 className="font-semibold text-[15px] mb-3">Reschedule visit</h2>
+        <p className="text-xs text-ink-soft mb-2">Pick a new day</p>
+        <div className="flex gap-2 overflow-x-auto no-scrollbar pb-2">
+          {dates.map((d) => (
+            <button
+              key={d}
+              onClick={() => setDate(d)}
+              className={`shrink-0 px-3 h-10 rounded-lg text-sm border ${date === d ? "border-green-primary bg-green-tint text-green-pressed" : "border-hairline text-ink-soft"}`}
+            >
+              {prettyDate(d)}
+            </button>
+          ))}
+        </div>
+        <p className="text-xs text-ink-soft mt-3 mb-2">Pick a time</p>
+        <div className="grid grid-cols-4 gap-2 max-h-40 overflow-y-auto no-scrollbar">
+          {slots.map((s) => (
+            <button
+              key={s.label}
+              onClick={() => setTime(s.label)}
+              className={`h-10 rounded-lg text-sm border ${time === s.label ? "border-green-primary bg-green-tint text-green-pressed" : "border-hairline text-ink-soft"}`}
+            >
+              {s.label.replace(" ", "")}
+            </button>
+          ))}
+        </div>
+        <div className="flex gap-2 mt-4">
+          <Button variant="ghost" className="flex-1" onClick={onClose}>Cancel</Button>
+          <Button
+            variant="primary"
+            className="flex-1"
+            onClick={() => { updateBooking(bookingId, { date, time }); onClose(); }}
+          >
+            Confirm
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}
