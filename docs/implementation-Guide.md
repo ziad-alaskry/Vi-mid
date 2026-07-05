@@ -210,6 +210,25 @@ seams in both locales/viewports.
 
 **DoD:** admin sees live demo metrics; survey CTA appears and clicks are counted.
 
+**Status: done.** Added an `Admin` system persona (`src/lib/seed.js` — not a directory
+entry, since it isn't tied to a real HCP/rep record) as a 5th login card. `store.jsx`
+exposes `isAdmin`; `AppChrome.jsx` confines admin to `/admin` + `/profile` and confines
+everyone else away from `/admin`. `TabBar.jsx` renders a 2-tab set (Dashboard, Profile) for
+admin instead of the usual 4. `src/app/[locale]/admin/page.jsx` computes KPIs client-side
+from `state.bookings` (total/completed/cancelled/completion rate, avg mutual rating,
+breakdown by city and specialty) and shows survey click counts — no backend, all derived
+from local demo data, matching this phase's explicit scope. Leaderboard was intentionally
+dropped from the original API surface since Loyalty (Phase 1) no longer exists.
+
+Survey CTA: `src/lib/config.js` (`SURVEY.urlHcp`/`urlRep`, env-overridable) + a new
+`trackSurveyClick` DataProvider operation (local counter now, `POST /api/feedback/click`
+later per the docs). Surfaced as a "Share your feedback" card on the Profile page for
+rep/HCP roles (not shown to admin). `Profile.jsx` also now degrades gracefully for the
+admin role — no ratings/fields/feedback cards, since none of that applies.
+
+Verified with `npm run build` and the full Playwright VRT suite, extended to cover the
+admin login → dashboard → profile path in both locales/viewports.
+
 ## Phase 7 — QA, accessibility & performance
 - QA matrix across roles; RTL/LTR parity on every screen; mobile→desktop responsiveness;
   empty/error states; a11y (focus order, labels, contrast, tap targets); perf pass

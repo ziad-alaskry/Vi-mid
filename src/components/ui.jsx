@@ -16,6 +16,7 @@ export function Avatar({ name = "", size = 44, tone = "green" }) {
   const tones = {
     green: "bg-green-tint text-green-pressed",
     blue: "bg-blue-tint text-blue-pressed",
+    neutral: "bg-surface text-ink-soft",
   };
   return (
     <span

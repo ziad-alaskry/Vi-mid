@@ -7,11 +7,12 @@ import { useStore } from "@/lib/store";
 import { Header, Card, Badge, Button, Avatar, Stars } from "@/components/ui";
 import { Icon } from "@/components/icons";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { SURVEY } from "@/lib/config";
 
 export default function ProfilePage() {
   const t = useTranslations("profile");
   const tf = useTranslations("fields");
-  const { currentUser, isHcp, state, logout, reset } = useStore();
+  const { currentUser, isHcp, isAdmin, state, logout, reset, trackSurveyClick } = useStore();
   const router = useRouter();
   const [confirmReset, setConfirmReset] = useState(false);
 
@@ -35,6 +36,8 @@ export default function ProfilePage() {
         [tf("city"), currentUser.city],
         [tf("sector"), currentUser.sector || "—"],
       ]
+    : isAdmin
+    ? []
     : [
         [tf("role"), currentUser.role],
         [tf("company"), currentUser.company],
@@ -45,6 +48,10 @@ export default function ProfilePage() {
 
   function signOut() { logout(); router.replace("/"); }
   function doReset() { reset(); router.replace("/"); }
+  function giveFeedback() {
+    trackSurveyClick(isHcp ? "hcp" : "rep");
+    window.open(isHcp ? SURVEY.urlHcp : SURVEY.urlRep, "_blank", "noopener,noreferrer");
+  }
 
   return (
     <>
@@ -53,44 +60,64 @@ export default function ProfilePage() {
         right={
           <div className="flex items-center gap-2">
             <LanguageSwitcher />
-            <Button variant="ghost" className="h-9 px-3" aria-label={t("edit")}><Icon name="pencil" size={18} /></Button>
+            {!isAdmin && (
+              <Button variant="ghost" className="h-9 px-3" aria-label={t("edit")}><Icon name="pencil" size={18} /></Button>
+            )}
           </div>
         }
       />
       <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4 no-scrollbar">
         <div className="flex flex-col items-center text-center pt-2">
-          <Avatar name={currentUser.name} size={76} tone={isHcp ? "green" : "blue"} />
+          <Avatar name={currentUser.name} size={76} tone={isAdmin ? "neutral" : isHcp ? "green" : "blue"} />
           <p className="font-semibold text-lg mt-3" dir="rtl">{currentUser.name}</p>
           <div className="mt-1">
-            <Badge tone={isHcp ? "tint" : "blue"}>{isHcp ? t("healthcareProfessional") : t("salesRep")}</Badge>
+            <Badge tone={isAdmin ? "soft" : isHcp ? "tint" : "blue"}>
+              {isAdmin ? t("administrator") : isHcp ? t("healthcareProfessional") : t("salesRep")}
+            </Badge>
           </div>
         </div>
 
-        <Card className="p-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-ink-soft">{t("ratingReceived")}</p>
-              {received.avg ? (
-                <div className="flex items-center gap-2 mt-1">
-                  <Stars value={received.avg} />
-                  <span className="font-medium">{received.avg}</span>
-                </div>
-              ) : (
-                <p className="font-medium mt-1">{t("noRatingsYet")}</p>
-              )}
+        {!isAdmin && (
+          <Card className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-ink-soft">{t("ratingReceived")}</p>
+                {received.avg ? (
+                  <div className="flex items-center gap-2 mt-1">
+                    <Stars value={received.avg} />
+                    <span className="font-medium">{received.avg}</span>
+                  </div>
+                ) : (
+                  <p className="font-medium mt-1">{t("noRatingsYet")}</p>
+                )}
+              </div>
+              <span className="text-xs text-ink-soft">{t("ratedVisits", { count: received.count })}</span>
             </div>
-            <span className="text-xs text-ink-soft">{t("ratedVisits", { count: received.count })}</span>
-          </div>
-        </Card>
+          </Card>
+        )}
 
-        <Card className="p-1 overflow-hidden">
-          {fields.map(([k, v], i) => (
-            <div key={k} className={`flex items-center justify-between gap-3 px-3 py-3 ${i < fields.length - 1 ? "border-b border-hairline" : ""}`}>
-              <span className="text-sm text-ink-soft">{k}</span>
-              <span className="text-sm font-medium text-end truncate max-w-[60%]">{v}</span>
+        {fields.length > 0 && (
+          <Card className="p-1 overflow-hidden">
+            {fields.map(([k, v], i) => (
+              <div key={k} className={`flex items-center justify-between gap-3 px-3 py-3 ${i < fields.length - 1 ? "border-b border-hairline" : ""}`}>
+                <span className="text-sm text-ink-soft">{k}</span>
+                <span className="text-sm font-medium text-end truncate max-w-[60%]">{v}</span>
+              </div>
+            ))}
+          </Card>
+        )}
+
+        {!isAdmin && (
+          <Card className="p-4">
+            <div className="flex items-center justify-between gap-3">
+              <div className="min-w-0">
+                <p className="text-sm font-medium">{t("giveFeedback")}</p>
+                <p className="text-xs text-ink-soft mt-0.5">{t("giveFeedbackHint")}</p>
+              </div>
+              <Button variant="soft" className="shrink-0 h-9 px-3" onClick={giveFeedback}>{t("giveFeedback")}</Button>
             </div>
-          ))}
-        </Card>
+          </Card>
+        )}
 
         <div className="space-y-2 pt-1">
           <Button variant="outline" className="w-full" onClick={signOut}>

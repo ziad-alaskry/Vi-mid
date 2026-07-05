@@ -15,13 +15,15 @@
     "visits": "Visits",
     "newVisit": "New visit",
     "library": "Library",
-    "profile": "Profile"
+    "profile": "Profile",
+    "admin": "Dashboard"
   },
   "login": {
     "tagline": "Pre-scheduled 120-second video visits between healthcare professionals and pharma reps.",
     "chooseProfile": "Choose a demo profile to sign in",
     "rep": "Rep",
     "hcp": "HCP",
+    "admin": "Admin",
     "demoNote": "Demo build · mock data · no real accounts. State is saved in your browser only."
   },
   "visits": {
@@ -158,9 +160,12 @@
     "edit": "Edit",
     "healthcareProfessional": "Healthcare professional",
     "salesRep": "Sales rep",
+    "administrator": "Administrator",
     "ratingReceived": "Rating received",
     "noRatingsYet": "No ratings yet",
     "ratedVisits": "{count, plural, one {# rated visit} other {# rated visits}}",
+    "giveFeedback": "Share your feedback",
+    "giveFeedbackHint": "Help shape the pilot — takes about 2 minutes.",
     "signOut": "Sign out",
     "resetData": "Reset demo data",
     "resetConfirmTitle": "Reset all demo data?",
@@ -179,5 +184,21 @@
     "territory": "Territory",
     "detailing": "Detailing",
     "specialties": "Specialties"
+  },
+  "admin": {
+    "title": "Admin dashboard",
+    "subtitle": "Demo-level usage metrics",
+    "totalVisits": "Total visits",
+    "completed": "Completed",
+    "cancelled": "Cancelled",
+    "completionRate": "Completion rate",
+    "avgRating": "Avg. mutual rating",
+    "noRatingsYet": "No ratings yet",
+    "byCity": "Visits by city",
+    "bySpecialty": "Visits by specialty",
+    "noData": "No visits booked yet in this demo session.",
+    "surveyClicks": "Feedback survey clicks",
+    "hcpClicks": "From HCPs",
+    "repClicks": "From reps"
   }
 }

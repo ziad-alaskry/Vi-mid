@@ -45,6 +45,21 @@ single-file change with no page/component edits.
 - All state flows through the **DataProvider** seam; `localStorageProvider` is the demo impl.
   Production: add an API-backed provider implementing the same surface (`load`/`persist`/`clear`
   + `operations`: `login`, `logout`, `book`, `rescheduleBooking`, `updateBooking`,
-  `cancelBooking`, `completeBooking`, `setAvailability`, `reset`) and swap the export in
-  `src/lib/data/index.js` — no page or component changes. Add real auth in place of the
-  persona picker.
+  `cancelBooking`, `completeBooking`, `setAvailability`, `trackSurveyClick`, `reset`) and
+  swap the export in `src/lib/data/index.js` — no page or component changes. Add real auth
+  in place of the persona picker.
+
+## 5. Feedback survey links
+- File: `src/lib/config.js` → `SURVEY.urlHcp`/`urlRep` (placeholders, env-overridable via
+  `NEXT_PUBLIC_SURVEY_URL_HCP`/`_REP`).
+- Click tracking goes through `trackSurveyClick` (local counter today; production wires
+  this to `POST /api/feedback/click`). Counts surface on the admin dashboard
+  (`src/app/[locale]/admin/page.jsx`).
+- Production: replace the placeholder URLs with real Typeform/Google Forms links.
+
+## 6. Admin metrics
+- File: `src/app/[locale]/admin/page.jsx`
+- All KPIs are computed client-side from `state.bookings` in the current browser only —
+  there is no cross-session/cross-user aggregation in this demo.
+- Production: replace the `useMemo` computation with a real `GET /api/admin/metrics` call
+  aggregating across all users/sessions.

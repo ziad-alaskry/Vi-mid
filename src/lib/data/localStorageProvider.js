@@ -17,6 +17,7 @@ export const initialState = {
   currentUserId: null,
   bookings: [],              // {id, hcpId, repId, date, time, durationMin, product, company, status, hcpRating, repRating, repComment, hcpComment}
   availabilityOverrides: {}, // hcpId -> availability object (when an HCP edits their own)
+  surveyClicks: { hcp: 0, rep: 0 }, // feedback survey click-throughs, by audience
   seq: 1,
 };
 
@@ -101,6 +102,12 @@ export const operations = {
   setAvailability: (s, hcpId, availability) => ({
     ...s,
     availabilityOverrides: { ...s.availabilityOverrides, [hcpId]: availability },
+  }),
+
+  // Public feedback-link click tracking (mirrors the future POST /api/feedback/click).
+  trackSurveyClick: (s, audience) => ({
+    ...s,
+    surveyClicks: { ...s.surveyClicks, [audience]: (s.surveyClicks[audience] || 0) + 1 },
   }),
 
   reset: () => ({ ...initialState }),

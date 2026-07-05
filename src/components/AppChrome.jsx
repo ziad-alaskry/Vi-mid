@@ -6,22 +6,26 @@ import { usePathname, useRouter } from "@/i18n/navigation";
 import { useStore } from "@/lib/store";
 import TabBar from "@/components/TabBar";
 
-const TAB_ROUTES = ["/visits", "/new-visit", "/library", "/profile"];
-
 export default function AppChrome({ children }) {
   const t = useTranslations("common");
-  const { ready, currentUser } = useStore();
+  const { ready, currentUser, isAdmin } = useStore();
   const path = usePathname();
   const router = useRouter();
 
   const isLogin = path === "/";
   const isCall = path.startsWith("/call/");
+  const isAdminArea = path.startsWith("/admin");
   const showTabs = !isLogin && !isCall;
 
   useEffect(() => {
     if (!ready) return;
-    if (!currentUser && !isLogin) router.replace("/");
-  }, [ready, currentUser, isLogin, router]);
+    if (!currentUser && !isLogin) { router.replace("/"); return; }
+    if (!currentUser) return;
+    // Admin has no bookings/availability/library — confine it to its own area;
+    // everyone else is confined away from the admin area.
+    if (isAdmin && !isAdminArea && !path.startsWith("/profile")) router.replace("/admin");
+    if (!isAdmin && isAdminArea) router.replace("/visits");
+  }, [ready, currentUser, isAdmin, isLogin, isAdminArea, path, router]);
 
   if (!ready) {
     return (

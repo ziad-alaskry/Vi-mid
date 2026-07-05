@@ -14,3 +14,10 @@ export const CALL = {
 // present so the deployment wiring is a config change, not a code hunt.
 export const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
 export const WS_URL = process.env.NEXT_PUBLIC_WS_URL || "";
+
+// External feedback survey links, surfaced contextually to testers (Profile page)
+// and tracked via trackSurveyClick. Replace with real Typeform/Google Forms URLs.
+export const SURVEY = {
+  urlHcp: process.env.NEXT_PUBLIC_SURVEY_URL_HCP || "https://example.com/survey-hcp",
+  urlRep: process.env.NEXT_PUBLIC_SURVEY_URL_REP || "https://example.com/survey-rep",
+};

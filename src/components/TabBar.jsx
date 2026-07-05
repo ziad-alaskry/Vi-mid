@@ -2,19 +2,26 @@
 
 import { useTranslations } from "next-intl";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
+import { useStore } from "@/lib/store";
 import { Icon } from "@/components/icons";
 
 export default function TabBar() {
   const t = useTranslations("nav");
+  const { isAdmin } = useStore();
   const path = usePathname();
   const router = useRouter();
 
-  const tabs = [
-    { href: "/visits", label: t("visits"), icon: "calendar" },
-    { href: "/new-visit", label: t("newVisit"), icon: "plus", center: true },
-    { href: "/library", label: t("library"), icon: "book" },
-    { href: "/profile", label: t("profile"), icon: "user" },
-  ];
+  const tabs = isAdmin
+    ? [
+        { href: "/admin", label: t("admin"), icon: "chart" },
+        { href: "/profile", label: t("profile"), icon: "user" },
+      ]
+    : [
+        { href: "/visits", label: t("visits"), icon: "calendar" },
+        { href: "/new-visit", label: t("newVisit"), icon: "plus", center: true },
+        { href: "/library", label: t("library"), icon: "book" },
+        { href: "/profile", label: t("profile"), icon: "user" },
+      ];
 
   return (
     <nav
@@ -22,7 +29,10 @@ export default function TabBar() {
                  md:sticky md:top-0 md:h-full md:w-20 md:shrink-0 md:border-t-0 md:border-e md:py-6"
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
     >
-      <ul className="grid grid-cols-4 h-[62px] md:flex md:flex-col md:h-auto md:gap-1 md:px-2">
+      <ul
+        className="grid h-[62px] md:flex md:flex-col md:h-auto md:gap-1 md:px-2"
+        style={{ gridTemplateColumns: `repeat(${tabs.length}, minmax(0, 1fr))` }}
+      >
         {tabs.map((tab) => {
           const active = path === tab.href || path.startsWith(tab.href + "/");
           if (tab.center) {

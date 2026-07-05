@@ -45,15 +45,18 @@ export function StoreProvider({ children }) {
   const cancelBooking = useCallback((id) => setState((s) => operations.cancelBooking(s, id)), [operations]);
   const completeBooking = useCallback((id) => setState((s) => operations.completeBooking(s, id)), [operations]);
   const setAvailability = useCallback((hcpId, availability) => setState((s) => operations.setAvailability(s, hcpId, availability)), [operations]);
+  const trackSurveyClick = useCallback((audience) => setState((s) => operations.trackSurveyClick(s, audience)), [operations]);
   const reset = useCallback(() => { setState(operations.reset()); provider.clear(); }, [operations]);
 
   const currentUser = state.currentUserId ? personById(state.currentUserId) : null;
   const isHcp = currentUser && ["Physician", "Pharmacist", "Purchaser"].includes(currentUser.role);
   const isRep = currentUser && ["MR", "KAM", "PS", "PM"].includes(currentUser.role);
+  const isAdmin = currentUser?.role === "Admin";
 
   const value = {
-    ready, state, currentUser, isHcp, isRep,
-    login, logout, book, rescheduleBooking, updateBooking, cancelBooking, completeBooking, setAvailability, reset,
+    ready, state, currentUser, isHcp, isRep, isAdmin,
+    login, logout, book, rescheduleBooking, updateBooking, cancelBooking, completeBooking,
+    setAvailability, trackSurveyClick, reset,
   };
   return <StoreCtx.Provider value={value}>{children}</StoreCtx.Provider>;
 }

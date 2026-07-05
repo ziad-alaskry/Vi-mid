@@ -14,9 +14,9 @@ export default function LoginPage() {
   const router = useRouter();
   const personas = pickerPersonas();
 
-  function choose(id) {
+  function choose(id, kind) {
     login(id);
-    router.push("/visits");
+    router.push(kind === "Admin" ? "/admin" : "/visits");
   }
 
   return (
@@ -38,15 +38,15 @@ export default function LoginPage() {
           {personas.map((p) => (
             <li key={p.id}>
               <button
-                onClick={() => choose(p.id)}
+                onClick={() => choose(p.id, p.kind)}
                 className="w-full flex items-center gap-3 bg-white border border-hairline rounded-card p-3.5 text-start hover:border-green-primary hover:bg-green-tint/30 transition active:scale-[0.99]"
               >
-                <Avatar name={p.name} tone={p.kind === "Rep" ? "blue" : "green"} />
+                <Avatar name={p.name} tone={p.kind === "Rep" ? "blue" : p.kind === "Admin" ? "neutral" : "green"} />
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
                     <span className="font-medium truncate" dir="rtl">{p.name}</span>
-                    <span className={`text-[11px] px-1.5 py-0.5 rounded-full ${p.kind === "Rep" ? "bg-blue-tint text-blue-pressed" : "bg-green-tint text-green-pressed"}`}>
-                      {p.kind === "Rep" ? t("rep") : t("hcp")}
+                    <span className={`text-[11px] px-1.5 py-0.5 rounded-full ${p.kind === "Rep" ? "bg-blue-tint text-blue-pressed" : p.kind === "Admin" ? "bg-surface text-ink-soft" : "bg-green-tint text-green-pressed"}`}>
+                      {p.kind === "Rep" ? t("rep") : p.kind === "Admin" ? t("admin") : t("hcp")}
                     </span>
                   </div>
                   <p className="text-sm text-ink-soft truncate">{p.blurb}</p>

@@ -11,7 +11,12 @@ export function hcpById(id) {
 export function repById(id) {
   return directory.reps.find((r) => r.id === id) || null;
 }
+
+// Admin is a system role, not a directory entry — the demo has exactly one.
+export const ADMIN_USER = { id: "admin_1", role: "Admin", name: "Admin" };
+
 export function personById(id) {
+  if (id === ADMIN_USER.id) return ADMIN_USER;
   return hcpById(id) || repById(id);
 }
 
@@ -31,6 +36,7 @@ export function pickerPersonas() {
     { ...d.physicians[0], kind: "HCP", blurb: `Physician · ${d.physicians[0].specialty}` },
     { ...d.pharmacists[0], kind: "HCP", blurb: `Pharmacist · ${d.pharmacists[0].setting}` },
     { ...d.purchasers[0], kind: "HCP", blurb: `Purchaser · ${d.purchasers[0].sector}` },
+    { ...ADMIN_USER, kind: "Admin", blurb: "Analytics dashboard" },
   ];
 }
 

@@ -118,8 +118,22 @@ for (const locale of ["ar", "en"]) {
       await shot(page, testInfo, locale, "14-call-live");
     }
 
-    // 9. Not-found boundary
+    // 9. Sign out, log in as the Admin persona (5th persona card) -> dashboard
+    // (the call screen from step 8 hides the tab bar entirely, so navigate back to it first)
+    await page.goto(`/${locale}/visits`);
+    await page.getByRole("link", { name: /^profile$|^الملف الشخصي$/i }).click();
+    await page.getByRole("button", { name: /sign out|تسجيل الخروج/i }).click();
+    await expect(page).toHaveURL(new RegExp(`/${locale}$`));
+    await personaButtons.nth(4).click();
+    await expect(page).toHaveURL(new RegExp(`/${locale}/admin$`));
+    await shot(page, testInfo, locale, "15-admin-dashboard");
+
+    // Admin's profile tab (no fields/ratings/feedback cards for this role)
+    await page.getByRole("link", { name: /^profile$|^الملف الشخصي$/i }).click();
+    await shot(page, testInfo, locale, "16-profile-admin");
+
+    // 10. Not-found boundary
     await page.goto(`/${locale}/this-route-does-not-exist`);
-    await shot(page, testInfo, locale, "15-not-found");
+    await shot(page, testInfo, locale, "17-not-found");
   });
 }
