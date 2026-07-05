@@ -25,7 +25,22 @@ export function StoreProvider({ children }) {
 
   const login = useCallback((id) => setState((s) => operations.login(s, id)), [operations]);
   const logout = useCallback(() => setState((s) => operations.logout(s)), [operations]);
-  const book = useCallback((payload) => setState((s) => operations.book(s, payload)), [operations]);
+
+  // book/rescheduleBooking apply against the current state snapshot (not the
+  // functional updater form) so the caller can learn synchronously whether the
+  // slot-conflict guard rejected the write — see localStorageProvider.js.
+  const book = useCallback((payload) => {
+    const next = operations.book(state, payload);
+    setState(next);
+    return next !== state;
+  }, [operations, state]);
+
+  const rescheduleBooking = useCallback((id, patch) => {
+    const next = operations.rescheduleBooking(state, id, patch);
+    setState(next);
+    return next !== state;
+  }, [operations, state]);
+
   const updateBooking = useCallback((id, patch) => setState((s) => operations.updateBooking(s, id, patch)), [operations]);
   const cancelBooking = useCallback((id) => setState((s) => operations.cancelBooking(s, id)), [operations]);
   const completeBooking = useCallback((id) => setState((s) => operations.completeBooking(s, id)), [operations]);
@@ -38,7 +53,7 @@ export function StoreProvider({ children }) {
 
   const value = {
     ready, state, currentUser, isHcp, isRep,
-    login, logout, book, updateBooking, cancelBooking, completeBooking, setAvailability, reset,
+    login, logout, book, rescheduleBooking, updateBooking, cancelBooking, completeBooking, setAvailability, reset,
   };
   return <StoreCtx.Provider value={value}>{children}</StoreCtx.Provider>;
 }

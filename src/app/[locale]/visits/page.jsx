@@ -148,15 +148,25 @@ function VisitCard({ booking, isHcp, onStart, onCancel, onReschedule }) {
 function RescheduleSheet({ bookingId, onClose }) {
   const t = useTranslations("visits");
   const locale = useLocale();
-  const { state, updateBooking } = useStore();
+  const { state, rescheduleBooking } = useStore();
   const booking = state.bookings.find((b) => b.id === bookingId);
   const hcp = hcpById(booking.hcpId);
   const [date, setDate] = useState(booking.date);
   const [time, setTime] = useState(booking.time);
+  const [conflict, setConflict] = useState(false);
 
   // simple slot list from the hcp availability window
   const dates = upcomingDatesFor(hcp.availability, 8);
   const slots = slotsForDay(hcp.availability, locale);
+
+  const taken = (d, tm) =>
+    state.bookings.some((b) => b.id !== bookingId && b.hcpId === hcp.id && b.date === d && b.time === tm && b.status === "upcoming");
+
+  function confirm() {
+    const ok = rescheduleBooking(bookingId, { date, time });
+    if (ok) onClose();
+    else setConflict(true);
+  }
 
   return (
     <Sheet onClose={onClose} className="p-4 pb-6">
@@ -166,7 +176,7 @@ function RescheduleSheet({ bookingId, onClose }) {
         {dates.map((d) => (
           <button
             key={d}
-            onClick={() => setDate(d)}
+            onClick={() => { setDate(d); setConflict(false); }}
             className={`shrink-0 px-3 h-10 rounded-lg text-sm border ${date === d ? "border-green-primary bg-green-tint text-green-pressed" : "border-hairline text-ink-soft"}`}
           >
             {prettyDate(d, locale)}
@@ -174,24 +184,35 @@ function RescheduleSheet({ bookingId, onClose }) {
         ))}
       </div>
       <p className="text-xs text-ink-soft mt-3 mb-2">{t("pickTime")}</p>
-      <div className="grid grid-cols-4 gap-2 max-h-40 overflow-y-auto no-scrollbar">
-        {slots.map((s) => (
-          <button
-            key={s.label}
-            onClick={() => setTime(s.label)}
-            className={`h-10 rounded-lg text-sm border ${time === s.label ? "border-green-primary bg-green-tint text-green-pressed" : "border-hairline text-ink-soft"}`}
-          >
-            {s.label.replace(" ", "")}
-          </button>
-        ))}
-      </div>
+      {slots.length === 0 ? (
+        <p className="text-sm text-ink-soft">{t("noAvailableSlots")}</p>
+      ) : (
+        <div className="grid grid-cols-4 gap-2 max-h-40 overflow-y-auto no-scrollbar">
+          {slots.map((s) => {
+            const isTaken = taken(date, s.label);
+            return (
+              <button
+                key={s.label}
+                disabled={isTaken}
+                onClick={() => { setTime(s.label); setConflict(false); }}
+                className={`h-10 rounded-lg text-sm border ${
+                  isTaken
+                    ? "border-hairline text-ink-soft/40 line-through"
+                    : time === s.label
+                    ? "border-green-primary bg-green-tint text-green-pressed"
+                    : "border-hairline text-ink-soft"
+                }`}
+              >
+                {s.label.replace(" ", "")}
+              </button>
+            );
+          })}
+        </div>
+      )}
+      {conflict && <p className="text-xs text-danger mt-2">{t("rescheduleConflict")}</p>}
       <div className="flex gap-2 mt-4">
         <Button variant="ghost" className="flex-1" onClick={onClose}>{t("cancel")}</Button>
-        <Button
-          variant="primary"
-          className="flex-1"
-          onClick={() => { updateBooking(bookingId, { date, time }); onClose(); }}
-        >
+        <Button variant="primary" className="flex-1" disabled={taken(date, time)} onClick={confirm}>
           {t("confirm")}
         </Button>
       </div>

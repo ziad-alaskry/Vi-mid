@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import { useStore } from "@/lib/store";
@@ -10,6 +10,7 @@ import { Icon } from "@/components/icons";
 import { slotsForDay, upcomingDatesFor, prettyDate } from "@/lib/slots";
 
 const SECTORS = ["All", "MOH", "Private", "Retail"];
+const PAGE_SIZE = 40;
 
 export default function Discovery() {
   const t = useTranslations("discovery");
@@ -23,6 +24,7 @@ export default function Discovery() {
   const [specialty, setSpecialty] = useState("All");
   const [selected, setSelected] = useState(null);
   const [showFilters, setShowFilters] = useState(false);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
 
   const hcps = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -34,6 +36,9 @@ export default function Discovery() {
       return true;
     });
   }, [query, territory, sector, specialty]);
+
+  // Reset pagination whenever the result set changes underneath it.
+  useEffect(() => setPageSize(PAGE_SIZE), [query, territory, sector, specialty]);
 
   const activeFilters = [territory, sector, specialty].filter((f) => f !== "All").length;
 
@@ -79,29 +84,37 @@ export default function Discovery() {
         {hcps.length === 0 ? (
           <EmptyState icon="search" title={t("noMatches")} hint={t("noMatchesHint")} />
         ) : (
-          hcps.slice(0, 40).map((h) => (
-            <button key={h.id} onClick={() => setSelected(h)} className="w-full text-start">
-              <Card className="p-3.5 hover:border-green-primary transition">
-                <div className="flex items-center gap-3">
-                  <Avatar name={h.name} />
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2">
-                      <span className="font-medium truncate" dir="rtl">{h.name}</span>
+          <>
+            {hcps.slice(0, pageSize).map((h) => (
+              <button key={h.id} onClick={() => setSelected(h)} className="w-full text-start">
+                <Card className="p-3.5 hover:border-green-primary transition">
+                  <div className="flex items-center gap-3">
+                    <Avatar name={h.name} />
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2">
+                        <span className="font-medium truncate" dir="rtl">{h.name}</span>
+                      </div>
+                      <p className="text-sm text-ink-soft truncate">
+                        {h.specialty || h.role} · {h.center}
+                      </p>
+                      <div className="flex items-center gap-2 mt-1">
+                        <Stars value={h.rating} size={13} />
+                        <span className="text-xs text-ink-soft">{h.rating}</span>
+                        <Badge tone="soft">{h.city}</Badge>
+                      </div>
                     </div>
-                    <p className="text-sm text-ink-soft truncate">
-                      {h.specialty || h.role} · {h.center}
-                    </p>
-                    <div className="flex items-center gap-2 mt-1">
-                      <Stars value={h.rating} size={13} />
-                      <span className="text-xs text-ink-soft">{h.rating}</span>
-                      <Badge tone="soft">{h.city}</Badge>
-                    </div>
+                    <Icon name="chevronRight" size={18} className="text-ink-soft shrink-0 mirror-rtl" />
                   </div>
-                  <Icon name="chevronRight" size={18} className="text-ink-soft shrink-0 mirror-rtl" />
-                </div>
-              </Card>
-            </button>
-          ))
+                </Card>
+              </button>
+            ))}
+            {pageSize < hcps.length && (
+              <div className="pt-1 pb-2 text-center">
+                <p className="text-xs text-ink-soft mb-2">{t("showingCount", { shown: Math.min(pageSize, hcps.length), total: hcps.length })}</p>
+                <Button variant="ghost" onClick={() => setPageSize((n) => n + PAGE_SIZE)}>{t("loadMore")}</Button>
+              </div>
+            )}
+          </>
         )}
       </div>
 
@@ -111,7 +124,11 @@ export default function Discovery() {
           rep={currentUser}
           existing={state.bookings}
           onClose={() => setSelected(null)}
-          onBook={(payload) => { book(payload); setSelected(null); router.push("/visits"); }}
+          onBook={(payload) => {
+            const ok = book(payload);
+            if (ok) { setSelected(null); router.push("/visits"); }
+            return ok;
+          }}
         />
       )}
     </>
@@ -144,11 +161,21 @@ function BookingSheet({ hcp, rep, existing, onClose, onBook }) {
   const locale = useLocale();
   const dates = upcomingDatesFor(hcp.availability, 8);
   const slots = slotsForDay(hcp.availability, locale);
-  const [date, setDate] = useState(dates[0]);
+  const [date, setDate] = useState(dates[0] ?? null);
   const [time, setTime] = useState(null);
+  const [conflict, setConflict] = useState(false);
 
   const taken = (d, tm) =>
     existing.some((b) => b.hcpId === hcp.id && b.date === d && b.time === tm && b.status === "upcoming");
+
+  function confirm() {
+    const ok = onBook({
+      hcpId: hcp.id, repId: rep.id, date, time,
+      durationMin: hcp.availability.slotMinutes,
+      product: rep.product, company: rep.company,
+    });
+    if (!ok) setConflict(true);
+  }
 
   return (
     <Sheet onClose={onClose} className="max-h-[88vh] flex flex-col">
@@ -165,58 +192,58 @@ function BookingSheet({ hcp, rep, existing, onClose, onBook }) {
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-4 no-scrollbar">
-        <p className="text-xs text-ink-soft mb-2">{t("availableDays")}</p>
-        <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1">
-          {dates.map((d) => (
-            <button
-              key={d}
-              onClick={() => { setDate(d); setTime(null); }}
-              className={`shrink-0 px-3 h-11 rounded-lg text-sm border ${date === d ? "border-green-primary bg-green-tint text-green-pressed" : "border-hairline text-ink-soft"}`}
-            >
-              {prettyDate(d, locale)}
-            </button>
-          ))}
+      {dates.length === 0 ? (
+        <div className="flex-1 flex items-center justify-center p-6">
+          <p className="text-sm text-ink-soft text-center">{t("noAvailableDays")}</p>
         </div>
-
-        <p className="text-xs text-ink-soft mt-4 mb-2">{t("availableSlots")}</p>
-        <div className="grid grid-cols-4 gap-2">
-          {slots.map((s) => {
-            const isTaken = taken(date, s.label);
-            const isSel = time === s.label;
-            return (
+      ) : (
+        <div className="flex-1 overflow-y-auto p-4 no-scrollbar">
+          <p className="text-xs text-ink-soft mb-2">{t("availableDays")}</p>
+          <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1">
+            {dates.map((d) => (
               <button
-                key={s.label}
-                disabled={isTaken}
-                onClick={() => setTime(s.label)}
-                className={`h-10 rounded-lg text-xs font-medium border transition ${
-                  isTaken
-                    ? "border-hairline text-ink-soft/40 line-through"
-                    : isSel
-                    ? "border-green-primary bg-green-primary text-white"
-                    : "border-hairline text-green-pressed bg-green-tint/40"
-                }`}
+                key={d}
+                onClick={() => { setDate(d); setTime(null); setConflict(false); }}
+                className={`shrink-0 px-3 h-11 rounded-lg text-sm border ${date === d ? "border-green-primary bg-green-tint text-green-pressed" : "border-hairline text-ink-soft"}`}
               >
-                {s.label.replace(" ", "")}
+                {prettyDate(d, locale)}
               </button>
-            );
-          })}
+            ))}
+          </div>
+
+          <p className="text-xs text-ink-soft mt-4 mb-2">{t("availableSlots")}</p>
+          {slots.length === 0 ? (
+            <p className="text-sm text-ink-soft">{t("noAvailableSlots")}</p>
+          ) : (
+            <div className="grid grid-cols-4 gap-2">
+              {slots.map((s) => {
+                const isTaken = taken(date, s.label);
+                const isSel = time === s.label;
+                return (
+                  <button
+                    key={s.label}
+                    disabled={isTaken}
+                    onClick={() => { setTime(s.label); setConflict(false); }}
+                    className={`h-10 rounded-lg text-xs font-medium border transition ${
+                      isTaken
+                        ? "border-hairline text-ink-soft/40 line-through"
+                        : isSel
+                        ? "border-green-primary bg-green-primary text-white"
+                        : "border-hairline text-green-pressed bg-green-tint/40"
+                    }`}
+                  >
+                    {s.label.replace(" ", "")}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+          {conflict && <p className="text-xs text-danger mt-3">{t("slotConflict")}</p>}
         </div>
-      </div>
+      )}
 
       <div className="p-4 border-t border-hairline">
-        <Button
-          variant="primary"
-          className="w-full"
-          disabled={!time}
-          onClick={() =>
-            onBook({
-              hcpId: hcp.id, repId: rep.id, date, time,
-              durationMin: hcp.availability.slotMinutes,
-              product: rep.product, company: rep.company,
-            })
-          }
-        >
+        <Button variant="primary" className="w-full" disabled={!time || taken(date, time)} onClick={confirm}>
           {time ? t("bookAt", { date: prettyDate(date, locale), time }) : t("pickSlot")}
         </Button>
       </div>

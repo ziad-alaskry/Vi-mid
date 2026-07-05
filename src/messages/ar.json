@@ -47,7 +47,9 @@
     "rescheduleTitle": "إعادة جدولة الزيارة",
     "pickDay": "اختر يومًا جديدًا",
     "pickTime": "اختر وقتًا",
-    "confirm": "تأكيد"
+    "confirm": "تأكيد",
+    "rescheduleConflict": "هذا الموعد محجوز بالفعل. اختر موعدًا آخر.",
+    "noAvailableSlots": "لا توجد مواعيد متاحة لهذا اليوم."
   },
   "discovery": {
     "title": "زيارة جديدة",
@@ -58,12 +60,17 @@
     "sector": "القطاع",
     "specialty": "التخصص",
     "resultsCount": "{count} نتيجة",
+    "showingCount": "عرض {shown} من {total}",
+    "loadMore": "تحميل المزيد",
     "noMatches": "لا توجد نتائج",
     "noMatchesHint": "جرّب إزالة أحد الفلاتر أو البحث باسم مختلف.",
     "availableDays": "الأيام المتاحة",
     "availableSlots": "الأوقات المتاحة",
     "pickSlot": "اختر موعدًا",
-    "bookAt": "حجز {date} · {time}"
+    "bookAt": "حجز {date} · {time}",
+    "slotConflict": "تم حجز هذا الموعد للتو. اختر موعدًا آخر.",
+    "noAvailableDays": "لا توجد أيام عمل متاحة لهذا الكادر الصحي حاليًا.",
+    "noAvailableSlots": "لا توجد مواعيد متاحة لهذا اليوم."
   },
   "availability": {
     "title": "توفري",

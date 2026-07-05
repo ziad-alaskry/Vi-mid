@@ -137,6 +137,18 @@ session — worth a manual pass before calling the responsive work final.
 **DoD:** each flow handles empty/duplicate/edge inputs without breakage; ratings persist and
 display; no double-bookings.
 
+**Status: done.** Fixed a real double-booking hole: `RescheduleSheet` had no conflict guard
+at all, so a rep could reschedule onto a slot another visit already held. Added a
+`isSlotTaken` guard in `src/lib/data/localStorageProvider.js` (mirrors the architecture doc's
+atomic `findOneAndUpdate` pattern) used by both `book` and a new `rescheduleBooking`
+operation; `store.jsx`'s `book`/`rescheduleBooking` now return a success boolean so the UI
+can show an inline conflict message instead of silently double-booking. `RescheduleSheet`
+now disables already-taken slots (previously it disabled none). Guarded the zero-available-
+day and zero-available-slot edge cases in both booking sheets (previously `BookingSheet`
+could submit `date: undefined` if an HCP had no duty days selected). Added "Load more"
+pagination to the directory (previously silently hard-capped at 40 results with no way to
+reach the rest). Verified with `npm run build` and `npm run dev` (no runtime errors).
+
 ## Phase 5 — Content & integration seams (mock, swappable)
 - **Companion chatbot** and **Medical updates** behind a `ContentProvider` (mock impl now,
   stable card/message shapes) — `src/app/library/page.jsx`.

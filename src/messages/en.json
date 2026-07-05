@@ -47,7 +47,9 @@
     "rescheduleTitle": "Reschedule visit",
     "pickDay": "Pick a new day",
     "pickTime": "Pick a time",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "rescheduleConflict": "That slot is already booked. Pick another.",
+    "noAvailableSlots": "No time slots are available for this day."
   },
   "discovery": {
     "title": "New visit",
@@ -58,12 +60,17 @@
     "sector": "Sector",
     "specialty": "Specialty",
     "resultsCount": "{count} results",
+    "showingCount": "Showing {shown} of {total}",
+    "loadMore": "Load more",
     "noMatches": "No matches",
     "noMatchesHint": "Try clearing a filter or searching a different name.",
     "availableDays": "Available days",
     "availableSlots": "Available slots",
     "pickSlot": "Pick a slot",
-    "bookAt": "Book {date} · {time}"
+    "bookAt": "Book {date} · {time}",
+    "slotConflict": "That slot was just booked. Pick another.",
+    "noAvailableDays": "This HCP has no available duty days right now.",
+    "noAvailableSlots": "No time slots are available for this day."
   },
   "availability": {
     "title": "My availability",
