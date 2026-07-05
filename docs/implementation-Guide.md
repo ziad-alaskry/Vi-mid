@@ -20,6 +20,39 @@ a redo (per the docs' ADR philosophy).
 - **Backend:** **deferred** to one clearly-scoped phase; demo stays client-side, all
   swaps sit behind the data seam.
 
+## Testing
+
+**Playwright** (`@playwright/test`, chromium only) is wired up for end-to-end + visual
+regression checks — `npm run test:e2e` (config: `playwright.config.js`, spec:
+`tests/vrt.spec.js`). It runs the real login → book → library → profile → sign-out →
+HCP-login → call flow through the actual UI (not seeded state) across two projects
+(`mobile`, `desktop`) and both locales, screenshotting every checkpoint to
+`test-results/vrt/` (gitignored — regenerate locally with the command above; there is no
+baseline-diffing configured yet, this is manual-review VRT). Camera permission is granted
+and a fake media stream is enabled via Chromium launch flags so the call screen renders
+without a real webcam.
+
+**2026-07-05 VRT pass found and fixed 4 real bugs** (all from Phase 2/3 responsive/i18n
+work), each confirmed via screenshot before and after:
+1. Desktop side rail's "New visit"/"زيارة جديدة" label was clipped — the label `<span>`
+   kept a `-translate-x-1/2` transform at the `md:` breakpoint even though `md:static`
+   neutralized the `position: absolute` it was paired with (transforms aren't gated by
+   `position`). Fixed in `TabBar.jsx` with `md:translate-x-0`.
+2. The "ViMed" wordmark rendered as "MedVi" on `ar` pages — the two-span `inline-flex`
+   layout in `Logo` (`ui.jsx`) followed document `dir`, reversing a brand name that must
+   never mirror. Fixed with `dir="ltr"` pinned on the logo's root span.
+3. Unmatched paths under a locale (e.g. `/ar/typo`) fell through to Next's unstyled,
+   untranslated root 404 instead of the in-app `not-found.jsx`, because Next only routes
+   truly-unmatched URLs through a nested segment's boundary for matched routes or explicit
+   `notFound()` calls. Fixed by adding `src/app/[locale]/[...rest]/page.jsx` that calls
+   `notFound()`, forcing the request through the `[locale]` tree.
+4. The desktop `.app-frame` card collapsed to ~130px tall on the call screen — Phase 3's
+   `min-height: auto` at the `md:` breakpoint assumed content sizes itself, which breaks
+   for screens built on `position: absolute` (the call room has no in-flow content to give
+   its ancestor a height). Fixed by using `min-height: calc(100dvh - 4rem)` instead, which
+   also made every other desktop screen read as a proper full-height app shell instead of
+   a squat card floating in empty gray space.
+
 ## Guiding principles (cross-cutting, every phase)
 - **One data surface.** All reads/writes go through `src/lib/data/*` — no component or page
   touches `localStorage` directly. The action surface (`book`, `cancelBooking`,

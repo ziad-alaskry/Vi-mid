@@ -3,3 +3,7 @@ node_modules
 out
 .DS_Store
 .vercel
+test-results
+playwright-report
+blob-report
+playwright/.cache

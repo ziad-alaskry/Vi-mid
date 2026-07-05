@@ -37,8 +37,8 @@ export default function TabBar() {
                   <Icon name="plus" size={26} strokeWidth={2} />
                 </button>
                 <span
-                  className="absolute start-1/2 -translate-x-1/2 bottom-2 text-[11px] text-ink-soft
-                             md:static md:block md:text-center md:mt-1"
+                  className="absolute start-1/2 -translate-x-1/2 bottom-2 text-[11px] text-ink-soft whitespace-nowrap
+                             md:static md:translate-x-0 md:block md:text-center md:mt-1 md:whitespace-normal md:leading-tight"
                 >
                   {tab.label}
                 </span>

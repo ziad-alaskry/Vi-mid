@@ -1,8 +1,10 @@
 import { Icon } from "@/components/icons";
 
 export function Logo({ className = "" }) {
+  // dir="ltr" pins the wordmark's letter order — a brand name must not
+  // mirror with the page direction the way navigational content does.
   return (
-    <span className={`inline-flex items-baseline font-semibold tracking-tight ${className}`}>
+    <span dir="ltr" className={`inline-flex items-baseline font-semibold tracking-tight ${className}`}>
       <span className="text-green-primary">Vi</span>
       <span className="text-ink">Med</span>
     </span>
