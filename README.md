@@ -28,25 +28,25 @@ The app is fully client-side; all state lives in the browser via `localStorage`.
   sign in as a seeded Rep or as an HCP (physician / pharmacist / purchaser).
 - **Role-aware navigation.** The centre tab ("New visit") shows the rep discovery +
   booking flow for reps, and the configurable availability editor for HCPs.
-- **Persistence.** Bookings, ratings, availability edits, and loyalty points survive
-  refresh. Reset from Profile → "Reset demo data".
+- **Persistence.** Bookings, ratings, and availability edits survive refresh. Reset
+  from Profile → "Reset demo data".
 
 ## Implemented features
 
 - Persona-picker login (no real auth)
-- Bottom tab shell: Visits · New visit (centre) · Library · Loyalty · Profile
+- Bottom tab shell: Visits · New visit (centre) · Library · Profile
 - **Visits** — upcoming / history, cancel, reschedule, start call
 - **New visit (rep)** — territory / sector / specialty filters, name + centre search,
   profile sheet, slot booking (taken slots disabled)
 - **Availability (HCP)** — duty days, duty hours, fixed-weekly repeat, and a
   configurable slot length defaulting to 15 min with −5 / +5 steppers (floor 5,
   ceiling 60); slots auto-generate
-- **Video call** — camera self-view, 120-second countdown ring, mute/end; a
-  doctor-only "Extend +60s" control usable exactly twice (caps the call at 240s)
+- **Video call** — camera self-view, 120-second countdown ring, mute/end (either
+  party); an HCP-only "Extend +60s?" prompt shown at most twice, usable up to twice
+  (caps the call at 240s)
 - **Mutual rating** — 5-star + comment after each call
 - **Library** — Updates feed, Treatment library (disease cards + prominent search),
   and a Healthcare companion chat shell
-- **Loyalty** — points tracker + Jarir / eXtra partner offers (no leaderboard)
 - **Profile** — info, rating received, sign out, reset
 
 ## Mock data
@@ -59,7 +59,6 @@ Jeddah, Riyadh, and Dammam. Regenerate with `node gen-data.js`.
 
 - Companion chatbot opens with a `[trusted source]` placeholder
 - Medical-updates feed is mock content (admin / n8n AI agent later)
-- Jarir & eXtra appear as placeholder partner cards
 - Camera self-view stands in for real two-party WebRTC
 - `localStorage` stands in for a real backend and authenticated accounts
 

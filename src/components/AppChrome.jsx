@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useStore } from "@/lib/store";
 import TabBar from "@/components/TabBar";
 
-const TAB_ROUTES = ["/visits", "/new-visit", "/library", "/loyalty", "/profile"];
+const TAB_ROUTES = ["/visits", "/new-visit", "/library", "/profile"];
 
 export default function AppChrome({ children }) {
   const { ready, currentUser } = useStore();

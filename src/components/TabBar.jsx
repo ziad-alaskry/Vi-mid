@@ -8,7 +8,6 @@ const tabs = [
   { href: "/visits", label: "Visits", icon: "calendar" },
   { href: "/new-visit", label: "New visit", icon: "plus", center: true },
   { href: "/library", label: "Library", icon: "book" },
-  { href: "/loyalty", label: "Loyalty", icon: "gift" },
   { href: "/profile", label: "Profile", icon: "user" },
 ];
 
@@ -18,7 +17,7 @@ export default function TabBar() {
 
   return (
     <nav className="sticky bottom-0 z-30 bg-white border-t border-hairline" style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
-      <ul className="grid grid-cols-5 h-[62px]">
+      <ul className="grid grid-cols-4 h-[62px]">
         {tabs.map((t) => {
           const active = path === t.href || path.startsWith(t.href + "/");
           if (t.center) {

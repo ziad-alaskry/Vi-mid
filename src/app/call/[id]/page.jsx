@@ -10,6 +10,8 @@ import { CALL } from "@/lib/config";
 
 const BASE_SECONDS = CALL.BASE_SECONDS;
 const MAX_EXTENSIONS = CALL.MAX_EXTENSIONS;
+const PROMPT_THRESHOLD = CALL.EXTEND_PROMPT_THRESHOLD;
+const MAX_PROMPTS = CALL.MAX_EXTEND_PROMPTS;
 
 export default function CallPage() {
   const { id } = useParams();
@@ -21,6 +23,8 @@ export default function CallPage() {
   const [seconds, setSeconds] = useState(BASE_SECONDS);
   const [total, setTotal] = useState(BASE_SECONDS);
   const [extensions, setExtensions] = useState(0);
+  const [promptsShown, setPromptsShown] = useState(0);
+  const [promptOpen, setPromptOpen] = useState(false);
   const [muted, setMuted] = useState(false);
   const [camReady, setCamReady] = useState(false);
   const videoRef = useRef(null);
@@ -55,6 +59,16 @@ export default function CallPage() {
     return () => clearTimeout(t);
   }, [seconds, phase, endCall]);
 
+  // HCP-only extend prompt: appears at most MAX_PROMPTS times, near call-end
+  useEffect(() => {
+    if (phase !== "live" || !isHcp || promptOpen) return;
+    if (extensions >= MAX_EXTENSIONS || promptsShown >= MAX_PROMPTS) return;
+    if (seconds === PROMPT_THRESHOLD) {
+      setPromptOpen(true);
+      setPromptsShown((n) => n + 1);
+    }
+  }, [seconds, phase, isHcp, extensions, promptsShown, promptOpen]);
+
   if (!booking) {
     return (
       <div className="flex-1 grid place-items-center bg-ink text-white">
@@ -72,9 +86,14 @@ export default function CallPage() {
 
   function extend() {
     if (extensions >= MAX_EXTENSIONS) return;
-    setSeconds((s) => s + 60);
-    setTotal((t) => t + 60);
+    setSeconds((s) => s + CALL.EXTEND_SECONDS);
+    setTotal((t) => t + CALL.EXTEND_SECONDS);
     setExtensions((e) => e + 1);
+    setPromptOpen(false);
+  }
+
+  function dismissPrompt() {
+    setPromptOpen(false);
   }
 
   if (phase === "rating") {
@@ -147,20 +166,22 @@ export default function CallPage() {
         )}
       </div>
 
+      {/* HCP-only extend prompt (shown at most twice, near call-end) */}
+      {promptOpen && (
+        <div className="absolute inset-0 z-20 grid place-items-center bg-black/50 px-6">
+          <div className="w-full max-w-xs rounded-2xl bg-white text-ink p-4 text-center shadow-soft">
+            <p className="font-semibold text-[15px]">Extend the visit by 60s?</p>
+            <p className="text-sm text-ink-soft mt-1">The call is about to end. Extend if you'd like more time.</p>
+            <div className="flex gap-2 mt-4">
+              <Button variant="ghost" className="flex-1" onClick={dismissPrompt}>No thanks</Button>
+              <Button variant="primary" className="flex-1" onClick={extend}>Extend +60s</Button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* controls */}
       <div className="mt-auto relative z-10 pb-8 pt-6 px-6 bg-gradient-to-t from-black/50 to-transparent">
-        {isHcp && (
-          <div className="flex justify-center mb-4">
-            <button
-              onClick={extend}
-              disabled={extensions >= MAX_EXTENSIONS}
-              className="inline-flex items-center gap-2 h-10 px-4 rounded-full bg-white/10 border border-white/20 text-sm font-medium disabled:opacity-40 active:scale-95 transition"
-            >
-              <Icon name="plus" size={16} />
-              {extensions >= MAX_EXTENSIONS ? "No extensions left" : `Extend +60s (${MAX_EXTENSIONS - extensions} left)`}
-            </button>
-          </div>
-        )}
         <div className="flex items-center justify-center gap-5">
           <button
             onClick={() => setMuted((m) => !m)}

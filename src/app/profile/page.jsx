@@ -95,7 +95,7 @@ export default function ProfilePage() {
           ) : (
             <Card className="p-3">
               <p className="text-sm font-medium mb-1">Reset all demo data?</p>
-              <p className="text-xs text-ink-soft mb-3">Clears every booking, rating, availability change, and loyalty point on this device.</p>
+              <p className="text-xs text-ink-soft mb-3">Clears every booking, rating, and availability change on this device.</p>
               <div className="flex gap-2">
                 <Button variant="ghost" className="flex-1" onClick={() => setConfirmReset(false)}>Keep data</Button>
                 <Button variant="danger" className="flex-1" onClick={doReset}>Reset</Button>

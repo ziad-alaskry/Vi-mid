@@ -26,19 +26,14 @@ All state flows through **DataProvider** — no component touches `localStorage`
 - Production: feed populated by an admin or an n8n-hosted AI agent that fetches from
   defined trusted resources. Keep the same card shape `{ tag, title, source, time }`.
 
-## 3. Partners — Jarir & eXtra
-- File: `src/app/loyalty/page.jsx` → `PARTNERS` array
-- Wordmarks are styled text placeholders, not official brand assets. Do not ship the
-  real logos until the partnerships are signed and approved assets are provided.
-- `url` fields point to the public storefronts.
-
-## 4. Video — WebRTC
+## 3. Video — WebRTC
 - File: `src/app/call/[id]/page.jsx`
 - Uses `getUserMedia` for a local self-view only; the "remote" party is simulated.
 - Production: add real two-party signalling (e.g. a WebRTC SFU / third-party SDK).
-- Constraints already enforced in UI: 120s base, doctor-only extend, max 2 extensions.
+- Constraints already enforced in UI: 120s base, HCP-only extend prompt (shown at most
+  twice), max 2 extensions (240s ceiling).
 
-## 5. Backend & auth
+## 4. Backend & auth
 - Files: `src/lib/data/` (persistence + operations), `src/lib/store.jsx` (thin React binding).
 - All state flows through the **DataProvider** seam; `localStorageProvider` is the demo impl.
   Production: add an API-backed provider implementing the same surface (`load`/`persist`/`clear`

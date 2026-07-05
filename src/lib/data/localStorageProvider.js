@@ -17,7 +17,6 @@ export const initialState = {
   currentUserId: null,
   bookings: [],              // {id, hcpId, repId, date, time, durationMin, product, company, status, hcpRating, repRating, repComment, hcpComment}
   availabilityOverrides: {}, // hcpId -> availability object (when an HCP edits their own)
-  loyaltyPoints: 120,
   seq: 1,
 };
 
@@ -73,7 +72,6 @@ export const operations = {
 
   completeBooking: (s, id) => ({
     ...s,
-    loyaltyPoints: s.loyaltyPoints + 15,
     bookings: s.bookings.map((b) => (b.id === id ? { ...b, status: "done" } : b)),
   }),
 
