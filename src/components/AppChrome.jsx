@@ -37,7 +37,7 @@ export default function AppChrome({ children }) {
 
   return (
     <div className="app-frame flex flex-col md:flex-row">
-      <div className="flex-1 flex flex-col min-h-0 order-1 md:order-2 md:max-w-2xl md:mx-auto md:w-full">{children}</div>
+      <main className="flex-1 flex flex-col min-h-0 order-1 md:order-2 md:max-w-2xl md:mx-auto md:w-full">{children}</main>
       {showTabs && currentUser && (
         <div className="order-2 md:order-1">
           <TabBar />

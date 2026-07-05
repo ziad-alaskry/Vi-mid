@@ -86,13 +86,14 @@ export function Button({ children, variant = "primary", className = "", ...props
   );
 }
 
-export function EmptyState({ icon = "calendar", title, hint }) {
+export function EmptyState({ icon = "calendar", title, hint, titleAs = "p" }) {
+  const TitleTag = titleAs;
   return (
     <div className="flex flex-col items-center text-center py-16 px-8">
       <span className="grid place-items-center w-14 h-14 rounded-full bg-surface text-ink-soft mb-3">
         <Icon name={icon} size={26} />
       </span>
-      <p className="font-medium text-ink">{title}</p>
+      <TitleTag className="font-medium text-ink">{title}</TitleTag>
       {hint && <p className="text-sm text-ink-soft mt-1 max-w-[260px]">{hint}</p>}
     </div>
   );

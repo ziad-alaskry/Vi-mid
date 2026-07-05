@@ -17,7 +17,8 @@ export const viewport = {
   themeColor: "#3E7C6A",
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
+  // No maximumScale/userScalable lock — disabling pinch-zoom fails WCAG 1.4.4
+  // (Resize Text) and blocks low-vision users from zooming in.
 };
 
 export function generateStaticParams() {

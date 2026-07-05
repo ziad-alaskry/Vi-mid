@@ -236,6 +236,29 @@ admin login → dashboard → profile path in both locales/viewports.
 
 **DoD:** QA checklist green; no critical a11y/perf regressions; demo is stakeholder-ready.
 
+**Status: done.** Wired up `@axe-core/playwright` (`npm run test:a11y`, `tests/a11y.spec.js`)
+scanning every main screen — login, rep/HCP visits+new-visit+library+profile, admin
+dashboard+profile, not-found — across both locales and both viewports (48 checks). The
+first pass found and fixed 4 real, site-wide issues:
+1. No page had a `<main>` landmark — added one in `AppChrome.jsx` wrapping all page
+   content (and removed the login page's now-redundant own `<main>` to avoid nesting).
+2. `login`, `not-found`, and `error` screens had no level-one heading — gave `EmptyState`
+   an optional `titleAs` prop (defaults to `p`) and pass `titleAs="h1"` from the two
+   boundary pages; the login page's "Choose a demo profile" label is now an `<h1>` (no
+   visual change — Tailwind's preflight strips default heading styles).
+3. `maximum-scale=1` in the viewport meta tag disabled pinch-zoom, failing WCAG 1.4.4
+   (Resize Text) for low-vision users — removed it from `layout.jsx`.
+4. The "Generated slots" grid in `AvailabilityEditor.jsx` was scrollable but contained
+   only non-interactive `<span>`s, so keyboard users couldn't scroll it — added
+   `tabIndex={0}` + `role="region"` + `aria-label`.
+
+All 48 a11y checks and the full VRT suite (`npm run test:e2e`) pass after the fixes.
+Bundle sizes reviewed via `npm run build` output: 87–121 kB First Load JS per route, no
+red flags; dependencies are minimal (next, next-intl, react/react-dom only). Error
+boundaries (`error.jsx`/`not-found.jsx`, added in Phase 3) are covered by the a11y scan.
+RTL/LTR parity and mobile→desktop responsiveness were already verified visually across
+every phase's VRT screenshots.
+
 ## Phase 8 — Production cutover (DEFERRED — trigger once deployment env is chosen)
 - Realize the docs' backend: stand up `apps/api` (Express + MongoDB + Socket.IO + JWT auth)
   **or** the chosen managed stack. Implement an **API `DataProvider`** matching the Phase-0

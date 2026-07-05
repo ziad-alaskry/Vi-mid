@@ -116,7 +116,12 @@ export default function AvailabilityEditor() {
           {slots.length === 0 ? (
             <p className="text-sm text-danger">{t("widenHours")}</p>
           ) : (
-            <div className="grid grid-cols-4 gap-1.5 max-h-44 overflow-y-auto no-scrollbar">
+            <div
+              className="grid grid-cols-4 gap-1.5 max-h-44 overflow-y-auto no-scrollbar"
+              tabIndex={0}
+              role="region"
+              aria-label={t("generatedSlots")}
+            >
               {slots.map((s) => (
                 <span key={s.label} className="h-9 grid place-items-center rounded-lg bg-green-tint text-green-pressed text-xs font-medium">
                   {s.label.replace(" ", "")}

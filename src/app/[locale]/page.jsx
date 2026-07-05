@@ -20,7 +20,7 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="flex-1 flex flex-col px-6 pt-16 pb-10">
+    <div className="flex-1 flex flex-col px-6 pt-16 pb-10">
       <div className="flex justify-end">
         <LanguageSwitcher />
       </div>
@@ -31,9 +31,9 @@ export default function LoginPage() {
       </div>
 
       <div className="mt-10">
-        <p className="text-xs font-medium uppercase tracking-wide text-ink-soft mb-3">
+        <h1 className="text-xs font-medium uppercase tracking-wide text-ink-soft mb-3">
           {t("chooseProfile")}
-        </p>
+        </h1>
         <ul className="space-y-2.5">
           {personas.map((p) => (
             <li key={p.id}>
@@ -59,6 +59,6 @@ export default function LoginPage() {
       </div>
 
       <p className="mt-auto pt-8 text-center text-xs text-ink-soft">{t("demoNote")}</p>
-    </main>
+    </div>
   );
 }

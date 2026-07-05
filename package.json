@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test tests/vrt.spec.js",
+    "test:a11y": "playwright test tests/a11y.spec.js"
   },
   "dependencies": {
     "next": "14.2.5",
@@ -16,6 +17,7 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.12.1",
     "@playwright/test": "^1.61.1",
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.39",

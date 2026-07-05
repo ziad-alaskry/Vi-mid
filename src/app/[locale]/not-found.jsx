@@ -9,7 +9,7 @@ export default function NotFound() {
   const router = useRouter();
   return (
     <div className="flex-1 flex flex-col items-center justify-center px-6">
-      <EmptyState icon="search" title={t("notFoundTitle")} hint={t("notFoundHint")} />
+      <EmptyState icon="search" title={t("notFoundTitle")} hint={t("notFoundHint")} titleAs="h1" />
       <Button variant="soft" onClick={() => router.push("/")}>{t("backHome")}</Button>
     </div>
   );
