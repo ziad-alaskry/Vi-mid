@@ -2,6 +2,19 @@
 
 Everything below is intentionally stubbed in this demo and built to swap in cleanly.
 
+## Seams inventory
+
+Each "prototype shortcut" sits behind a named seam so production is an upgrade, not a
+rewrite. See `docs/implementation-Guide.md` for the phased roadmap.
+
+| Seam | Interface / location | Demo impl | Production swap |
+|---|---|---|---|
+| **DataProvider** | `src/lib/data/` (`operations`, `load`/`persist`/`clear`) | `localStorageProvider` | API-backed provider (Phase 8) |
+| **CallProvider** | `src/app/call/[id]/page.jsx` | local camera self-view, simulated peer | real two-party WebRTC/SDK |
+| **ContentProvider** | `src/app/library/page.jsx` (companion + updates) | canned replies / mock feed | admin- or agent-fed trusted sources |
+
+All state flows through **DataProvider** — no component touches `localStorage` directly.
+
 ## 1. Healthcare companion — source of truth
 - File: `src/app/library/page.jsx` → `Companion`
 - The opening message and every reply reference `[trusted source]`.
@@ -26,6 +39,9 @@ Everything below is intentionally stubbed in this demo and built to swap in clea
 - Constraints already enforced in UI: 120s base, doctor-only extend, max 2 extensions.
 
 ## 5. Backend & auth
-- File: `src/lib/store.jsx`
-- All state is `localStorage`. Production: replace with API calls + real auth, keeping
-  the same action surface (`book`, `cancelBooking`, `completeBooking`, `setAvailability`).
+- Files: `src/lib/data/` (persistence + operations), `src/lib/store.jsx` (thin React binding).
+- All state flows through the **DataProvider** seam; `localStorageProvider` is the demo impl.
+  Production: add an API-backed provider implementing the same surface (`load`/`persist`/`clear`
+  + `operations`: `login`, `logout`, `book`, `updateBooking`, `cancelBooking`,
+  `completeBooking`, `setAvailability`, `reset`) and swap the export in `src/lib/data/index.js`
+  — no page or component changes. Add real auth in place of the persona picker.

@@ -6,9 +6,10 @@ import { useStore } from "@/lib/store";
 import { hcpById, repById } from "@/lib/seed";
 import { Button, Avatar, Stars } from "@/components/ui";
 import { Icon } from "@/components/icons";
+import { CALL } from "@/lib/config";
 
-const BASE_SECONDS = 120;
-const MAX_EXTENSIONS = 2;
+const BASE_SECONDS = CALL.BASE_SECONDS;
+const MAX_EXTENSIONS = CALL.MAX_EXTENSIONS;
 
 export default function CallPage() {
   const { id } = useParams();

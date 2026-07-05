@@ -2,72 +2,35 @@
 
 import { createContext, useContext, useEffect, useState, useCallback } from "react";
 import { personById } from "@/lib/seed";
+import { provider } from "@/lib/data";
 
-const KEY = "vimed_state_v1";
+// Thin React binding over the data provider. This module holds no persistence
+// logic and no state-transition logic — both live in src/lib/data. It only:
+//   - mirrors provider state into React,
+//   - persists on change,
+//   - exposes the action surface + derived session flags to the tree.
 const StoreCtx = createContext(null);
 
-const initial = {
-  currentUserId: null,
-  bookings: [],          // {id, hcpId, repId, date, time, durationMin, product, company, status, hcpRating, repRating, repComment, hcpComment}
-  availabilityOverrides: {}, // hcpId -> availability object (when an HCP edits their own)
-  loyaltyPoints: 120,
-  seq: 1,
-};
-
-function load() {
-  if (typeof window === "undefined") return initial;
-  try {
-    const raw = window.localStorage.getItem(KEY);
-    if (!raw) return initial;
-    return { ...initial, ...JSON.parse(raw) };
-  } catch { return initial; }
-}
-
 export function StoreProvider({ children }) {
-  const [state, setState] = useState(initial);
+  const [state, setState] = useState(provider.initialState);
   const [ready, setReady] = useState(false);
 
-  useEffect(() => { setState(load()); setReady(true); }, []);
+  useEffect(() => { setState(provider.load()); setReady(true); }, []);
   useEffect(() => {
     if (!ready) return;
-    try { window.localStorage.setItem(KEY, JSON.stringify(state)); } catch {}
+    provider.persist(state);
   }, [state, ready]);
 
-  const login = useCallback((id) => setState((s) => ({ ...s, currentUserId: id })), []);
-  const logout = useCallback(() => setState((s) => ({ ...s, currentUserId: null })), []);
+  const { operations } = provider;
 
-  const book = useCallback((payload) => {
-    setState((s) => {
-      const id = `bk_${s.seq}`;
-      const booking = { id, status: "upcoming", ...payload };
-      return { ...s, seq: s.seq + 1, bookings: [...s.bookings, booking] };
-    });
-  }, []);
-
-  const updateBooking = useCallback((id, patch) => {
-    setState((s) => ({ ...s, bookings: s.bookings.map((b) => (b.id === id ? { ...b, ...patch } : b)) }));
-  }, []);
-
-  const cancelBooking = useCallback((id) => {
-    setState((s) => ({ ...s, bookings: s.bookings.map((b) => (b.id === id ? { ...b, status: "cancelled" } : b)) }));
-  }, []);
-
-  const completeBooking = useCallback((id) => {
-    setState((s) => ({
-      ...s,
-      loyaltyPoints: s.loyaltyPoints + 15,
-      bookings: s.bookings.map((b) => (b.id === id ? { ...b, status: "done" } : b)),
-    }));
-  }, []);
-
-  const setAvailability = useCallback((hcpId, availability) => {
-    setState((s) => ({ ...s, availabilityOverrides: { ...s.availabilityOverrides, [hcpId]: availability } }));
-  }, []);
-
-  const reset = useCallback(() => {
-    setState({ ...initial });
-    try { window.localStorage.removeItem(KEY); } catch {}
-  }, []);
+  const login = useCallback((id) => setState((s) => operations.login(s, id)), [operations]);
+  const logout = useCallback(() => setState((s) => operations.logout(s)), [operations]);
+  const book = useCallback((payload) => setState((s) => operations.book(s, payload)), [operations]);
+  const updateBooking = useCallback((id, patch) => setState((s) => operations.updateBooking(s, id, patch)), [operations]);
+  const cancelBooking = useCallback((id) => setState((s) => operations.cancelBooking(s, id)), [operations]);
+  const completeBooking = useCallback((id) => setState((s) => operations.completeBooking(s, id)), [operations]);
+  const setAvailability = useCallback((hcpId, availability) => setState((s) => operations.setAvailability(s, hcpId, availability)), [operations]);
+  const reset = useCallback(() => { setState(operations.reset()); provider.clear(); }, [operations]);
 
   const currentUser = state.currentUserId ? personById(state.currentUserId) : null;
   const isHcp = currentUser && ["Physician", "Pharmacist", "Purchaser"].includes(currentUser.role);
