@@ -7,29 +7,36 @@ Everything below is intentionally stubbed in this demo and built to swap in clea
 Each "prototype shortcut" sits behind a named seam so production is an upgrade, not a
 rewrite. See `docs/implementation-Guide.md` for the phased roadmap.
 
-| Seam | Interface / location | Demo impl | Production swap |
+| Seam | Interface | Demo impl | Production swap |
 |---|---|---|---|
 | **DataProvider** | `src/lib/data/` (`operations`, `load`/`persist`/`clear`) | `localStorageProvider` | API-backed provider (Phase 8) |
-| **CallProvider** | `src/app/call/[id]/page.jsx` | local camera self-view, simulated peer | real two-party WebRTC/SDK |
-| **ContentProvider** | `src/app/library/page.jsx` (companion + updates) | canned replies / mock feed | admin- or agent-fed trusted sources |
+| **CallProvider** | `src/lib/call/index.js` (`connect`/`disconnect`) | local camera self-view, simulated peer | real two-party WebRTC/SDK |
+| **ContentProvider** | `src/lib/content/index.js` (`getUpdates`/`getCompanionReply`) | canned replies / static feed | admin- or agent-fed trusted sources |
 
 All state flows through **DataProvider** — no component touches `localStorage` directly.
+The call room and Library page only ever call `callProvider`/`contentProvider` — never
+`getUserMedia` or the mock content directly — so swapping either integration is a
+single-file change with no page/component edits.
 
 ## 1. Healthcare companion — source of truth
-- File: `src/app/library/page.jsx` → `Companion`
+- Files: `src/lib/content/index.js` (`getCompanionReply`), `src/app/[locale]/library/page.jsx` → `Companion`
 - The opening message and every reply reference `[trusted source]`.
-- Production: replace canned `setTimeout` reply with a call to the real endpoint and
-  name the actual source in the first message.
+- Production: replace `getCompanionReply`'s body with a call to the real endpoint and
+  name the actual source in the first message (`library.companionGreeting` in
+  `src/messages/{ar,en}.json`).
 
 ## 2. Medical updates — content pipeline
-- File: `src/app/library/page.jsx` → `UPDATES` array
-- Production: feed populated by an admin or an n8n-hosted AI agent that fetches from
-  defined trusted resources. Keep the same card shape `{ tag, title, source, time }`.
+- Files: `src/lib/content/index.js` (`getUpdates`), `src/messages/{ar,en}.json` → `library.updates`
+- Production: replace `getUpdates`'s body with a fetch from an admin- or n8n-hosted AI
+  agent endpoint that fetches from defined trusted resources. Keep the same card shape
+  `{ tag, tone, title, source, time }`.
 
 ## 3. Video — WebRTC
-- File: `src/app/call/[id]/page.jsx`
+- Files: `src/lib/call/index.js` (`connect`/`disconnect`), `src/app/[locale]/call/[id]/page.jsx`
 - Uses `getUserMedia` for a local self-view only; the "remote" party is simulated.
-- Production: add real two-party signalling (e.g. a WebRTC SFU / third-party SDK).
+- Production: replace `connect`/`disconnect`'s bodies with real two-party signalling
+  (e.g. a WebRTC SFU / third-party SDK) — no changes to the call room's timer,
+  extend-prompt, or rating logic.
 - Constraints already enforced in UI: 120s base, HCP-only extend prompt (shown at most
   twice), max 2 extensions (240s ceiling).
 
@@ -37,6 +44,7 @@ All state flows through **DataProvider** — no component touches `localStorage`
 - Files: `src/lib/data/` (persistence + operations), `src/lib/store.jsx` (thin React binding).
 - All state flows through the **DataProvider** seam; `localStorageProvider` is the demo impl.
   Production: add an API-backed provider implementing the same surface (`load`/`persist`/`clear`
-  + `operations`: `login`, `logout`, `book`, `updateBooking`, `cancelBooking`,
-  `completeBooking`, `setAvailability`, `reset`) and swap the export in `src/lib/data/index.js`
-  — no page or component changes. Add real auth in place of the persona picker.
+  + `operations`: `login`, `logout`, `book`, `rescheduleBooking`, `updateBooking`,
+  `cancelBooking`, `completeBooking`, `setAvailability`, `reset`) and swap the export in
+  `src/lib/data/index.js` — no page or component changes. Add real auth in place of the
+  persona picker.

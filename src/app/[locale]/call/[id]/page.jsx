@@ -9,6 +9,7 @@ import { hcpById, repById } from "@/lib/seed";
 import { Button, Avatar, Stars } from "@/components/ui";
 import { Icon } from "@/components/icons";
 import { CALL } from "@/lib/config";
+import { callProvider } from "@/lib/call";
 
 const BASE_SECONDS = CALL.BASE_SECONDS;
 const MAX_EXTENSIONS = CALL.MAX_EXTENSIONS;
@@ -34,24 +35,25 @@ export default function CallPage() {
   const streamRef = useRef(null);
 
   const endCall = useCallback(() => {
-    if (streamRef.current) streamRef.current.getTracks().forEach((tr) => tr.stop());
+    callProvider.disconnect(streamRef.current);
     setPhase("rating");
   }, []);
 
-  // camera self-view
+  // media connection (self-view today; a real two-party connection swaps in behind
+  // callProvider without touching this effect — see src/lib/call/index.js)
   useEffect(() => {
     let active = true;
-    if (navigator.mediaDevices?.getUserMedia) {
-      navigator.mediaDevices.getUserMedia({ video: true, audio: false })
-        .then((stream) => {
-          if (!active) { stream.getTracks().forEach((tr) => tr.stop()); return; }
-          streamRef.current = stream;
-          if (videoRef.current) videoRef.current.srcObject = stream;
-          setCamReady(true);
-        })
-        .catch(() => setCamReady(false));
-    }
-    return () => { active = false; if (streamRef.current) streamRef.current.getTracks().forEach((tr) => tr.stop()); };
+    callProvider.connect().then((stream) => {
+      if (!active) { callProvider.disconnect(stream); return; }
+      if (stream) {
+        streamRef.current = stream;
+        if (videoRef.current) videoRef.current.srcObject = stream;
+        setCamReady(true);
+      } else {
+        setCamReady(false);
+      }
+    });
+    return () => { active = false; callProvider.disconnect(streamRef.current); };
   }, []);
 
   // countdown

@@ -191,6 +191,17 @@ reach the rest). Verified with `npm run build` and `npm run dev` (no runtime err
 **DoD:** each integration is reachable only through its interface; swapping to a real
 source/SDK is a single-file change.
 
+**Status: done.** Added `src/lib/call/index.js` (`callProvider.connect`/`disconnect`) and
+`src/lib/content/index.js` (`contentProvider.getUpdates`/`getCompanionReply`). The call
+room's media-connection effect and the Library page's `Updates`/`Companion` components now
+call only these modules — no direct `getUserMedia` or inline mock-reply logic left at the
+call sites. Both provider methods are `async` so the mock and a future real implementation
+(WebRTC SDK; admin/AI-agent content endpoint) share one call-site contract; swapping either
+is a single-file change with zero page/component edits. `PLACEHOLDERS.md` updated to point
+at the new modules. Verified with `npm run build` and the full Playwright VRT suite
+(4/4 passing) — companion chat and call self-view both render correctly through the new
+seams in both locales/viewports.
+
 ## Phase 6 — Admin & feedback instrumentation (demo-level)
 - Admin persona + lightweight metrics computed client-side over demo data (visits
   booked/completed, completion rate, avg mutual rating, active users by role/city/specialty).

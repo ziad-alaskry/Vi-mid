@@ -1,9 +1,10 @@
 "use client";
 
 import { useMemo, useRef, useState, useEffect } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { Header, Card, Badge, Button, Tabs, Input } from "@/components/ui";
 import { Icon } from "@/components/icons";
+import { contentProvider } from "@/lib/content";
 
 export default function LibraryPage() {
   const t = useTranslations("library");
@@ -32,7 +33,18 @@ export default function LibraryPage() {
 
 function Updates() {
   const t = useTranslations("library");
-  const updates = t.raw("updates");
+  const locale = useLocale();
+  const [updates, setUpdates] = useState([]);
+
+  useEffect(() => {
+    let active = true;
+    contentProvider.getUpdates(t.raw("updates")).then((data) => {
+      if (active) setUpdates(data);
+    });
+    return () => { active = false; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [locale]);
+
   return (
     <div className="flex-1 overflow-y-auto px-4 py-3 space-y-2.5 no-scrollbar">
       <p className="text-xs text-ink-soft px-1">{t("updatesCaption")}</p>
@@ -127,18 +139,20 @@ function Companion() {
   const tc = useTranslations("common");
   const [messages, setMessages] = useState([{ from: "bot", text: t("companionGreeting") }]);
   const [input, setInput] = useState("");
+  const [sending, setSending] = useState(false);
   const scrollRef = useRef(null);
 
   useEffect(() => { scrollRef.current?.scrollTo({ top: 9e9, behavior: "smooth" }); }, [messages]);
 
-  function send() {
+  async function send() {
     const text = input.trim();
-    if (!text) return;
+    if (!text || sending) return;
     setMessages((m) => [...m, { from: "user", text }]);
     setInput("");
-    setTimeout(() => {
-      setMessages((m) => [...m, { from: "bot", text: t("companionReply") }]);
-    }, 500);
+    setSending(true);
+    const reply = await contentProvider.getCompanionReply(text, t("companionReply"));
+    setMessages((m) => [...m, { from: "bot", text: reply }]);
+    setSending(false);
   }
 
   const suggestions = t.raw("suggestions");
@@ -178,7 +192,7 @@ function Companion() {
             onKeyDown={(e) => e.key === "Enter" && send()}
             placeholder={t("askPlaceholder")}
           />
-          <button onClick={send} disabled={!input.trim()} className="w-9 h-9 rounded-full grid place-items-center bg-green-primary text-white disabled:opacity-40" aria-label={tc("send")}>
+          <button onClick={send} disabled={!input.trim() || sending} className="w-9 h-9 rounded-full grid place-items-center bg-green-primary text-white disabled:opacity-40" aria-label={tc("send")}>
             <Icon name="send" size={18} />
           </button>
         </div>
