@@ -154,14 +154,14 @@ export default function CallPage() {
             <circle cx="40" cy="40" r="34" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="5" />
             <circle
               cx="40" cy="40" r="34" fill="none"
-              stroke={low ? "#F0A6A6" : "#7FD3B6"} strokeWidth="5" strokeLinecap="round"
+              stroke={low ? "var(--danger-soft)" : "var(--green-ring)"} strokeWidth="5" strokeLinecap="round"
               strokeDasharray={2 * Math.PI * 34}
               strokeDashoffset={2 * Math.PI * 34 * (1 - pct)}
               style={{ transition: "stroke-dashoffset 1s linear" }}
             />
           </svg>
           <div className="absolute inset-0 grid place-items-center">
-            <span className={`text-lg font-semibold tabular-nums ${low ? "text-[#F0A6A6]" : "text-white"}`}>{mm}:{ss}</span>
+            <span className={`text-lg font-semibold tabular-nums ${low ? "text-danger-soft" : "text-white"}`}>{mm}:{ss}</span>
           </div>
         </div>
         {extensions > 0 && (
@@ -225,10 +225,8 @@ function RatingView({ counterpart, onSubmit, onSkip }) {
 
       <div className="flex items-center gap-2 my-6">
         {[1, 2, 3, 4, 5].map((i) => (
-          <button key={i} onClick={() => setRating(i)} aria-label={t("starsLabel", { count: i })} className="active:scale-90 transition">
-            <span style={{ color: i <= rating ? "#E8A93C" : "#D8DEDB" }}>
-              <Icon name="star" size={36} strokeWidth={1.3} />
-            </span>
+          <button key={i} onClick={() => setRating(i)} aria-label={t("starsLabel", { count: i })} className={`active:scale-90 transition ${i <= rating ? "text-star" : "text-star-muted"}`}>
+            <Icon name="star" size={36} strokeWidth={1.3} />
           </button>
         ))}
       </div>

@@ -45,7 +45,7 @@ export default function LoginPage() {
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
                     <span className="font-medium truncate" dir="rtl">{p.name}</span>
-                    <span className={`text-[11px] px-1.5 py-0.5 rounded-full ${p.kind === "Rep" ? "bg-[#E2F0F8] text-[#2C6488]" : "bg-green-tint text-green-pressed"}`}>
+                    <span className={`text-[11px] px-1.5 py-0.5 rounded-full ${p.kind === "Rep" ? "bg-blue-tint text-blue-pressed" : "bg-green-tint text-green-pressed"}`}>
                       {p.kind === "Rep" ? t("rep") : t("hcp")}
                     </span>
                   </div>

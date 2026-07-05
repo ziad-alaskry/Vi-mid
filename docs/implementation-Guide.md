@@ -111,6 +111,19 @@ mock library content; `LanguageSwitcher` on login + profile; dates/times localiz
 **DoD:** one consistent component set reused across screens; usable mobile→desktop; visible
 loading/empty/error everywhere.
 
+**Status: done.** Every color token now reads from CSS variables in `globals.css` (single
+source of truth); `tailwind.config.js` restates none. Removed all raw hex from components
+(call countdown ring, star rating, badges, login persona chip). Added `Sheet`, `Tabs`, and
+`Input` primitives to `ui.jsx` and refactored `RescheduleSheet`, `BookingSheet`, the Visits
+tab switcher, and the Library tab switcher to use them instead of duplicated markup. Bottom
+tab bar becomes a `md:` side rail (`TabBar.jsx`) with the content pane reflowing beside it
+(`AppChrome.jsx` + `.app-frame` media query in `globals.css`); content is capped at a
+readable max-width on desktop instead of stretching edge-to-edge. Added a translated
+`error.jsx` and `not-found.jsx` boundary under `src/app/[locale]/`. Verified with
+`npm run build` (clean) and `npm run dev` (no runtime errors in logs). Note: full
+interactive/visual confirmation of the desktop rail was not done in a live browser in this
+session — worth a manual pass before calling the responsive work final.
+
 ## Phase 4 — Core flow hardening
 - **Directory / New visit:** city/sector/specialty filters + name/centre search +
   pagination; HCP profile sheet with slot picker; taken slots disabled.

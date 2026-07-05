@@ -6,7 +6,7 @@ import { useRouter } from "@/i18n/navigation";
 import { useStore } from "@/lib/store";
 import { hcpById, repById } from "@/lib/seed";
 import { prettyDate, slotsForDay, upcomingDatesFor } from "@/lib/slots";
-import { Header, Card, Badge, Button, EmptyState, Avatar, Stars } from "@/components/ui";
+import { Header, Card, Badge, Button, EmptyState, Avatar, Stars, Sheet, Tabs } from "@/components/ui";
 import { Icon } from "@/components/icons";
 
 export default function VisitsPage() {
@@ -40,20 +40,18 @@ export default function VisitsPage() {
       />
 
       <div className="px-4 pt-3">
-        <div className="grid grid-cols-2 bg-surface rounded-lg p-1 text-sm font-medium">
-          {[["upcoming", t("upcoming")], ["history", t("history")]].map(([k, label]) => (
-            <button
-              key={k}
-              onClick={() => setTab(k)}
-              className={`h-9 rounded-md transition ${tab === k ? "bg-white text-green-pressed shadow-sm" : "text-ink-soft"}`}
-            >
-              {label}
-              {k === "upcoming" && upcoming.length > 0 && (
-                <span className="ms-1.5 text-xs text-green-primary">{upcoming.length}</span>
-              )}
-            </button>
-          ))}
-        </div>
+        <Tabs
+          active={tab}
+          onChange={setTab}
+          tabs={[
+            {
+              key: "upcoming",
+              label: t("upcoming"),
+              badge: upcoming.length > 0 && <span className="ms-1.5 text-xs text-green-primary">{upcoming.length}</span>,
+            },
+            { key: "history", label: t("history") },
+          ]}
+        />
       </div>
 
       <div className="flex-1 overflow-y-auto px-4 py-3 space-y-2.5 no-scrollbar">
@@ -161,48 +159,42 @@ function RescheduleSheet({ bookingId, onClose }) {
   const slots = slotsForDay(hcp.availability, locale);
 
   return (
-    <div className="fixed inset-0 z-40 flex items-end justify-center bg-black/40" onClick={onClose}>
-      <div
-        className="w-full max-w-app bg-white rounded-t-2xl p-4 pb-6"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="w-10 h-1 rounded-full bg-hairline mx-auto mb-3" />
-        <h2 className="font-semibold text-[15px] mb-3">{t("rescheduleTitle")}</h2>
-        <p className="text-xs text-ink-soft mb-2">{t("pickDay")}</p>
-        <div className="flex gap-2 overflow-x-auto no-scrollbar pb-2">
-          {dates.map((d) => (
-            <button
-              key={d}
-              onClick={() => setDate(d)}
-              className={`shrink-0 px-3 h-10 rounded-lg text-sm border ${date === d ? "border-green-primary bg-green-tint text-green-pressed" : "border-hairline text-ink-soft"}`}
-            >
-              {prettyDate(d, locale)}
-            </button>
-          ))}
-        </div>
-        <p className="text-xs text-ink-soft mt-3 mb-2">{t("pickTime")}</p>
-        <div className="grid grid-cols-4 gap-2 max-h-40 overflow-y-auto no-scrollbar">
-          {slots.map((s) => (
-            <button
-              key={s.label}
-              onClick={() => setTime(s.label)}
-              className={`h-10 rounded-lg text-sm border ${time === s.label ? "border-green-primary bg-green-tint text-green-pressed" : "border-hairline text-ink-soft"}`}
-            >
-              {s.label.replace(" ", "")}
-            </button>
-          ))}
-        </div>
-        <div className="flex gap-2 mt-4">
-          <Button variant="ghost" className="flex-1" onClick={onClose}>{t("cancel")}</Button>
-          <Button
-            variant="primary"
-            className="flex-1"
-            onClick={() => { updateBooking(bookingId, { date, time }); onClose(); }}
+    <Sheet onClose={onClose} className="p-4 pb-6">
+      <h2 className="font-semibold text-[15px] mb-3">{t("rescheduleTitle")}</h2>
+      <p className="text-xs text-ink-soft mb-2">{t("pickDay")}</p>
+      <div className="flex gap-2 overflow-x-auto no-scrollbar pb-2">
+        {dates.map((d) => (
+          <button
+            key={d}
+            onClick={() => setDate(d)}
+            className={`shrink-0 px-3 h-10 rounded-lg text-sm border ${date === d ? "border-green-primary bg-green-tint text-green-pressed" : "border-hairline text-ink-soft"}`}
           >
-            {t("confirm")}
-          </Button>
-        </div>
+            {prettyDate(d, locale)}
+          </button>
+        ))}
       </div>
-    </div>
+      <p className="text-xs text-ink-soft mt-3 mb-2">{t("pickTime")}</p>
+      <div className="grid grid-cols-4 gap-2 max-h-40 overflow-y-auto no-scrollbar">
+        {slots.map((s) => (
+          <button
+            key={s.label}
+            onClick={() => setTime(s.label)}
+            className={`h-10 rounded-lg text-sm border ${time === s.label ? "border-green-primary bg-green-tint text-green-pressed" : "border-hairline text-ink-soft"}`}
+          >
+            {s.label.replace(" ", "")}
+          </button>
+        ))}
+      </div>
+      <div className="flex gap-2 mt-4">
+        <Button variant="ghost" className="flex-1" onClick={onClose}>{t("cancel")}</Button>
+        <Button
+          variant="primary"
+          className="flex-1"
+          onClick={() => { updateBooking(bookingId, { date, time }); onClose(); }}
+        >
+          {t("confirm")}
+        </Button>
+      </div>
+    </Sheet>
   );
 }

@@ -3,7 +3,13 @@
     "appName": "ViMed",
     "clear": "Clear",
     "send": "Send",
-    "loading": "Loading…"
+    "loading": "Loading…",
+    "errorTitle": "Something went wrong",
+    "errorHint": "This screen hit an unexpected error. You can try again.",
+    "tryAgain": "Try again",
+    "notFoundTitle": "Page not found",
+    "notFoundHint": "That screen doesn't exist in this demo.",
+    "backHome": "Back to start"
   },
   "nav": {
     "visits": "Visits",

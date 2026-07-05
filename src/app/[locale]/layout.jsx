@@ -12,6 +12,8 @@ export const metadata = {
 };
 
 export const viewport = {
+  // Browser chrome color for the address bar; must match --green-primary in globals.css.
+  // The metadata API requires a literal here — CSS custom properties aren't resolvable at this layer.
   themeColor: "#3E7C6A",
   width: "device-width",
   initialScale: 1,

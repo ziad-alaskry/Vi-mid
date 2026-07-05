@@ -2,7 +2,7 @@
 
 import { useMemo, useRef, useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
-import { Header, Card, Badge, Button } from "@/components/ui";
+import { Header, Card, Badge, Button, Tabs, Input } from "@/components/ui";
 import { Icon } from "@/components/icons";
 
 export default function LibraryPage() {
@@ -12,13 +12,16 @@ export default function LibraryPage() {
     <>
       <Header title={t("title")} subtitle={t("subtitle")} />
       <div className="px-4 pt-3">
-        <div className="grid grid-cols-3 bg-surface rounded-lg p-1 text-[13px] font-medium">
-          {[["updates", t("tabUpdates")], ["treatment", t("tabTreatment")], ["companion", t("tabCompanion")]].map(([k, label]) => (
-            <button key={k} onClick={() => setTab(k)} className={`h-9 rounded-md transition ${tab === k ? "bg-white text-green-pressed shadow-sm" : "text-ink-soft"}`}>
-              {label}
-            </button>
-          ))}
-        </div>
+        <Tabs
+          active={tab}
+          onChange={setTab}
+          textClassName="text-[13px]"
+          tabs={[
+            { key: "updates", label: t("tabUpdates") },
+            { key: "treatment", label: t("tabTreatment") },
+            { key: "companion", label: t("tabCompanion") },
+          ]}
+        />
       </div>
       {tab === "updates" && <Updates />}
       {tab === "treatment" && <Treatment />}
@@ -70,12 +73,7 @@ function Treatment() {
     <div className="flex-1 overflow-y-auto px-4 py-3 no-scrollbar">
       <div className="flex items-center gap-2 bg-white border border-green-primary/40 rounded-card h-12 px-3 shadow-soft">
         <Icon name="search" size={20} className="text-green-primary" />
-        <input
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-          placeholder={t("searchTreatment")}
-          className="flex-1 bg-transparent outline-none text-sm placeholder:text-ink-soft"
-        />
+        <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder={t("searchTreatment")} />
         {q && <button onClick={() => setQ("")} aria-label={tc("clear")}><Icon name="x" size={16} className="text-ink-soft" /></button>}
       </div>
 
@@ -174,12 +172,11 @@ function Companion() {
       </div>
       <div className="px-3 py-3 border-t border-hairline bg-white">
         <div className="flex items-center gap-2 bg-surface rounded-full h-11 ps-4 pe-1.5">
-          <input
+          <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && send()}
             placeholder={t("askPlaceholder")}
-            className="flex-1 bg-transparent outline-none text-sm placeholder:text-ink-soft"
           />
           <button onClick={send} disabled={!input.trim()} className="w-9 h-9 rounded-full grid place-items-center bg-green-primary text-white disabled:opacity-40" aria-label={tc("send")}>
             <Icon name="send" size={18} />

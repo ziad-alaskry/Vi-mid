@@ -5,7 +5,7 @@ import { useTranslations, useLocale } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import { useStore } from "@/lib/store";
 import { directory, allHcps } from "@/lib/seed";
-import { Header, Card, Badge, Button, Avatar, Stars, EmptyState } from "@/components/ui";
+import { Header, Card, Badge, Button, Avatar, Stars, EmptyState, Input, Sheet } from "@/components/ui";
 import { Icon } from "@/components/icons";
 import { slotsForDay, upcomingDatesFor, prettyDate } from "@/lib/slots";
 
@@ -44,11 +44,10 @@ export default function Discovery() {
       <div className="px-4 pt-3 space-y-2.5">
         <div className="flex items-center gap-2 bg-surface rounded-lg h-11 px-3">
           <Icon name="search" size={18} className="text-ink-soft" />
-          <input
+          <Input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={t("searchPlaceholder")}
-            className="flex-1 bg-transparent outline-none text-sm placeholder:text-ink-soft"
           />
           {query && (
             <button onClick={() => setQuery("")} aria-label={tc("clear")}>
@@ -152,78 +151,75 @@ function BookingSheet({ hcp, rep, existing, onClose, onBook }) {
     existing.some((b) => b.hcpId === hcp.id && b.date === d && b.time === tm && b.status === "upcoming");
 
   return (
-    <div className="fixed inset-0 z-40 flex items-end justify-center bg-black/40" onClick={onClose}>
-      <div className="w-full max-w-app bg-white rounded-t-2xl max-h-[88vh] flex flex-col" onClick={(e) => e.stopPropagation()}>
-        <div className="p-4 border-b border-hairline">
-          <div className="w-10 h-1 rounded-full bg-hairline mx-auto mb-3" />
-          <div className="flex items-center gap-3">
-            <Avatar name={hcp.name} size={48} />
-            <div className="min-w-0 flex-1">
-              <p className="font-semibold truncate" dir="rtl">{hcp.name}</p>
-              <p className="text-sm text-ink-soft truncate">{hcp.specialty || hcp.role} · {hcp.center}</p>
-              <div className="flex items-center gap-2 mt-0.5">
-                <Stars value={hcp.rating} size={13} /><span className="text-xs text-ink-soft">{hcp.rating} · {hcp.city}</span>
-              </div>
+    <Sheet onClose={onClose} className="max-h-[88vh] flex flex-col">
+      <div className="px-4 pb-4 border-b border-hairline">
+        <div className="flex items-center gap-3">
+          <Avatar name={hcp.name} size={48} />
+          <div className="min-w-0 flex-1">
+            <p className="font-semibold truncate" dir="rtl">{hcp.name}</p>
+            <p className="text-sm text-ink-soft truncate">{hcp.specialty || hcp.role} · {hcp.center}</p>
+            <div className="flex items-center gap-2 mt-0.5">
+              <Stars value={hcp.rating} size={13} /><span className="text-xs text-ink-soft">{hcp.rating} · {hcp.city}</span>
             </div>
           </div>
         </div>
+      </div>
 
-        <div className="flex-1 overflow-y-auto p-4 no-scrollbar">
-          <p className="text-xs text-ink-soft mb-2">{t("availableDays")}</p>
-          <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1">
-            {dates.map((d) => (
-              <button
-                key={d}
-                onClick={() => { setDate(d); setTime(null); }}
-                className={`shrink-0 px-3 h-11 rounded-lg text-sm border ${date === d ? "border-green-primary bg-green-tint text-green-pressed" : "border-hairline text-ink-soft"}`}
-              >
-                {prettyDate(d, locale)}
-              </button>
-            ))}
-          </div>
-
-          <p className="text-xs text-ink-soft mt-4 mb-2">{t("availableSlots")}</p>
-          <div className="grid grid-cols-4 gap-2">
-            {slots.map((s) => {
-              const isTaken = taken(date, s.label);
-              const isSel = time === s.label;
-              return (
-                <button
-                  key={s.label}
-                  disabled={isTaken}
-                  onClick={() => setTime(s.label)}
-                  className={`h-10 rounded-lg text-xs font-medium border transition ${
-                    isTaken
-                      ? "border-hairline text-ink-soft/40 line-through"
-                      : isSel
-                      ? "border-green-primary bg-green-primary text-white"
-                      : "border-hairline text-green-pressed bg-green-tint/40"
-                  }`}
-                >
-                  {s.label.replace(" ", "")}
-                </button>
-              );
-            })}
-          </div>
+      <div className="flex-1 overflow-y-auto p-4 no-scrollbar">
+        <p className="text-xs text-ink-soft mb-2">{t("availableDays")}</p>
+        <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1">
+          {dates.map((d) => (
+            <button
+              key={d}
+              onClick={() => { setDate(d); setTime(null); }}
+              className={`shrink-0 px-3 h-11 rounded-lg text-sm border ${date === d ? "border-green-primary bg-green-tint text-green-pressed" : "border-hairline text-ink-soft"}`}
+            >
+              {prettyDate(d, locale)}
+            </button>
+          ))}
         </div>
 
-        <div className="p-4 border-t border-hairline">
-          <Button
-            variant="primary"
-            className="w-full"
-            disabled={!time}
-            onClick={() =>
-              onBook({
-                hcpId: hcp.id, repId: rep.id, date, time,
-                durationMin: hcp.availability.slotMinutes,
-                product: rep.product, company: rep.company,
-              })
-            }
-          >
-            {time ? t("bookAt", { date: prettyDate(date, locale), time }) : t("pickSlot")}
-          </Button>
+        <p className="text-xs text-ink-soft mt-4 mb-2">{t("availableSlots")}</p>
+        <div className="grid grid-cols-4 gap-2">
+          {slots.map((s) => {
+            const isTaken = taken(date, s.label);
+            const isSel = time === s.label;
+            return (
+              <button
+                key={s.label}
+                disabled={isTaken}
+                onClick={() => setTime(s.label)}
+                className={`h-10 rounded-lg text-xs font-medium border transition ${
+                  isTaken
+                    ? "border-hairline text-ink-soft/40 line-through"
+                    : isSel
+                    ? "border-green-primary bg-green-primary text-white"
+                    : "border-hairline text-green-pressed bg-green-tint/40"
+                }`}
+              >
+                {s.label.replace(" ", "")}
+              </button>
+            );
+          })}
         </div>
       </div>
-    </div>
+
+      <div className="p-4 border-t border-hairline">
+        <Button
+          variant="primary"
+          className="w-full"
+          disabled={!time}
+          onClick={() =>
+            onBook({
+              hcpId: hcp.id, repId: rep.id, date, time,
+              durationMin: hcp.availability.slotMinutes,
+              product: rep.product, company: rep.company,
+            })
+          }
+        >
+          {time ? t("bookAt", { date: prettyDate(date, locale), time }) : t("pickSlot")}
+        </Button>
+      </div>
+    </Sheet>
   );
 }

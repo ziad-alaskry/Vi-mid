@@ -3,20 +3,33 @@
 @tailwind utilities;
 
 :root {
-  --font-inter: "Inter";
+  /* Soft Care / Scrub theme — single source of truth.
+     tailwind.config.js reads these via var(), never restates a hex value. */
   --green-primary: #3E7C6A;
   --green-pressed: #2A5648;
   --green-tint: #E4F1EC;
-  --blue-accent: #5FA8D3;
+  --green-tint-hover: #D7EBE2;
+  --green-ring: #7FD3B6;
+  --blue-tint: #E2F0F8;
+  --blue-pressed: #2C6488;
   --surface: #F4F8F6;
+  --surface-hover: #EAEFEC;
   --hairline: #E2E8E5;
   --ink: #1C2B26;
   --ink-soft: #5A6B64;
+  --danger: #C0492F;
+  --danger-tint: #F7E6E1;
+  --danger-tint-hover: #F1D8D1;
+  --danger-soft: #F0A6A6;
+  --star: #E8A93C;
+  --star-muted: #D8DEDB;
+  --app-bg: #EDF1EF;
+  --app-surface: #FFFFFF;
 }
 
 html, body { height: 100%; }
 body {
-  background: #EDF1EF;
+  background: var(--app-bg);
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -28,13 +41,25 @@ body {
   * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
 }
 
-/* phone frame for the demo on wide screens */
+/* mobile-first app shell: a phone-width column on small screens,
+   a wider card with a side rail (see TabBar) from tablet up */
 .app-frame {
   max-width: 480px;
   margin: 0 auto;
   min-height: 100dvh;
-  background: #FFFFFF;
+  background: var(--app-surface);
   position: relative;
+}
+
+@media (min-width: 768px) {
+  .app-frame {
+    max-width: 960px;
+    min-height: auto;
+    margin-block: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 1px 2px rgba(28, 43, 38, 0.04), 0 20px 60px rgba(28, 43, 38, 0.1);
+    overflow: hidden;
+  }
 }
 
 .no-scrollbar::-webkit-scrollbar { display: none; }

@@ -13,7 +13,7 @@ export function Avatar({ name = "", size = 44, tone = "green" }) {
   const initials = name.trim().split(/\s+/).slice(0, 2).map((w) => w[0]).join("");
   const tones = {
     green: "bg-green-tint text-green-pressed",
-    blue: "bg-[#E2F0F8] text-[#2C6488]",
+    blue: "bg-blue-tint text-blue-pressed",
   };
   return (
     <span
@@ -41,9 +41,9 @@ export function Stars({ value = 0, size = 14 }) {
 export function Badge({ children, tone = "tint" }) {
   const tones = {
     tint: "bg-green-tint text-green-pressed",
-    blue: "bg-[#E2F0F8] text-[#2C6488]",
+    blue: "bg-blue-tint text-blue-pressed",
     soft: "bg-surface text-ink-soft",
-    danger: "bg-[#F7E6E1] text-danger",
+    danger: "bg-danger-tint text-danger",
   };
   return (
     <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${tones[tone]}`}>
@@ -71,9 +71,9 @@ export function Button({ children, variant = "primary", className = "", ...props
   const base = "inline-flex items-center justify-center gap-2 rounded-lg font-medium text-sm h-11 px-4 transition active:scale-[0.98] disabled:opacity-40 disabled:active:scale-100";
   const variants = {
     primary: "bg-green-primary text-white hover:bg-green-pressed",
-    soft: "bg-green-tint text-green-pressed hover:bg-[#d7ebe2]",
-    ghost: "bg-surface text-ink hover:bg-[#eaefec]",
-    danger: "bg-[#F7E6E1] text-danger hover:bg-[#f1d8d1]",
+    soft: "bg-green-tint text-green-pressed hover:bg-green-tintHover",
+    ghost: "bg-surface text-ink hover:bg-surfaceHover",
+    danger: "bg-danger-tint text-danger hover:bg-danger-tintHover",
     outline: "border border-hairline text-ink hover:bg-surface",
   };
   return (
@@ -101,5 +101,51 @@ export function Card({ children, className = "", as = "div", ...props }) {
     <Tag className={`bg-white border border-hairline rounded-card ${className}`} {...props}>
       {children}
     </Tag>
+  );
+}
+
+export function Input({ className = "", ...props }) {
+  return (
+    <input
+      className={`flex-1 bg-transparent outline-none text-sm placeholder:text-ink-soft ${className}`}
+      {...props}
+    />
+  );
+}
+
+// Bottom sheet: shared backdrop + drag handle + rounded container.
+// className controls the sheet's own layout (padding, max-height, flex).
+export function Sheet({ onClose, className = "", children }) {
+  return (
+    <div className="fixed inset-0 z-40 flex items-end justify-center bg-black/40" onClick={onClose}>
+      <div
+        className={`w-full max-w-app bg-white rounded-t-2xl ${className}`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="w-10 h-1 rounded-full bg-hairline mx-auto mt-3 mb-2 shrink-0" />
+        {children}
+      </div>
+    </div>
+  );
+}
+
+// Segmented tab switcher: tabs = [{ key, label, badge? }]
+export function Tabs({ tabs, active, onChange, textClassName = "text-sm" }) {
+  return (
+    <div
+      className={`grid bg-surface rounded-lg p-1 font-medium ${textClassName}`}
+      style={{ gridTemplateColumns: `repeat(${tabs.length}, minmax(0, 1fr))` }}
+    >
+      {tabs.map((tab) => (
+        <button
+          key={tab.key}
+          onClick={() => onChange(tab.key)}
+          className={`h-9 rounded-md transition ${active === tab.key ? "bg-white text-green-pressed shadow-sm" : "text-ink-soft"}`}
+        >
+          {tab.label}
+          {tab.badge}
+        </button>
+      ))}
+    </div>
   );
 }
