@@ -35,4 +35,5 @@ const paths = {
   logout: <><path d="M9 4H6.5A2.5 2.5 0 0 0 4 6.5v11A2.5 2.5 0 0 0 6.5 20H9" /><path d="M15 12H9M17 8l4 4-4 4" /></>,
   pencil: <><path d="M4 20h4l10-10-4-4L4 16z" /><path d="M13.5 6.5l4 4" /></>,
   chart: <><path d="M4 20V10M12 20V4M20 20v-7" /><path d="M2.5 20h19" /></>,
+  lock: <><rect x="4.5" y="10.5" width="15" height="10" rx="2" /><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5" /></>,
 };

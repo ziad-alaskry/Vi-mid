@@ -3,7 +3,9 @@
 // projects). Screenshots land in test-results/vrt/ for manual review.
 //
 // Drives the real login -> book -> library -> profile -> sign out -> HCP
-// login flow through the actual UI (not seeded state), so it doubles as an
+// login flow through the actual UI (session state, not initial data, is
+// unseeded — Visits/Profile/Admin start from the app's built-in seed
+// bookings, see localStorageProvider.js SEED_BOOKINGS), so it doubles as an
 // end-to-end check of Phases 0-4.
 const { test, expect } = require("@playwright/test");
 const fs = require("fs");
@@ -37,11 +39,12 @@ for (const locale of ["ar", "en"]) {
     await shot(page, testInfo, locale, "02-login-switched-locale");
     await page.goto(`/${locale}`); // back to the locale under test
 
-    // 2. Log in as the Rep persona (first persona card)
+    // 2. Log in as the Rep persona (first persona card) -- Visits is
+    // pre-seeded (see localStorageProvider.js SEED_BOOKINGS), not empty
     const personaButtons = page.locator("main ul > li > button");
     await personaButtons.first().click();
     await expect(page).toHaveURL(new RegExp(`/${locale}/visits$`));
-    await shot(page, testInfo, locale, "03-visits-rep-empty");
+    await shot(page, testInfo, locale, "03-visits-rep-seeded");
 
     // 3. New visit (rep discovery) -- the center tab is a <button>, not a <Link>
     await page.getByRole("button", { name: /new visit|زيارة جديدة/i }).click();
@@ -112,7 +115,10 @@ for (const locale of ["ar", "en"]) {
     // 8. Call screen (HCP side) -- only reachable if the earlier booking succeeded
     if (booked) {
       await page.getByRole("link", { name: /^Visits$|^الزيارات$/i }).click();
-      await page.getByRole("button", { name: /start call|بدء المكالمة/i }).click();
+      // seeded data gives this rep multiple upcoming visits, so several
+      // "Start call" buttons exist -- start whichever is newest (the one we
+      // just booked, appended last in the list)
+      await page.getByRole("button", { name: /start call|بدء المكالمة/i }).last().click();
       await expect(page).toHaveURL(new RegExp(`/${locale}/call/`));
       await page.waitForTimeout(500); // let the countdown render at least one tick
       await shot(page, testInfo, locale, "14-call-live");

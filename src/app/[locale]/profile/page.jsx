@@ -6,7 +6,6 @@ import { useRouter } from "@/i18n/navigation";
 import { useStore } from "@/lib/store";
 import { Header, Card, Badge, Button, Avatar, Stars } from "@/components/ui";
 import { Icon } from "@/components/icons";
-import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { SURVEY } from "@/lib/config";
 
 export default function ProfilePage() {
@@ -58,12 +57,9 @@ export default function ProfilePage() {
       <Header
         title={t("title")}
         right={
-          <div className="flex items-center gap-2">
-            <LanguageSwitcher />
-            {!isAdmin && (
-              <Button variant="ghost" className="h-9 px-3" aria-label={t("edit")}><Icon name="pencil" size={18} /></Button>
-            )}
-          </div>
+          !isAdmin && (
+            <Button variant="ghost" className="h-9 px-3" aria-label={t("edit")}><Icon name="pencil" size={18} /></Button>
+          )
         }
       />
       <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4 no-scrollbar">

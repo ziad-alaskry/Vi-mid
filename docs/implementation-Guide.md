@@ -259,6 +259,47 @@ boundaries (`error.jsx`/`not-found.jsx`, added in Phase 3) are covered by the a1
 RTL/LTR parity and mobile→desktop responsiveness were already verified visually across
 every phase's VRT screenshots.
 
+## Post-roadmap: login redesign, fixed nav, seed expansion (2026-07-05)
+
+Three follow-up requests after the 7-phase roadmap closed out:
+
+1. **Login page.** Kept the persona-picker cards; added a real email+password form above
+   them. Only the 5 featured personas (`src/lib/seed.js` `FEATURED_IDS`, pinned by literal
+   id rather than array index so directory regeneration can't silently swap them) are valid
+   form logins — synthetic email `${id}@vimed.demo` (`personaEmail`/`findByEmail` in
+   `seed.js`), one shared `DEMO_PASSWORD` (`src/lib/config.js`, shown as an on-screen hint).
+   "Register" and "Forgot password" are `Sheet`-based mock flows (same component as
+   `BookingSheet`/`RescheduleSheet`) that always show a fixed message and never create or
+   reset anything — reusing the exact `login(id)` + role-redirect the persona cards already
+   use, so RBAC needed no new logic.
+2. **Fixed nav + global language switcher.** Mobile `TabBar` is now true `position: fixed`
+   (bottom, centered under the app-frame card via `max-w-app mx-auto` on a full-width fixed
+   box — the same auto-margin-centering technique `.app-frame` itself uses). Desktop rail
+   stays `sticky` — the outer shell never scrolls at desktop widths (each page scrolls
+   internally), so sticky is already indistinguishable from fixed there; chasing literal
+   `fixed` would mean replicating `.app-frame`'s own centering *and* vertical margin math
+   for no visible gain. Added one persistent fixed top strip in `AppChrome.jsx` holding the
+   `LanguageSwitcher`, present on every route (including login/call, which have no per-page
+   `Header`) — `main` reserves matching `padding-top`/`padding-bottom` so the fixed chrome
+   never overlaps content; `.app-frame`'s desktop top margin was bumped
+   (`margin-block: 3.5rem 2rem`) to clear the strip. Removed the now-redundant inline
+   `LanguageSwitcher` from the login and Profile pages.
+3. **Seed data expansion.** `initialState.bookings` (`localStorageProvider.js`) now ships
+   `SEED_BOOKINGS` — a mix of upcoming/done/cancelled visits (with ratings/comments)
+   involving the 5 featured personas, using a `seed_bk_N` id scheme that can never collide
+   with the `bk_${seq}` ids `book()` generates for real bookings — so a fresh login already
+   shows populated Visits/History, a real profile rating, and a non-zero admin dashboard.
+   `gen-data.js` gained more cities (3 → 10) and more name variety, with an explicit code
+   comment documenting the id-stability invariant (same per-role counts and generation
+   order) that keeps `phy_1`/`pha_101`/`pur_131`/`rep_141` — the featured demo personas —
+   stable across regeneration; verified by regenerating and re-checking. Library content
+   (`src/messages/{ar,en}.json`) expanded from 4/6/8 to 8/8/12 updates/categories/protocols.
+
+Verified with `npm run build`, the full Playwright VRT + a11y suites (52/52 passing,
+`tests/vrt.spec.js` updated for the pre-seeded Visits state and the now-plural "Start
+call" buttons), and a manual pass through both mock sheets and the wrong/correct password
+paths of the new login form.
+
 ## Phase 8 — Production cutover (DEFERRED — trigger once deployment env is chosen)
 - Realize the docs' backend: stand up `apps/api` (Express + MongoDB + Socket.IO + JWT auth)
   **or** the chosen managed stack. Implement an **API `DataProvider`** matching the Phase-0

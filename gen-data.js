@@ -1,8 +1,8 @@
 const fs = require("fs");
 
-const maleFirst = ["محمد","أحمد","عبدالله","خالد","فهد","سعد","عبدالعزيز","سلطان","ناصر","فيصل","تركي","بندر","ماجد","سعود","عمر","يوسف","إبراهيم","علي","حسن","طارق"];
-const femaleFirst = ["نورة","سارة","ريم","هند","لمياء","عائشة","فاطمة","منيرة","الجوهرة","دانة","رنا","شهد","أمل","لطيفة","مها","نوف","جواهر","عبير","هيا","رهف"];
-const family = ["العتيبي","القحطاني","الغامدي","الشهري","الدوسري","الحربي","المطيري","الزهراني","السبيعي","البقمي","الشمري","العنزي","الرشيدي","الخالدي","العمري","السلمي","الجهني","البلوي","المالكي","الحارثي"];
+const maleFirst = ["محمد","أحمد","عبدالله","خالد","فهد","سعد","عبدالعزيز","سلطان","ناصر","فيصل","تركي","بندر","ماجد","سعود","عمر","يوسف","إبراهيم","علي","حسن","طارق","عبدالرحمن","بدر","نواف","مشعل","زياد","يزيد","راكان","وليد","عادل","سامي"];
+const femaleFirst = ["نورة","سارة","ريم","هند","لمياء","عائشة","فاطمة","منيرة","الجوهرة","دانة","رنا","شهد","أمل","لطيفة","مها","نوف","جواهر","عبير","هيا","رهف","العنود","غادة","وعد","سلمى","حصة","مريم","أروى","ديمة","نجلاء","روان"];
+const family = ["العتيبي","القحطاني","الغامدي","الشهري","الدوسري","الحربي","المطيري","الزهراني","السبيعي","البقمي","الشمري","العنزي","الرشيدي","الخالدي","العمري","السلمي","الجهني","البلوي","المالكي","الحارثي","الشثري","القرني","العسيري","الدعجاني","السهلي","الزيد","الفهيد","اليامي","الشريف","الغنام"];
 
 const specialties = ["Dermatology","Orthopedics","Cardiology","Dentistry","Pulmonary","Internal Medicine","Pediatrics","Endocrinology","General Surgery","OB/GYN"];
 const subspecBySpec = {
@@ -18,9 +18,9 @@ const subspecBySpec = {
   "OB/GYN": ["Maternal-fetal","Gynae-oncology","Fertility"],
 };
 
-const cities = ["Jeddah","Riyadh","Dammam"];
-const mohCenters = ["King Fahd Hospital","King Faisal Hospital","Prince Sultan Medical City","Jeddah Central Hospital"];
-const privateCenters = ["Dr. Sulaiman Al-Habib","Al Hammadi Hospital","Saudi German Hospital","Tadawi Clinics"];
+const cities = ["Jeddah","Riyadh","Dammam","Mecca","Medina","Khobar","Abha","Tabuk","Buraidah","Khamis Mushait"];
+const mohCenters = ["King Fahd Hospital","King Faisal Hospital","Prince Sultan Medical City","Jeddah Central Hospital","King Abdulaziz Medical City","Maternity and Children Hospital"];
+const privateCenters = ["Dr. Sulaiman Al-Habib","Al Hammadi Hospital","Saudi German Hospital","Tadawi Clinics","Dallah Hospital","Kingdom Hospital"];
 const retailPharmacies = ["AlNahdi","AlDawa","UPC"];
 const companies = ["Pfizer","Novartis","GSK","Sanofi","AstraZeneca","Roche","Tabuk Pharmaceuticals","SPIMACO","Jamjoom Pharma","Hikma"];
 const products = ["Cardiomax 10mg","Dermacool Gel","Pulmoease Inhaler","Glucobalance 500mg","Osteofix 70mg","Pedialyte Plus","Thyrocare 50mcg","Surgiclean Solution","Gynecare 200mg","Internomed XR"];
@@ -46,6 +46,13 @@ function availabilityFor(id) {
   return { slotMinutes: 15, fixedWeekly: true, days: days.sort(), startH, endH };
 }
 
+// IMPORTANT — id stability: src/lib/seed.js FEATURED_IDS hardcodes phy_1,
+// pha_101, pur_131, rep_141 as the 5 "featured" demo/login personas (and the
+// only valid email+password logins). Those numbers depend on the *order and
+// counts* below (100 physicians, then 30 pharmacists, then 10 purchasers,
+// then 10 reps, off one shared counter) — adding more names/cities to the
+// pools above is safe, but reordering these blocks or changing a count would
+// shift the ids and break the featured-persona mapping.
 let id = 1;
 const physicians = [];
 specialties.forEach((spec) => {

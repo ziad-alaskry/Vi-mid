@@ -24,7 +24,25 @@
     "rep": "Rep",
     "hcp": "HCP",
     "admin": "Admin",
-    "demoNote": "Demo build · mock data · no real accounts. State is saved in your browser only."
+    "demoNote": "Demo build · mock data · no real accounts. State is saved in your browser only.",
+    "signIn": "Sign in",
+    "emailPlaceholder": "Email",
+    "passwordPlaceholder": "Password",
+    "demoPasswordHint": "Demo password for every seeded account: {password}",
+    "invalidCredentials": "Invalid email or password. Try one of the demo profiles below.",
+    "or": "or",
+    "forgotPassword": "Forgot password?",
+    "registerPrompt": "New here?",
+    "registerCta": "Create an account",
+    "registerTitle": "Create an account",
+    "namePlaceholder": "Full name",
+    "roleLabel": "I am a…",
+    "registerSubmit": "Create account",
+    "registerMockMessage": "Registration is disabled in this demo — sign in with a seeded profile below.",
+    "backToSignIn": "Back to sign in",
+    "forgotTitle": "Reset your password",
+    "forgotSubmit": "Send reset link",
+    "forgotMockMessage": "If an account exists for this email, we've sent reset instructions."
   },
   "visits": {
     "title": "Visits",
@@ -133,7 +151,11 @@
       { "tag": "Drug launch", "tone": "tint", "title": "Long-acting GLP-1 receives SFDA approval", "source": "Regulatory desk", "time": "2h" },
       { "tag": "Guideline", "tone": "blue", "title": "Updated hypertension targets for adults over 60", "source": "Cardiology brief", "time": "1d" },
       { "tag": "News", "tone": "blue", "title": "MOH expands biosimilar coverage across tertiary centers", "source": "Market access", "time": "2d" },
-      { "tag": "Article", "tone": "blue", "title": "Inhaler technique and adherence in pediatric asthma", "source": "Respiratory review", "time": "4d" }
+      { "tag": "Article", "tone": "blue", "title": "Inhaler technique and adherence in pediatric asthma", "source": "Respiratory review", "time": "4d" },
+      { "tag": "Guideline", "tone": "blue", "title": "Updated migraine prevention protocol for adults", "source": "Neurology brief", "time": "5d" },
+      { "tag": "Drug launch", "tone": "tint", "title": "New SGLT2 inhibitor approved for chronic kidney disease", "source": "Regulatory desk", "time": "6d" },
+      { "tag": "News", "tone": "blue", "title": "SFDA issues updated biosimilar interchangeability guidance", "source": "Market access", "time": "1w" },
+      { "tag": "Article", "tone": "blue", "title": "Early detection strategies in skin cancer screening", "source": "Dermatology review", "time": "1w" }
     ],
     "categories": [
       { "name": "Cardiology", "count": 18 },
@@ -141,7 +163,9 @@
       { "name": "Respiratory", "count": 11 },
       { "name": "Dermatology", "count": 9 },
       { "name": "Infectious disease", "count": 16 },
-      { "name": "Oncology", "count": 12 }
+      { "name": "Oncology", "count": 12 },
+      { "name": "Neurology", "count": 10 },
+      { "name": "Nephrology", "count": 8 }
     ],
     "protocols": [
       { "disease": "Type 2 diabetes", "cat": "Endocrinology", "body": "First-line metformin; add GLP-1 or SGLT2 per CV risk." },
@@ -151,7 +175,11 @@
       { "disease": "Community pneumonia", "cat": "Infectious disease", "body": "Risk-stratify (CURB-65); empirical antibiotics per setting." },
       { "disease": "Heart failure", "cat": "Cardiology", "body": "Guideline-directed quadruple therapy; titrate to tolerance." },
       { "disease": "Hypothyroidism", "cat": "Endocrinology", "body": "Levothyroxine; recheck TSH at 6–8 weeks." },
-      { "disease": "COPD", "cat": "Respiratory", "body": "LABA/LAMA bronchodilation; add ICS for frequent exacerbators." }
+      { "disease": "COPD", "cat": "Respiratory", "body": "LABA/LAMA bronchodilation; add ICS for frequent exacerbators." },
+      { "disease": "Migraine", "cat": "Neurology", "body": "Acute triptans; consider CGRP-targeted prevention if frequent." },
+      { "disease": "Chronic kidney disease", "cat": "Nephrology", "body": "SGLT2 inhibitor + ACE/ARB; monitor eGFR and potassium." },
+      { "disease": "Epilepsy", "cat": "Neurology", "body": "Monotherapy first-line; select agent by seizure type and comorbidity." },
+      { "disease": "Breast cancer", "cat": "Oncology", "body": "Stage-guided therapy; hormone-receptor and HER2 status drive regimen." }
     ],
     "suggestions": ["First-line for T2DM?", "Asthma step-up therapy", "Hypertension targets"]
   },

@@ -21,3 +21,8 @@ export const SURVEY = {
   urlHcp: process.env.NEXT_PUBLIC_SURVEY_URL_HCP || "https://example.com/survey-hcp",
   urlRep: process.env.NEXT_PUBLIC_SURVEY_URL_REP || "https://example.com/survey-rep",
 };
+
+// Shared password for every seeded demo account (login form, src/lib/seed.js
+// findByEmail). No real security boundary exists in this client-only demo —
+// shown on-screen as a hint rather than hidden.
+export const DEMO_PASSWORD = "Demo1234!";

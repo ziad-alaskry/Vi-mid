@@ -25,8 +25,9 @@ export default function TabBar() {
 
   return (
     <nav
-      className="sticky bottom-0 z-30 bg-white border-t border-hairline
-                 md:sticky md:top-0 md:h-full md:w-20 md:shrink-0 md:border-t-0 md:border-e md:py-6"
+      className="fixed start-0 end-0 bottom-0 max-w-app mx-auto z-30 bg-white border-t border-hairline
+                 md:sticky md:start-auto md:end-auto md:bottom-auto md:max-w-none md:mx-0
+                 md:top-0 md:h-full md:w-20 md:shrink-0 md:border-t-0 md:border-e md:py-6"
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
     >
       <ul

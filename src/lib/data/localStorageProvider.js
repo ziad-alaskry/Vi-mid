@@ -13,9 +13,61 @@
 
 const KEY = "vimed_state_v1";
 
+// N days from today, as "YYYY-MM-DD" (matches src/lib/slots.js's isoDate format).
+function daysFromNow(n) {
+  const d = new Date();
+  d.setDate(d.getDate() + n);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
+// Demo seed bookings involving the 5 featured login personas (see
+// src/lib/seed.js FEATURED_IDS) plus one extra rep for variety, so a fresh
+// login already shows a populated Visits list, real profile ratings, and a
+// non-zero admin dashboard instead of empty states everywhere. Ids use a
+// "seed_" prefix so they can never collide with `bk_${seq}` ids the book()
+// operation generates for real user bookings.
+const SEED_BOOKINGS = [
+  {
+    id: "seed_bk_1", hcpId: "phy_1", repId: "rep_141", status: "upcoming",
+    date: daysFromNow(3), time: "9:00 am", durationMin: 15,
+    product: "Surgiclean Solution", company: "Sanofi",
+  },
+  {
+    id: "seed_bk_2", hcpId: "pha_101", repId: "rep_141", status: "upcoming",
+    date: daysFromNow(6), time: "10:00 am", durationMin: 15,
+    product: "Surgiclean Solution", company: "Sanofi",
+  },
+  {
+    id: "seed_bk_3", hcpId: "phy_1", repId: "rep_141", status: "done",
+    date: daysFromNow(-10), time: "9:15 am", durationMin: 15,
+    product: "Surgiclean Solution", company: "Sanofi",
+    hcpRating: 4, hcpComment: "Good overview of the product, kept it brief.",
+    repRating: 5, repComment: "Engaged well and asked sharp clinical questions.",
+  },
+  {
+    id: "seed_bk_4", hcpId: "pur_131", repId: "rep_141", status: "cancelled",
+    date: daysFromNow(-3), time: "9:00 am", durationMin: 15,
+    product: "Surgiclean Solution", company: "Sanofi",
+  },
+  {
+    id: "seed_bk_5", hcpId: "phy_1", repId: "rep_142", status: "done",
+    date: daysFromNow(-20), time: "9:30 am", durationMin: 15,
+    product: "Pulmoease Inhaler", company: "AstraZeneca",
+    hcpRating: 5, hcpComment: "Clear answers on dosing, thanks.",
+    repRating: 4, repComment: "Appreciated the time, ran a bit long.",
+  },
+  {
+    id: "seed_bk_6", hcpId: "pha_101", repId: "rep_142", status: "done",
+    date: daysFromNow(-15), time: "10:15 am", durationMin: 15,
+    product: "Pulmoease Inhaler", company: "AstraZeneca",
+    hcpRating: 5, hcpComment: "Useful comparison with current stock.",
+    repRating: 5, repComment: "Very responsive, quick and productive visit.",
+  },
+];
+
 export const initialState = {
   currentUserId: null,
-  bookings: [],              // {id, hcpId, repId, date, time, durationMin, product, company, status, hcpRating, repRating, repComment, hcpComment}
+  bookings: SEED_BOOKINGS,    // {id, hcpId, repId, date, time, durationMin, product, company, status, hcpRating, repRating, repComment, hcpComment}
   availabilityOverrides: {}, // hcpId -> availability object (when an HCP edits their own)
   surveyClicks: { hcp: 0, rep: 0 }, // feedback survey click-throughs, by audience
   seq: 1,
