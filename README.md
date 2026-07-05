@@ -28,6 +28,10 @@ The app is fully client-side; all state lives in the browser via `localStorage`.
   sign in as a seeded Rep or as an HCP (physician / pharmacist / purchaser).
 - **Role-aware navigation.** The centre tab ("New visit") shows the rep discovery +
   booking flow for reps, and the configurable availability editor for HCPs.
+- **Bilingual, Arabic-default, RTL.** Every route is locale-prefixed (`/ar/...`,
+  `/en/...`); visiting `/` redirects to `/ar`. A language switcher (profile page and
+  login screen) toggles `ar`/`en`; layout direction, fonts, dates, and times follow
+  the active locale.
 - **Persistence.** Bookings, ratings, and availability edits survive refresh. Reset
   from Profile → "Reset demo data".
 
@@ -62,6 +66,19 @@ Jeddah, Riyadh, and Dammam. Regenerate with `node gen-data.js`.
 - Camera self-view stands in for real two-party WebRTC
 - `localStorage` stands in for a real backend and authenticated accounts
 
+## i18n / RTL
+
+- `next-intl`, locales `ar` (default) and `en`, locale-prefixed routing via
+  `src/middleware.js` + `src/i18n/`.
+- Message catalogues: `src/messages/ar.json`, `src/messages/en.json` — the single
+  source of truth for every UI string, including the mock library content (updates,
+  disease categories, protocols, companion chat).
+- RTL via `<html dir>` + Tailwind logical utilities (`ms-`/`me-`/`ps-`/`pe-`/`start-`/
+  `end-`, no physical `left`/`right`); disclosure-style chevrons mirror via the
+  `.mirror-rtl` CSS rule in `globals.css`.
+- Dates/times localize through `src/lib/slots.js` (`prettyDate`, `fmtTime`,
+  `dayLabels`), driven by `useLocale()`.
+
 ## Stack
 
-Next.js 14 (App Router) · React 18 · Tailwind CSS. No backend.
+Next.js 14 (App Router) · React 18 · Tailwind CSS · next-intl. No backend.

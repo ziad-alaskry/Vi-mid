@@ -93,6 +93,13 @@ and reps never; both roles can end a call → rating; points logic fully gone.
 **DoD:** every screen mirrors correctly in `ar`; toggle works and persists; no physical
 left/right remain; no hardcoded UI strings.
 
+**Status: done.** `next-intl` wired via `src/middleware.js` + `src/i18n/`; all routes moved
+under `src/app/[locale]/`; `src/messages/{ar,en}.json` cover every UI string including the
+mock library content; `LanguageSwitcher` on login + profile; dates/times localized in
+`src/lib/slots.js`; logical CSS audit complete (no physical `left/right`, `ml-/mr-`,
+`pl-/pr-`); disclosure chevrons mirror via `.mirror-rtl`. Verified with `npm run build`
+(all locale routes render) and `npm run dev` (curl checks of `/ar`, `/en`, and sub-routes).
+
 ## Phase 3 — Design system & responsive shell
 - Token/theme audit (Scrub palette in `tailwind.config.js` + `globals.css`); zero raw hex in
   components. Consolidate shared primitives in `src/components/ui.jsx` (Button, Input,

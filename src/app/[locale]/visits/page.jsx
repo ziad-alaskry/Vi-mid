@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useTranslations, useLocale } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
 import { useStore } from "@/lib/store";
 import { hcpById, repById } from "@/lib/seed";
 import { prettyDate, slotsForDay, upcomingDatesFor } from "@/lib/slots";
@@ -9,6 +10,7 @@ import { Header, Card, Badge, Button, EmptyState, Avatar, Stars } from "@/compon
 import { Icon } from "@/components/icons";
 
 export default function VisitsPage() {
+  const t = useTranslations("visits");
   const { currentUser, isHcp, state, cancelBooking } = useStore();
   const router = useRouter();
   const [tab, setTab] = useState("upcoming");
@@ -28,18 +30,18 @@ export default function VisitsPage() {
   return (
     <>
       <Header
-        title="Visits"
-        subtitle={isHcp ? "Your booked visits" : "Visits you scheduled"}
+        title={t("title")}
+        subtitle={isHcp ? t("subtitleHcp") : t("subtitleRep")}
         right={
           <Button variant="soft" className="h-9 px-3" onClick={() => router.push("/new-visit")}>
-            <Icon name="plus" size={18} /> {isHcp ? "Availability" : "Book"}
+            <Icon name="plus" size={18} /> {isHcp ? t("availability") : t("book")}
           </Button>
         }
       />
 
       <div className="px-4 pt-3">
         <div className="grid grid-cols-2 bg-surface rounded-lg p-1 text-sm font-medium">
-          {[["upcoming", "Upcoming"], ["history", "History"]].map(([k, label]) => (
+          {[["upcoming", t("upcoming")], ["history", t("history")]].map(([k, label]) => (
             <button
               key={k}
               onClick={() => setTab(k)}
@@ -47,7 +49,7 @@ export default function VisitsPage() {
             >
               {label}
               {k === "upcoming" && upcoming.length > 0 && (
-                <span className="ml-1.5 text-xs text-green-primary">{upcoming.length}</span>
+                <span className="ms-1.5 text-xs text-green-primary">{upcoming.length}</span>
               )}
             </button>
           ))}
@@ -58,12 +60,8 @@ export default function VisitsPage() {
         {list.length === 0 ? (
           <EmptyState
             icon="calendar"
-            title={tab === "upcoming" ? "No upcoming visits" : "No past visits yet"}
-            hint={
-              isHcp
-                ? "Reps will book against the availability you publish."
-                : "Tap Book to find an HCP and schedule a 120-second visit."
-            }
+            title={tab === "upcoming" ? t("noUpcoming") : t("noHistory")}
+            hint={isHcp ? t("hintHcp") : t("hintRep")}
           />
         ) : (
           list.map((b) => (
@@ -87,6 +85,8 @@ export default function VisitsPage() {
 }
 
 function VisitCard({ booking, isHcp, onStart, onCancel, onReschedule }) {
+  const t = useTranslations("visits");
+  const locale = useLocale();
   const hcp = hcpById(booking.hcpId);
   const rep = repById(booking.repId);
   const counterpart = isHcp ? rep : hcp;
@@ -99,8 +99,8 @@ function VisitCard({ booking, isHcp, onStart, onCancel, onReschedule }) {
         <div className="min-w-0 flex-1">
           <div className="flex items-center justify-between gap-2">
             <span className="font-medium truncate" dir="rtl">{counterpart?.name}</span>
-            {booking.status === "cancelled" && <Badge tone="danger">Cancelled</Badge>}
-            {booking.status === "done" && <Badge tone="soft">Done</Badge>}
+            {booking.status === "cancelled" && <Badge tone="danger">{t("cancelled")}</Badge>}
+            {booking.status === "done" && <Badge tone="soft">{t("done")}</Badge>}
           </div>
           <p className="text-sm text-ink-soft truncate">
             {isHcp
@@ -109,14 +109,14 @@ function VisitCard({ booking, isHcp, onStart, onCancel, onReschedule }) {
           </p>
           <div className="flex items-center gap-3 mt-1.5 text-sm">
             <span className="inline-flex items-center gap-1 text-green-pressed">
-              <Icon name="calendar" size={15} /> {prettyDate(booking.date)}
+              <Icon name="calendar" size={15} /> {prettyDate(booking.date, locale)}
             </span>
             <span className="inline-flex items-center gap-1 text-green-pressed">
               <Icon name="clock" size={15} /> {booking.time}
             </span>
           </div>
           {!isHcp && booking.product && (
-            <p className="text-xs text-ink-soft mt-1">Detailing: {booking.product}</p>
+            <p className="text-xs text-ink-soft mt-1">{t("detailing")}: {booking.product}</p>
           )}
         </div>
       </div>
@@ -124,12 +124,12 @@ function VisitCard({ booking, isHcp, onStart, onCancel, onReschedule }) {
       {booking.status === "upcoming" && (
         <div className="flex items-center gap-2 mt-3">
           <Button variant="primary" className="flex-1" onClick={onStart}>
-            <Icon name="video" size={18} /> Start call
+            <Icon name="video" size={18} /> {t("startCall")}
           </Button>
-          <Button variant="ghost" className="px-3" onClick={onReschedule} aria-label="Reschedule">
+          <Button variant="ghost" className="px-3" onClick={onReschedule} aria-label={t("reschedule")}>
             <Icon name="calendar" size={18} />
           </Button>
-          <Button variant="danger" className="px-3" onClick={onCancel} aria-label="Cancel">
+          <Button variant="danger" className="px-3" onClick={onCancel} aria-label={t("cancel")}>
             <Icon name="x" size={18} />
           </Button>
         </div>
@@ -138,7 +138,7 @@ function VisitCard({ booking, isHcp, onStart, onCancel, onReschedule }) {
       {booking.status === "done" && (
         <div className="mt-3 pt-3 border-t border-hairline flex items-center justify-between">
           <span className="text-xs text-ink-soft">
-            {myRatingGiven ? "You rated this visit" : "Rating skipped"}
+            {myRatingGiven ? t("youRated") : t("ratingSkipped")}
           </span>
           {myRatingGiven ? <Stars value={myRatingGiven} /> : <Badge tone="soft">—</Badge>}
         </div>
@@ -148,6 +148,8 @@ function VisitCard({ booking, isHcp, onStart, onCancel, onReschedule }) {
 }
 
 function RescheduleSheet({ bookingId, onClose }) {
+  const t = useTranslations("visits");
+  const locale = useLocale();
   const { state, updateBooking } = useStore();
   const booking = state.bookings.find((b) => b.id === bookingId);
   const hcp = hcpById(booking.hcpId);
@@ -156,7 +158,7 @@ function RescheduleSheet({ bookingId, onClose }) {
 
   // simple slot list from the hcp availability window
   const dates = upcomingDatesFor(hcp.availability, 8);
-  const slots = slotsForDay(hcp.availability);
+  const slots = slotsForDay(hcp.availability, locale);
 
   return (
     <div className="fixed inset-0 z-40 flex items-end justify-center bg-black/40" onClick={onClose}>
@@ -165,8 +167,8 @@ function RescheduleSheet({ bookingId, onClose }) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="w-10 h-1 rounded-full bg-hairline mx-auto mb-3" />
-        <h2 className="font-semibold text-[15px] mb-3">Reschedule visit</h2>
-        <p className="text-xs text-ink-soft mb-2">Pick a new day</p>
+        <h2 className="font-semibold text-[15px] mb-3">{t("rescheduleTitle")}</h2>
+        <p className="text-xs text-ink-soft mb-2">{t("pickDay")}</p>
         <div className="flex gap-2 overflow-x-auto no-scrollbar pb-2">
           {dates.map((d) => (
             <button
@@ -174,11 +176,11 @@ function RescheduleSheet({ bookingId, onClose }) {
               onClick={() => setDate(d)}
               className={`shrink-0 px-3 h-10 rounded-lg text-sm border ${date === d ? "border-green-primary bg-green-tint text-green-pressed" : "border-hairline text-ink-soft"}`}
             >
-              {prettyDate(d)}
+              {prettyDate(d, locale)}
             </button>
           ))}
         </div>
-        <p className="text-xs text-ink-soft mt-3 mb-2">Pick a time</p>
+        <p className="text-xs text-ink-soft mt-3 mb-2">{t("pickTime")}</p>
         <div className="grid grid-cols-4 gap-2 max-h-40 overflow-y-auto no-scrollbar">
           {slots.map((s) => (
             <button
@@ -191,13 +193,13 @@ function RescheduleSheet({ bookingId, onClose }) {
           ))}
         </div>
         <div className="flex gap-2 mt-4">
-          <Button variant="ghost" className="flex-1" onClick={onClose}>Cancel</Button>
+          <Button variant="ghost" className="flex-1" onClick={onClose}>{t("cancel")}</Button>
           <Button
             variant="primary"
             className="flex-1"
             onClick={() => { updateBooking(bookingId, { date, time }); onClose(); }}
           >
-            Confirm
+            {t("confirm")}
           </Button>
         </div>
       </div>

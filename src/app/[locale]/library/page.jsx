@@ -1,44 +1,19 @@
 "use client";
 
 import { useMemo, useRef, useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { Header, Card, Badge, Button } from "@/components/ui";
 import { Icon } from "@/components/icons";
 
-const UPDATES = [
-  { tag: "Drug launch", title: "Long-acting GLP-1 receives SFDA approval", source: "Regulatory desk", time: "2h" },
-  { tag: "Guideline", title: "Updated hypertension targets for adults over 60", source: "Cardiology brief", time: "1d" },
-  { tag: "News", title: "MOH expands biosimilar coverage across tertiary centers", source: "Market access", time: "2d" },
-  { tag: "Article", title: "Inhaler technique and adherence in pediatric asthma", source: "Respiratory review", time: "4d" },
-];
-
-const CATEGORIES = [
-  { name: "Cardiology", icon: "dot", count: 18 },
-  { name: "Endocrinology", icon: "dot", count: 14 },
-  { name: "Respiratory", icon: "dot", count: 11 },
-  { name: "Dermatology", icon: "dot", count: 9 },
-  { name: "Infectious disease", icon: "dot", count: 16 },
-  { name: "Oncology", icon: "dot", count: 12 },
-];
-
-const PROTOCOLS = [
-  { disease: "Type 2 diabetes", cat: "Endocrinology", body: "First-line metformin; add GLP-1 or SGLT2 per CV risk." },
-  { disease: "Hypertension", cat: "Cardiology", body: "Lifestyle + ACE/ARB or CCB; target per age and comorbidity." },
-  { disease: "Asthma", cat: "Respiratory", body: "Stepwise ICS-based control; review inhaler technique each visit." },
-  { disease: "Atopic dermatitis", cat: "Dermatology", body: "Emollients + topical steroids; escalate to systemic if severe." },
-  { disease: "Community pneumonia", cat: "Infectious disease", body: "Risk-stratify (CURB-65); empirical antibiotics per setting." },
-  { disease: "Heart failure", cat: "Cardiology", body: "Guideline-directed quadruple therapy; titrate to tolerance." },
-  { disease: "Hypothyroidism", cat: "Endocrinology", body: "Levothyroxine; recheck TSH at 6–8 weeks." },
-  { disease: "COPD", cat: "Respiratory", body: "LABA/LAMA bronchodilation; add ICS for frequent exacerbators." },
-];
-
 export default function LibraryPage() {
+  const t = useTranslations("library");
   const [tab, setTab] = useState("updates");
   return (
     <>
-      <Header title="Library" subtitle="Updates, protocols & companion" />
+      <Header title={t("title")} subtitle={t("subtitle")} />
       <div className="px-4 pt-3">
         <div className="grid grid-cols-3 bg-surface rounded-lg p-1 text-[13px] font-medium">
-          {[["updates", "Updates"], ["treatment", "Treatment"], ["companion", "Companion"]].map(([k, label]) => (
+          {[["updates", t("tabUpdates")], ["treatment", t("tabTreatment")], ["companion", t("tabCompanion")]].map(([k, label]) => (
             <button key={k} onClick={() => setTab(k)} className={`h-9 rounded-md transition ${tab === k ? "bg-white text-green-pressed shadow-sm" : "text-ink-soft"}`}>
               {label}
             </button>
@@ -53,16 +28,16 @@ export default function LibraryPage() {
 }
 
 function Updates() {
+  const t = useTranslations("library");
+  const updates = t.raw("updates");
   return (
     <div className="flex-1 overflow-y-auto px-4 py-3 space-y-2.5 no-scrollbar">
-      <p className="text-xs text-ink-soft px-1">
-        Curated by ViMed. In production this feed is posted by an admin or an AI agent that fetches from defined trusted resources.
-      </p>
-      {UPDATES.map((u, i) => (
+      <p className="text-xs text-ink-soft px-1">{t("updatesCaption")}</p>
+      {updates.map((u, i) => (
         <Card key={i} className="p-3.5">
           <div className="flex items-center gap-2 mb-1.5">
-            <Badge tone={u.tag === "Drug launch" ? "tint" : "blue"}>{u.tag}</Badge>
-            <span className="text-xs text-ink-soft ml-auto">{u.time} ago</span>
+            <Badge tone={u.tone}>{u.tag}</Badge>
+            <span className="text-xs text-ink-soft ms-auto">{t("timeAgo", { time: u.time })}</span>
           </div>
           <p className="font-medium leading-snug">{u.title}</p>
           <p className="text-xs text-ink-soft mt-1">{u.source}</p>
@@ -73,17 +48,21 @@ function Updates() {
 }
 
 function Treatment() {
+  const t = useTranslations("library");
+  const tc = useTranslations("common");
+  const categories = t.raw("categories");
+  const protocols = t.raw("protocols");
   const [q, setQ] = useState("");
   const [cat, setCat] = useState(null);
 
   const results = useMemo(() => {
     const term = q.trim().toLowerCase();
-    return PROTOCOLS.filter((p) => {
+    return protocols.filter((p) => {
       if (cat && p.cat !== cat) return false;
       if (term && !(`${p.disease} ${p.body} ${p.cat}`.toLowerCase().includes(term))) return false;
       return true;
     });
-  }, [q, cat]);
+  }, [q, cat, protocols]);
 
   const searching = q.trim() || cat;
 
@@ -94,24 +73,24 @@ function Treatment() {
         <input
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          placeholder="Search treatment protocols & guidelines"
+          placeholder={t("searchTreatment")}
           className="flex-1 bg-transparent outline-none text-sm placeholder:text-ink-soft"
         />
-        {q && <button onClick={() => setQ("")} aria-label="Clear"><Icon name="x" size={16} className="text-ink-soft" /></button>}
+        {q && <button onClick={() => setQ("")} aria-label={tc("clear")}><Icon name="x" size={16} className="text-ink-soft" /></button>}
       </div>
 
       {!searching && (
         <>
-          <p className="text-xs font-medium uppercase tracking-wide text-ink-soft mt-5 mb-2">Browse by disease area</p>
+          <p className="text-xs font-medium uppercase tracking-wide text-ink-soft mt-5 mb-2">{t("browseByDisease")}</p>
           <div className="grid grid-cols-2 gap-2.5">
-            {CATEGORIES.map((c) => (
-              <button key={c.name} onClick={() => setCat(c.name === "Infectious disease" || c.name === "Oncology" ? null : c.name)}>
-                <Card className="p-3.5 text-left hover:border-green-primary transition h-full">
+            {categories.map((c) => (
+              <button key={c.name} onClick={() => setCat((cur) => (cur === c.name ? null : c.name))}>
+                <Card className="p-3.5 text-start hover:border-green-primary transition h-full">
                   <span className="inline-grid place-items-center w-8 h-8 rounded-lg bg-green-tint text-green-pressed mb-2">
                     <Icon name="book" size={16} />
                   </span>
                   <p className="font-medium text-sm">{c.name}</p>
-                  <p className="text-xs text-ink-soft">{c.count} protocols</p>
+                  <p className="text-xs text-ink-soft">{t("protocolsCount", { count: c.count })}</p>
                 </Card>
               </button>
             ))}
@@ -122,7 +101,7 @@ function Treatment() {
       {searching && (
         <div className="mt-4 space-y-2.5">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-ink-soft">{results.length} protocols</span>
+            <span className="text-xs text-ink-soft">{t("protocolsCount", { count: results.length })}</span>
             {cat && (
               <button onClick={() => setCat(null)} className="text-xs text-green-pressed font-medium inline-flex items-center gap-1">
                 <Icon name="x" size={13} /> {cat}
@@ -138,7 +117,7 @@ function Treatment() {
               <p className="text-sm text-ink-soft mt-1">{p.body}</p>
             </Card>
           ))}
-          {results.length === 0 && <p className="text-sm text-ink-soft text-center py-8">No protocols match that search.</p>}
+          {results.length === 0 && <p className="text-sm text-ink-soft text-center py-8">{t("noProtocols")}</p>}
         </div>
       )}
     </div>
@@ -146,9 +125,9 @@ function Treatment() {
 }
 
 function Companion() {
-  const [messages, setMessages] = useState([
-    { from: "bot", text: "Hi — I'm your ViMed health companion. My answers draw only from [trusted source] and are for information, not medical advice. What would you like to look up?" },
-  ]);
+  const t = useTranslations("library");
+  const tc = useTranslations("common");
+  const [messages, setMessages] = useState([{ from: "bot", text: t("companionGreeting") }]);
   const [input, setInput] = useState("");
   const scrollRef = useRef(null);
 
@@ -160,14 +139,11 @@ function Companion() {
     setMessages((m) => [...m, { from: "user", text }]);
     setInput("");
     setTimeout(() => {
-      setMessages((m) => [...m, {
-        from: "bot",
-        text: "Here's a general summary based on [trusted source]. In the production build this connects to the live source of truth and returns sourced answers. For clinical decisions, please confirm against the full guideline.",
-      }]);
+      setMessages((m) => [...m, { from: "bot", text: t("companionReply") }]);
     }, 500);
   }
 
-  const suggestions = ["First-line for T2DM?", "Asthma step-up therapy", "Hypertension targets"];
+  const suggestions = t.raw("suggestions");
 
   return (
     <div className="flex-1 flex flex-col min-h-0">
@@ -175,12 +151,12 @@ function Companion() {
         {messages.map((m, i) => (
           <div key={i} className={`flex ${m.from === "user" ? "justify-end" : "justify-start"}`}>
             {m.from === "bot" && (
-              <span className="shrink-0 grid place-items-center w-8 h-8 rounded-full bg-green-tint text-green-pressed mr-2 self-end">
+              <span className="shrink-0 grid place-items-center w-8 h-8 rounded-full bg-green-tint text-green-pressed me-2 self-end">
                 <Icon name="sparkle" size={16} />
               </span>
             )}
             <div className={`max-w-[78%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
-              m.from === "user" ? "bg-green-primary text-white rounded-br-md" : "bg-surface text-ink rounded-bl-md"
+              m.from === "user" ? "bg-green-primary text-white rounded-ee-md" : "bg-surface text-ink rounded-ss-md"
             }`}>
               {m.text}
             </div>
@@ -197,15 +173,15 @@ function Companion() {
         )}
       </div>
       <div className="px-3 py-3 border-t border-hairline bg-white">
-        <div className="flex items-center gap-2 bg-surface rounded-full h-11 pl-4 pr-1.5">
+        <div className="flex items-center gap-2 bg-surface rounded-full h-11 ps-4 pe-1.5">
           <input
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && send()}
-            placeholder="Ask about a condition or protocol"
+            placeholder={t("askPlaceholder")}
             className="flex-1 bg-transparent outline-none text-sm placeholder:text-ink-soft"
           />
-          <button onClick={send} disabled={!input.trim()} className="w-9 h-9 rounded-full grid place-items-center bg-green-primary text-white disabled:opacity-40" aria-label="Send">
+          <button onClick={send} disabled={!input.trim()} className="w-9 h-9 rounded-full grid place-items-center bg-green-primary text-white disabled:opacity-40" aria-label={tc("send")}>
             <Icon name="send" size={18} />
           </button>
         </div>

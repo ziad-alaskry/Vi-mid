@@ -45,3 +45,6 @@ input, select, textarea, button { font-family: inherit; }
 /* keyboard focus only */
 :focus-visible { outline: 2px solid var(--green-primary); outline-offset: 2px; border-radius: 6px; }
 :focus:not(:focus-visible) { outline: none; }
+
+/* directional (disclosure/back) icons that must mirror in RTL */
+[dir="rtl"] .mirror-rtl { transform: scaleX(-1); }

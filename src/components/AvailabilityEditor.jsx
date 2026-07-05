@@ -1,12 +1,16 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useTranslations, useLocale } from "next-intl";
 import { useStore } from "@/lib/store";
 import { Header, Button, Card } from "@/components/ui";
 import { Icon } from "@/components/icons";
-import { DAY_LABELS, slotsForDay, fmtTime, clampSlot } from "@/lib/slots";
+import { dayLabels, slotsForDay, fmtTime, clampSlot } from "@/lib/slots";
 
 export default function AvailabilityEditor() {
+  const t = useTranslations("availability");
+  const locale = useLocale();
+  const DAY_LABELS = dayLabels(locale);
   const { currentUser, state, setAvailability } = useStore();
   const base = state.availabilityOverrides[currentUser.id] || currentUser.availability;
 
@@ -18,7 +22,7 @@ export default function AvailabilityEditor() {
   const [saved, setSaved] = useState(false);
 
   const availability = { days, startH, endH, slotMinutes, fixedWeekly };
-  const slots = useMemo(() => slotsForDay(availability), [startH, endH, slotMinutes]);
+  const slots = useMemo(() => slotsForDay(availability, locale), [startH, endH, slotMinutes, locale]);
 
   function toggleDay(d) {
     setDays((cur) => (cur.includes(d) ? cur.filter((x) => x !== d) : [...cur, d]).sort());
@@ -31,27 +35,27 @@ export default function AvailabilityEditor() {
 
   return (
     <>
-      <Header title="My availability" subtitle="Publish when reps can book you" />
+      <Header title={t("title")} subtitle={t("subtitle")} />
       <div className="flex-1 overflow-y-auto px-4 py-3 space-y-4 no-scrollbar">
         <Card className="p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="font-medium text-[15px]">Repeat weekly</p>
-              <p className="text-xs text-ink-soft">Selected days repeat every week</p>
+              <p className="font-medium text-[15px]">{t("repeatWeekly")}</p>
+              <p className="text-xs text-ink-soft">{t("repeatWeeklyHint")}</p>
             </div>
             <button
               onClick={() => { setFixedWeekly((v) => !v); setSaved(false); }}
               className={`relative w-12 h-7 rounded-full transition ${fixedWeekly ? "bg-green-primary" : "bg-hairline"}`}
               aria-pressed={fixedWeekly}
-              aria-label="Repeat weekly"
+              aria-label={t("repeatWeekly")}
             >
-              <span className={`absolute top-1 w-5 h-5 rounded-full bg-white transition-all ${fixedWeekly ? "left-6" : "left-1"}`} />
+              <span className={`absolute top-1 w-5 h-5 rounded-full bg-white transition-all ${fixedWeekly ? "start-6" : "start-1"}`} />
             </button>
           </div>
         </Card>
 
         <Card className="p-4">
-          <p className="font-medium text-[15px] mb-3">Duty days</p>
+          <p className="font-medium text-[15px] mb-3">{t("dutyDays")}</p>
           <div className="flex gap-1.5">
             {DAY_LABELS.map((label, idx) => (
               <button
@@ -70,20 +74,20 @@ export default function AvailabilityEditor() {
         </Card>
 
         <Card className="p-4">
-          <p className="font-medium text-[15px] mb-3">Duty hours</p>
+          <p className="font-medium text-[15px] mb-3">{t("dutyHours")}</p>
           <div className="flex items-center gap-3">
-            <HourField label="From" value={startH} min={6} max={endH - 1} onChange={(v) => { setStartH(v); setSaved(false); }} />
+            <HourField label={t("from")} value={startH} min={6} max={endH - 1} locale={locale} onChange={(v) => { setStartH(v); setSaved(false); }} />
             <span className="text-ink-soft pt-5">—</span>
-            <HourField label="To" value={endH} min={startH + 1} max={22} onChange={(v) => { setEndH(v); setSaved(false); }} />
+            <HourField label={t("to")} value={endH} min={startH + 1} max={22} locale={locale} onChange={(v) => { setEndH(v); setSaved(false); }} />
           </div>
         </Card>
 
         <Card className="p-4">
           <div className="flex items-center justify-between mb-1">
-            <p className="font-medium text-[15px]">Slot length</p>
-            <span className="text-green-pressed font-semibold">{slotMinutes} min</span>
+            <p className="font-medium text-[15px]">{t("slotLength")}</p>
+            <span className="text-green-pressed font-semibold">{t("minutesShort", { count: slotMinutes })}</span>
           </div>
-          <p className="text-xs text-ink-soft mb-3">Default 15 min · adjust between 5 and 60</p>
+          <p className="text-xs text-ink-soft mb-3">{t("slotLengthHint")}</p>
           <div className="flex items-center gap-3">
             <Button
               variant="outline"
@@ -91,7 +95,7 @@ export default function AvailabilityEditor() {
               disabled={slotMinutes <= 5}
               onClick={() => { setSlotMinutes((m) => clampSlot(m - 5)); setSaved(false); }}
             >
-              <Icon name="x" size={14} className="rotate-45" /> 5 min
+              <Icon name="x" size={14} className="rotate-45" /> {t("minutesShort", { count: 5 })}
             </Button>
             <Button
               variant="outline"
@@ -99,18 +103,18 @@ export default function AvailabilityEditor() {
               disabled={slotMinutes >= 60}
               onClick={() => { setSlotMinutes((m) => clampSlot(m + 5)); setSaved(false); }}
             >
-              <Icon name="plus" size={16} /> 5 min
+              <Icon name="plus" size={16} /> {t("minutesShort", { count: 5 })}
             </Button>
           </div>
         </Card>
 
         <Card className="p-4">
-          <p className="font-medium text-[15px] mb-1">Generated slots</p>
+          <p className="font-medium text-[15px] mb-1">{t("generatedSlots")}</p>
           <p className="text-xs text-ink-soft mb-3">
-            {slots.length} slots per duty day · {fmtTime(startH, 0)} to {fmtTime(endH, 0)}
+            {t("slotsPerDay", { count: slots.length, start: fmtTime(startH, 0, locale), end: fmtTime(endH, 0, locale) })}
           </p>
           {slots.length === 0 ? (
-            <p className="text-sm text-danger">Widen your hours to generate slots.</p>
+            <p className="text-sm text-danger">{t("widenHours")}</p>
           ) : (
             <div className="grid grid-cols-4 gap-1.5 max-h-44 overflow-y-auto no-scrollbar">
               {slots.map((s) => (
@@ -127,14 +131,15 @@ export default function AvailabilityEditor() {
 
       <div className="px-4 py-3 border-t border-hairline bg-white">
         <Button variant={saved ? "soft" : "primary"} className="w-full" onClick={save}>
-          {saved ? (<><Icon name="check" size={18} /> Availability saved</>) : "Save availability"}
+          {saved ? (<><Icon name="check" size={18} /> {t("saved")}</>) : t("save")}
         </Button>
       </div>
     </>
   );
 }
 
-function HourField({ label, value, min, max, onChange }) {
+function HourField({ label, value, min, max, locale, onChange }) {
+  const t = useTranslations("availability");
   return (
     <div className="flex-1">
       <p className="text-xs text-ink-soft mb-1">{label}</p>
@@ -143,16 +148,16 @@ function HourField({ label, value, min, max, onChange }) {
           className="w-8 h-8 grid place-items-center rounded-md text-ink-soft disabled:opacity-30"
           disabled={value <= min}
           onClick={() => onChange(value - 1)}
-          aria-label={`Decrease ${label}`}
+          aria-label={t("decrease", { label })}
         >
           <Icon name="chevronLeft" size={18} />
         </button>
-        <span className="font-medium text-sm">{fmtTime(value, 0)}</span>
+        <span className="font-medium text-sm">{fmtTime(value, 0, locale)}</span>
         <button
           className="w-8 h-8 grid place-items-center rounded-md text-ink-soft disabled:opacity-30"
           disabled={value >= max}
           onClick={() => onChange(value + 1)}
-          aria-label={`Increase ${label}`}
+          aria-label={t("increase", { label })}
         >
           <Icon name="chevronRight" size={18} />
         </button>

@@ -1,13 +1,15 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
+import { usePathname, useRouter } from "@/i18n/navigation";
 import { useStore } from "@/lib/store";
 import TabBar from "@/components/TabBar";
 
 const TAB_ROUTES = ["/visits", "/new-visit", "/library", "/profile"];
 
 export default function AppChrome({ children }) {
+  const t = useTranslations("common");
   const { ready, currentUser } = useStore();
   const path = usePathname();
   const router = useRouter();
@@ -24,7 +26,7 @@ export default function AppChrome({ children }) {
   if (!ready) {
     return (
       <div className="app-frame grid place-items-center">
-        <div className="text-ink-soft text-sm">Loading…</div>
+        <div className="text-ink-soft text-sm">{t("loading")}</div>
       </div>
     );
   }

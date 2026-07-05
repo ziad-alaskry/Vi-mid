@@ -17,7 +17,8 @@ module.exports = {
         star: "#E8A93C",
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        sans: ["Inter", "system-ui", "sans-serif"],
+        arabic: ["Tajawal", "system-ui", "sans-serif"],
       },
       borderRadius: {
         DEFAULT: "8px",

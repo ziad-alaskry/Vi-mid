@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useTranslations, useLocale } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
 import { useStore } from "@/lib/store";
 import { directory, allHcps } from "@/lib/seed";
 import { Header, Card, Badge, Button, Avatar, Stars, EmptyState } from "@/components/ui";
@@ -11,6 +12,8 @@ import { slotsForDay, upcomingDatesFor, prettyDate } from "@/lib/slots";
 const SECTORS = ["All", "MOH", "Private", "Retail"];
 
 export default function Discovery() {
+  const t = useTranslations("discovery");
+  const tc = useTranslations("common");
   const { currentUser, state, book } = useStore();
   const router = useRouter();
 
@@ -36,7 +39,7 @@ export default function Discovery() {
 
   return (
     <>
-      <Header title="New visit" subtitle="Find an HCP and book a 120s call" />
+      <Header title={t("title")} subtitle={t("subtitle")} />
 
       <div className="px-4 pt-3 space-y-2.5">
         <div className="flex items-center gap-2 bg-surface rounded-lg h-11 px-3">
@@ -44,11 +47,11 @@ export default function Discovery() {
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search doctor or center name"
+            placeholder={t("searchPlaceholder")}
             className="flex-1 bg-transparent outline-none text-sm placeholder:text-ink-soft"
           />
           {query && (
-            <button onClick={() => setQuery("")} aria-label="Clear">
+            <button onClick={() => setQuery("")} aria-label={tc("clear")}>
               <Icon name="x" size={16} className="text-ink-soft" />
             </button>
           )}
@@ -58,27 +61,27 @@ export default function Discovery() {
           onClick={() => setShowFilters((v) => !v)}
           className="flex items-center gap-2 text-sm text-green-pressed font-medium"
         >
-          <Icon name="filter" size={16} /> Filters
+          <Icon name="filter" size={16} /> {t("filters")}
           {activeFilters > 0 && <Badge tone="tint">{activeFilters}</Badge>}
         </button>
 
         {showFilters && (
           <div className="space-y-2 pb-1">
-            <FilterRow label="Territory" value={territory} setValue={setTerritory} options={["All", ...directory.cities]} />
-            <FilterRow label="Sector" value={sector} setValue={setSector} options={SECTORS} />
-            <FilterRow label="Specialty" value={specialty} setValue={setSpecialty} options={["All", ...directory.specialties]} />
+            <FilterRow label={t("territory")} value={territory} setValue={setTerritory} options={["All", ...directory.cities]} />
+            <FilterRow label={t("sector")} value={sector} setValue={setSector} options={SECTORS} />
+            <FilterRow label={t("specialty")} value={specialty} setValue={setSpecialty} options={["All", ...directory.specialties]} />
           </div>
         )}
       </div>
 
-      <div className="px-4 py-1 text-xs text-ink-soft">{hcps.length} results</div>
+      <div className="px-4 py-1 text-xs text-ink-soft">{t("resultsCount", { count: hcps.length })}</div>
 
       <div className="flex-1 overflow-y-auto px-4 pb-3 space-y-2.5 no-scrollbar">
         {hcps.length === 0 ? (
-          <EmptyState icon="search" title="No matches" hint="Try clearing a filter or searching a different name." />
+          <EmptyState icon="search" title={t("noMatches")} hint={t("noMatchesHint")} />
         ) : (
           hcps.slice(0, 40).map((h) => (
-            <button key={h.id} onClick={() => setSelected(h)} className="w-full text-left">
+            <button key={h.id} onClick={() => setSelected(h)} className="w-full text-start">
               <Card className="p-3.5 hover:border-green-primary transition">
                 <div className="flex items-center gap-3">
                   <Avatar name={h.name} />
@@ -95,7 +98,7 @@ export default function Discovery() {
                       <Badge tone="soft">{h.city}</Badge>
                     </div>
                   </div>
-                  <Icon name="chevronRight" size={18} className="text-ink-soft shrink-0" />
+                  <Icon name="chevronRight" size={18} className="text-ink-soft shrink-0 mirror-rtl" />
                 </div>
               </Card>
             </button>
@@ -138,13 +141,15 @@ function FilterRow({ label, value, setValue, options }) {
 }
 
 function BookingSheet({ hcp, rep, existing, onClose, onBook }) {
+  const t = useTranslations("discovery");
+  const locale = useLocale();
   const dates = upcomingDatesFor(hcp.availability, 8);
-  const slots = slotsForDay(hcp.availability);
+  const slots = slotsForDay(hcp.availability, locale);
   const [date, setDate] = useState(dates[0]);
   const [time, setTime] = useState(null);
 
-  const taken = (d, t) =>
-    existing.some((b) => b.hcpId === hcp.id && b.date === d && b.time === t && b.status === "upcoming");
+  const taken = (d, tm) =>
+    existing.some((b) => b.hcpId === hcp.id && b.date === d && b.time === tm && b.status === "upcoming");
 
   return (
     <div className="fixed inset-0 z-40 flex items-end justify-center bg-black/40" onClick={onClose}>
@@ -164,7 +169,7 @@ function BookingSheet({ hcp, rep, existing, onClose, onBook }) {
         </div>
 
         <div className="flex-1 overflow-y-auto p-4 no-scrollbar">
-          <p className="text-xs text-ink-soft mb-2">Available days</p>
+          <p className="text-xs text-ink-soft mb-2">{t("availableDays")}</p>
           <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1">
             {dates.map((d) => (
               <button
@@ -172,12 +177,12 @@ function BookingSheet({ hcp, rep, existing, onClose, onBook }) {
                 onClick={() => { setDate(d); setTime(null); }}
                 className={`shrink-0 px-3 h-11 rounded-lg text-sm border ${date === d ? "border-green-primary bg-green-tint text-green-pressed" : "border-hairline text-ink-soft"}`}
               >
-                {prettyDate(d)}
+                {prettyDate(d, locale)}
               </button>
             ))}
           </div>
 
-          <p className="text-xs text-ink-soft mt-4 mb-2">Available slots</p>
+          <p className="text-xs text-ink-soft mt-4 mb-2">{t("availableSlots")}</p>
           <div className="grid grid-cols-4 gap-2">
             {slots.map((s) => {
               const isTaken = taken(date, s.label);
@@ -215,7 +220,7 @@ function BookingSheet({ hcp, rep, existing, onClose, onBook }) {
               })
             }
           >
-            {time ? `Book ${prettyDate(date)} · ${time}` : "Pick a slot"}
+            {time ? t("bookAt", { date: prettyDate(date, locale), time }) : t("pickSlot")}
           </Button>
         </div>
       </div>
